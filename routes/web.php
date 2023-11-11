@@ -14,5 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('frontend.tintuc');
+    // return view('frontend.trangchu');
+    // return view('admin.trangchu');
+    // return view('admin.qlitintuc');
+    // return view('admin.crudtintuc');
+    return view('admin.qlinhantin');
 });
