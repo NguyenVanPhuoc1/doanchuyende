@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -73,7 +74,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
          // Table comment
-         DB::table('comment')->insert([
+        DB::table('comment')->insert([
             [
                 'pro_id' => 1,
                 'name' => 'customer1',
@@ -109,7 +110,7 @@ class DatabaseSeeder extends Seeder
             ],
         ]);
          // Table policy
-         DB::table('policy')->insert([
+        DB::table('policy')->insert([
             [
                 'poli_name' => 'Chinh sach doi tra',
                 'description' => 'Noi dung dang duoc cap nhat',
@@ -128,23 +129,23 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Table policy
-        DB::table('customers')->insert([
+        DB::table('customer')->insert([
             [
                 'cus_name' => 'Cus1',
                 'cus_email' => 'cus1@gmail.com',
-                'cus_phone' => '01593578624',
+                'cus_phone' => '0159357862',
                 'cus_content' => 'No comment'
             ],
             [
                 'cus_name' => 'Cus2',
                 'cus_email' => 'cus2@gmail.com',
-                'cus_phone' => '01593578624',
+                'cus_phone' => '0159357862',
                 'cus_content' => 'No comment'
             ],
             [
                 'cus_name' => 'Cus3',
                 'cus_email' => 'cus3@gmail.com',
-                'cus_phone' => '01593578624',
+                'cus_phone' => '0159357862',
                 'cus_content' => 'No comment'
             ],
         ]);
@@ -181,20 +182,6 @@ class DatabaseSeeder extends Seeder
                 'phone' => '0123456789',
                 'gioitinh' => 'male',
                 'diachi' => 'Thu duc'
-            ],
-            [
-                'info_name' => 'Admin2',
-                'hotline' => '1234567890',
-                'phone' => '0123456789',
-                'gioitinh' => 'male',
-                'diachi' => 'Thu duc'
-            ],
-            [
-                'info_name' => 'Admin3',
-                'hotline' => '1234567890',
-                'phone' => '0123456789',
-                'gioitinh' => 'female',
-                'diachi' => 'Quan 7'
             ],
         ]);
     }
