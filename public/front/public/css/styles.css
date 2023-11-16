@@ -292,7 +292,7 @@ a.text-decoration-none.btn-gioithieu:hover{
 .hover_sang2 {
     position: relative;
     overflow: hidden;
-    width: 100%;
+    /* width: 100%;  */
 }
 .hover_sang2::before {
     position: absolute;
@@ -328,9 +328,7 @@ a.text-decoration-none.btn-gioithieu:hover{
     padding: 55px 30px;
     background: var(--newsletter);
 }
-.right_newsletter{
-    margin: 40px 0;
-}
+
 .box_newsletter_news .flex_newsletter_news .title_newsletter {
     font-size: 26px;
     letter-spacing: 0px;
@@ -438,10 +436,11 @@ form#form-newsletter {
     max-height: 200px;
     margin: 20px 0;
 }.item_news .content_news_index{
-    margin: 0px 30px;
+    padding: 0px 30px;
 }
 
 .text-split { /* dùng chung */
+    text-align: justify;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: normal;
@@ -519,6 +518,9 @@ form#form-newsletter {
 .breadCrumbs .wrap-content .breadcrumb-item a {
     color: var(--bgslide-color);
     font-size: 15px;
+}
+.breadCrumbs .wrap-content .breadcrumb-item .active{
+    color: var(--primary--color);
 }
 
 /*                                          Chi Tiet san pham                    */

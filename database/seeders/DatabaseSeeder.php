@@ -106,15 +106,15 @@ class DatabaseSeeder extends Seeder
         // Table category
         DB::table('category')->insert([
             [
-                'cate_name' => 'Ban go',
+                'cate_name' => 'Nội Thất Phòng Khách',
                 'noi_bat' => true
             ],
             [
-                'cate_name' => 'Ghe da',
+                'cate_name' => 'Nội Thất Phòng Bếp',
                 'noi_bat' => true
             ],
             [
-                'cate_name' => 'Ban da',
+                'cate_name' => 'Nội Thất Phòng Ngủ',
                 'noi_bat' => true
             ],
         ]);
@@ -166,21 +166,21 @@ class DatabaseSeeder extends Seeder
         DB::table('news')->insert([
             [
                 'news_name' => 'Bai viet 1',
-                'news_image' => 'hinhn1.jpg',
+                'news_image' => 'tin-tuc-1.jpg',
                 'news_desc' => 'Noi dung bai viet o day',
                 'cus_id' => 1,
                 'noi_bat' => true
             ],
             [
                 'news_name' => 'Bai viet 1',
-                'news_image' => 'hinhn1.jpg',
+                'news_image' => 'tin-tuc-2.jpg',
                 'news_desc' => 'Noi dung bai viet o day',
                 'cus_id' => 2,
                 'noi_bat' => true
             ],
             [
                 'news_name' => 'Bai viet 1',
-                'news_image' => 'hinhn1.jpg',
+                'news_image' => 'tin-tuc-3-9112.jpg',
                 'news_desc' => 'Noi dung bai viet o day',
                 'cus_id' => 3,
                 'noi_bat' => true

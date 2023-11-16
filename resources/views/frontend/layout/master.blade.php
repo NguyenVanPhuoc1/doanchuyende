@@ -56,32 +56,20 @@
         <!-- menu -->
         <nav class="menu" id="menu">
             <ul>
-                <li><a href="#/">Trang chủ</a></li>
-                <li><a href="#/">Giới Thiệu</a></li>
+                <li><a href="{{ url('/') }}">Trang chủ</a></li>
+                <li><a href="{{ url('/gioi-thieu') }}">Giới Thiệu</a></li>
                 <li>
                     <span>Sản Phẩm</span>
                     <ul>
                         <li><a href="#/">Nội Thất Phòng Khách</a></li>
                         <li><a href="#/">Nội Thất Phòng Bếp</a>
-                            <!-- <span>Nội Thất Phòng Bếp</span> -->
-                            <!-- <ul>
-                                <li>
-                                    <a href="#/">Management</a>
-                                </li>
-                                <li>
-                                    <a href="#/">Sales</a>
-                                </li>
-                                <li>
-                                    <a href="#/">Development</a>
-                                </li>
-                            </ul> -->
                         </li>
                         <li><a href="#/">Nội Thất Phòng Ngủ</a></li>
                     </ul>
                 </li>
-                <li><a href="#/">Dịch Vụ</a></li>
-                <li><a href="#/">Tin Tức</a></li>
-                <li class="Divider"><a href="#/">Liên Hệ</a></li>
+                <li><a href="{{ url('/chinh-sach') }}">Chính Sách</a></li>
+                <li><a href="{{ url('/tin-tuc') }}">Tin Tức</a></li>
+                <li class="Divider"><a href="{{ url('/lien-he') }}">Liên Hệ</a></li>
             </ul>
         </nav>
         <!--Content -->
@@ -89,7 +77,7 @@
             <div class="wrap-header-menu-logo ">
                 <div class="wrap-content d-flex align-items-center">
                     <div class="wrap-logo">
-                        <a class="logo-header"  href="#">
+                        <a class="logo-header"  href="{{ url('/') }}">
                             <img class="lazy loaded" src="{{ asset('front/public/image/logo_web.png')}}" data-was-processed="true" style="width: 120px; height: 120px;">          
                         </a>
                     </div>
@@ -116,21 +104,21 @@
                         <div class="fixed menu ">
                             <div class="wrap-content">
                                 <ul class="d-flex align-items-center justify-content-between">
-                                    <li><a class="active transition" href="" title="Trang chủ">Trang chủ</a></li>
+                                    <li><a class="{{ request()->is('/') ? 'active' : '' }} transition" href="{{ url('/') }}" title="Trang chủ">Trang chủ</a></li>
                                     <li class="line"></li>
-                                    <li><a class="transition" href="#" title="Giới thiệu">Giới thiệu</a></li>
+                                    <li><a class="{{ request()->is('gioi-thieu') ? 'active' : '' }} transition" href="{{ url('/gioi-thieu') }}" title="Giới thiệu">Giới thiệu</a></li>
                                     <li class="line"></li>
-                                    <li><a class="transition" href="#" title="Chính Sách">Chính Sách</a></li>
+                                    <li><a class="{{ request()->is('chinh-sach') ? 'active' : '' }} transition" href="{{ url('/chinh-sach') }}" title="Chính Sách">Chính Sách</a></li>
                                     <!-- <li class="line"></li> -->
                                     <!-- <li><a class="transition" href="#" title="Dự án">Dự án</a></li> -->
                                     <li class="line"></li>
                                     <li>
-                                        <a class=" transition" href="#" title="Sản phẩm">Sản phẩm</a>
+                                        <a class="{{ request()->is('san-pham') ? 'active' : '' }} transition" href="{{ url('/san-pham') }}" title="Sản phẩm">Sản phẩm</a>
                                     </li>
                                     <li class="line"></li>
-                                    <li><a class="transition" href="#" title="Tin tức">Tin tức</a></li>
+                                    <li><a class="{{ request()->is('tin-tuc') ? 'active' : '' }} transition" href="{{ url('/tin-tuc') }}" title="Tin tức">Tin tức</a></li>
                                     <li class="line"></li>
-                                    <li><a class="transition" href="#" title="Liên hệ">Liên hệ</a></li>
+                                    <li><a class="{{ request()->is('lien-he') ? 'active' : '' }} transition" href="{{ url('/lien-he') }}" title="Liên hệ">Liên hệ</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -311,13 +299,13 @@
             if (window.innerWidth > 1000) {
                 bodyElement.classList.remove("mm-wrapper--position-left");
             }
-            document.addEventListener("click", function (evnt) {
-                var anchor = evnt.target.closest('a[href="#/"]');
-                if (anchor) {
-                    alert("Thank you for clicking, but that's a demo link.");
-                    evnt.preventDefault();
-                }
-            });
+            // document.addEventListener("click", function (evnt) {
+            //     var anchor = evnt.target.closest('a[href="#/"]');
+            //     if (anchor) {
+            //         alert("Thank you for clicking, but that's a demo link.");
+            //         evnt.preventDefault();
+            //     }
+            // });
             
 
             // HoldOn load trang

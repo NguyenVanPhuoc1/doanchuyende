@@ -12,12 +12,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+use App\Http\Controllers\HomeController;
+Route::get('/', [HomeController::class, 'viewHome']);
 
-Route::get('/', function () {
-    // return view('frontend.tintuc');
-    // return view('frontend.trangchu');
-    // return view('admin.trangchu');
-    // return view('admin.qlitintuc');
-    // return view('admin.crudtintuc');
-    return view('admin.qlinhantin');
-});
+use App\Http\Controllers\NewsController;
+//Page Tin Tức
+Route::get('/tin-tuc', [NewsController::class, 'viewTinTuc']);
