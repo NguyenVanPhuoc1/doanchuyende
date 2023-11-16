@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,6 +18,13 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
+        DB::table('users')->insert([
+            [
+                'name' => 'admin',
+                'email' => 'admin123456@gmail.com',
+                'password'=> Hash::make('123456')
+            ]
+        ]);
 
         // Table product
         DB::table('product')->insert([
@@ -97,15 +106,15 @@ class DatabaseSeeder extends Seeder
         // Table category
         DB::table('category')->insert([
             [
-                'cate_name' => 'Ban go',
+                'cate_name' => 'Nội Thất Phòng Khách',
                 'noi_bat' => true
             ],
             [
-                'cate_name' => 'Ghe da',
+                'cate_name' => 'Nội Thất Phòng Bếp',
                 'noi_bat' => true
             ],
             [
-                'cate_name' => 'Ban da',
+                'cate_name' => 'Nội Thất Phòng Ngủ',
                 'noi_bat' => true
             ],
         ]);
@@ -113,17 +122,20 @@ class DatabaseSeeder extends Seeder
         DB::table('policy')->insert([
             [
                 'poli_name' => 'Chinh sach doi tra',
-                'description' => 'Noi dung dang duoc cap nhat',
+                'poli_image' => 'tin-tuc-1.jpg',
+                'poli_desc' => 'Noi dung dang duoc cap nhat',
                 'noi_bat' => true
             ],
             [
                 'poli_name' => 'Chinh sach mua ban',
-                'description' => 'Noi dung dang duoc cap nhat',
+                'poli_image' => 'tin-tuc-2.jpg',
+                'poli_desc' => 'Noi dung dang duoc cap nhat',
                 'noi_bat' => true
             ],
             [
                 'poli_name' => 'Chinh sach hoan tien',
-                'description' => 'Noi dung dang duoc cap nhat',
+                'poli_image' => 'tin-tuc-3-9112.jpg',
+                'poli_desc' => 'Noi dung dang duoc cap nhat',
                 'noi_bat' => true
             ],
         ]);
@@ -154,21 +166,21 @@ class DatabaseSeeder extends Seeder
         DB::table('news')->insert([
             [
                 'news_name' => 'Bai viet 1',
-                'news_image' => 'hinhn1.jpg',
+                'news_image' => 'tin-tuc-1.jpg',
                 'news_desc' => 'Noi dung bai viet o day',
                 'cus_id' => 1,
                 'noi_bat' => true
             ],
             [
                 'news_name' => 'Bai viet 1',
-                'news_image' => 'hinhn1.jpg',
+                'news_image' => 'tin-tuc-2.jpg',
                 'news_desc' => 'Noi dung bai viet o day',
                 'cus_id' => 2,
                 'noi_bat' => true
             ],
             [
                 'news_name' => 'Bai viet 1',
-                'news_image' => 'hinhn1.jpg',
+                'news_image' => 'tin-tuc-3-9112.jpg',
                 'news_desc' => 'Noi dung bai viet o day',
                 'cus_id' => 3,
                 'noi_bat' => true

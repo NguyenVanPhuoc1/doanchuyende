@@ -8,12 +8,12 @@
                 <div class="wrap-content">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a class="text-decoration-none" href="#">
+                            <a class="text-decoration-none" href="{{url('/trang-chu')}}">
                                 <span>Trang chủ</span>
                             </a>
                         </li>
-                        <li class="breadcrumb-item active">
-                            <a class="text-decoration-none" href="#S">
+                        <li class="breadcrumb-item ">
+                            <a class="text-decoration-none active" href="{{url('/tin-tuc')}}">
                                 <span>Tin Tức</span>
                             </a>
                         </li>
