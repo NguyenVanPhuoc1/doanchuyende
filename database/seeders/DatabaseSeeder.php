@@ -174,7 +174,7 @@ class DatabaseSeeder extends Seeder
             ],
         ]);
         // Table info_admin
-        DB::table('news')->insert([
+        DB::table('info_admin')->insert([
             [
                 'info_name' => 'Admin1',
                 'hotline' => '1234567890',
