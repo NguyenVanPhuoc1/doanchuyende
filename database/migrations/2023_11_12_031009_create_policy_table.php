@@ -16,7 +16,8 @@ return new class extends Migration
         Schema::create('policy', function (Blueprint $table) {
             $table->id();
             $table->string('poli_name');//tên chính sách
-            $table->text('description')->nullable();//mô tả
+            $table->string('poli_image');//ảnh
+            $table->text('poli_desc')->nullable();//mô tả
             $table->boolean('noi_bat');
             $table->timestamps();
         });
