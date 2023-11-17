@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\productImage;
 use App\Models\productComment;
+use App\Models\Category;
 
 class Product extends Model
 {
@@ -25,5 +26,9 @@ class Product extends Model
     //1 sản phẩm có nhiều comment
     public function productComment(){
         return $this->hasMany(ProductComment::class,'pro_id','id');
+    }
+
+    public function category(){
+        return $this->belongsTo(Category::class,'cate_id','id');
     }
 }

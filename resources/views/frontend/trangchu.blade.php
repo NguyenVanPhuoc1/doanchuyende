@@ -56,77 +56,22 @@
                         </div>
                         <p class="dichvu-slogan text-center text-white-50">Chất lượng đi đôi với giá cả</p>
                         <div class="list_monnb list_sanpham">
-                            <a class="d-block active" role="button" data-id="0">NỘI THẤT PHÒNG KHÁCH</a>
-                            <a class="d-block " role="button" data-id="1">NỘI THẤT PHÒNG NGỦ</a>
-                            <a class="d-block " role="button" data-id="2">PHÒNG TẮM</a>
-                            <a class="d-block " role="button" data-id="3">NT PHÒNG BẾP</a>
+                            @foreach($category as $item)
+                            <!-- {{ $loop->first ? 'active' : '' }} -->
+                                <a class="d-block " role="button" data-id="{{$item -> id}}" 
+                                onclick="getProducts({{ $item->id }})" id="category-{{ $item->id }}">{{$item -> cate_name}}</a>
+                            @endforeach
+                            <!-- <a class="d-block active" role="button" data-id="0">NỘI THẤT PHÒNG KHÁCH</a> -->
                         </div>
                         <div class="page_sanpham">
                             <div class="container ">
-                                <div class="row">
-                                    <div class="col-12 col-md-6 col-lg-3  ">
-                                        <div class="item_product">
-                                            <div class="container_product">
-                                                <div class="img_product">
-                                                    <a class=" scale-img" href="#" title="BÀN KHÁCH">
-                                                        <img src="{{ asset('front/public/image/np4-1267.jpg')}}" alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="content_product"> 
-                                                    <h3 class="name_product"><a class="catchuoi2" href="#">BÀN KHÁCH </a></h3>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-md-6 col-lg-3  ">
-                                        <div class="item_product">
-                                            <div class="container_product">
-                                                <div class="img_product">
-                                                    <a class=" scale-img" href="#" title="BÀN KHÁCH">
-                                                        <img src="{{ asset('front/public/image/np4-1267.jpg')}}" alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="content_product"> 
-                                                    <h3 class="name_product"><a class="catchuoi2" href="#">BÀN KHÁCH </a></h3>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-md-6 col-lg-3  ">
-                                        <div class="item_product">
-                                            <div class="container_product">
-                                                <div class="img_product">
-                                                    <a class=" scale-img" href="#" title="BÀN KHÁCH">
-                                                        <img src="{{ asset('front/public/image/np4-1267.jpg')}}" alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="content_product"> 
-                                                    <h3 class="name_product"><a class="catchuoi2" href="#">BÀN KHÁCH </a></h3>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-md-6 col-lg-3  ">
-                                        <div class="item_product">
-                                            <div class="container_product">
-                                                <div class="img_product">
-                                                    <a class=" scale-img" href="#" title="BÀN KHÁCH">
-                                                        <img src="{{ asset('front/public/image/np4-1267.jpg')}}" alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="content_product"> 
-                                                    <h3 class="name_product"><a class="catchuoi2" href="#">BÀN KHÁCH </a></h3>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="row show_product">
+                                    
                                 </div>
 
                             </div>
                             <div class="clearfix">  </div>
-                            <div class="seemore text-center">
-                                <a href="#" class="btn btn-secondary ">Xem Thêm</a>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -222,4 +167,82 @@
             <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3918.4749787803385!2d106.7580641!3d10.8514325!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752797e321f8e9%3A0xb3ff69197b10ec4f!2zVHLGsOG7nW5nIGNhbyDEkeG6s25nIEPDtG5nIG5naOG7hyBUaOG7pyDEkOG7qWM!5e0!3m2!1svi!2s!4v1691219936543!5m2!1svi!2s" width="600" height="450" style="border:0;width: 100vw;  " allowfullscreen="true" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
             </iframe>
         </div>
+@endsection
+
+@section('script')
+    <script>
+        // Xử lý khi click vào một thẻ <a>
+        $(document).ready(function() {
+            // Thêm class 'active' cho thẻ <a> đầu tiên khi trang load
+            getProducts($('.list_sanpham a:first-child').data('id'));
+            $('.list_sanpham a:first-child').addClass('active');
+        });
+        $('.list_sanpham a').on('click', function() {
+            // Lấy data-id của thẻ <a> được click
+            var categoryId = $(this).data('id');
+            
+            // Gọi hàm để lấy sản phẩm theo categoryId (sử dụng hàm getProducts đã được định nghĩa trước đó)
+            getProducts(categoryId);
+            
+            // Hủy active cho tất cả các thẻ <a>
+            $('.list_sanpham a').removeClass('active');
+            
+            // Active cho thẻ <a> được click
+            $(this).addClass('active');
+        });
+
+        function getProducts(categoryId) {
+            // Sử dụng AJAX để gửi yêu cầu đến Laravel
+            // $('#category-1').addClass('active');
+            $.ajax({
+                url: '/get-products/' + categoryId,
+                type: 'GET',
+                success: function(response) {
+                    // Xử lý dữ liệu nhận được từ Laravel
+                    // Lấy phần tử container
+                    var productContainer = $('.show_product');
+
+                    // Xóa nội dung hiện tại trong container (nếu cần)
+                    productContainer.empty();
+                    // Thêm HTML của sản phẩm vào container
+                    $.each(response.products, function(index, product) {
+                        var productHtml = `
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <div class="item_product">
+                                    <div class="container_product">
+                                        <div class="img_product">
+                                            <a class="scale-img" href="#" title="${product.name}">
+                                                <img src="./front/public/image/${product.image}" alt="${product.name}">
+                                            </a>
+                                        </div>
+                                        <div class="content_product"> 
+                                            <h3 class="name_product">
+                                                <a class="catchuoi2" href="#">${product.name}</a>
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+
+                        // Thêm sản phẩm vào container
+                        productContainer.append(productHtml);
+
+                        // Hiển thị hoặc ẩn nút "Xem thêm" dựa trên số lượng sản phẩm
+                    });
+                    if (response.products.length > 8) {
+                        var seeMoreHtml = `
+                            <div class="seemore text-center">
+                                <a href="#" class="btn btn-secondary">Xem Thêm</a>
+                            </div>
+                        `;
+                        productContainer.after(seeMoreHtml);
+                    }
+                },
+                error: function(error) {
+                    console.log("Lỗi không lấy được sản phẩm theo danh mục");
+                }
+            });
+        }
+    </script>
 @endsection
