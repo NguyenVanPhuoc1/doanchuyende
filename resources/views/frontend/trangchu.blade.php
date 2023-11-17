@@ -137,39 +137,16 @@
                                 <span>POLICY</span>
                             </div>
                             <div class="policy-list ">
+                                @foreach($listPoli as $item)
                                 <!-- policy -->
                                 <div class="item-policy slick-slider">
-                                    <a href="ban-an" class="hover_sang2 scale-img">
-                                        <img src="{{ asset('front/public/image/ban_an.jpg')}}" alt="VẬN CHUYỂN">
+                                    <a href="#" class="hover_sang2 scale-img">
+                                        <img src="{{ asset('front/public/image/ban_an.jpg')}}" alt="{{$item->poli_name}}">
                                     </a>
-                                    <div class="name_policy"><a class="catchuoi1" href="#">VẬN CHUYỂN</a></div>
+                                    <div class="name_policy"><a class="catchuoi1" href="#">{{$item->poli_name}}</a></div>
                                 </div>
                                 <!-- policy -->
-                                <!-- policy -->
-                                <div class="item-policy slick-slider">
-                                    <a href="ban-an" class="hover_sang2 scale-img">
-                                        <img src="{{ asset('front/public/image/ban_an.jpg')}}" alt="VẬN CHUYỂN">
-                                    </a>
-                                    <div class="name_policy"><a class="catchuoi1" href="#">VẬN CHUYỂN</a></div>
-                                </div>
-                                <!-- policy -->
-                                <!-- policy -->
-                                <div class="item-policy slick-slider">
-                                    <a href="ban-an" class="hover_sang2 scale-img">
-                                        <img src="{{ asset('front/public/image/ban_an.jpg')}}" alt="VẬN CHUYỂN">
-                                    </a>
-                                    <div class="name_policy"><a class="catchuoi1" href="#">VẬN CHUYỂN</a></div>
-                                </div>
-                                <!-- policy -->
-                                <!-- policy -->
-                                <div class="item-policy slick-slider">
-                                    <a href="ban-an" class="hover_sang2 scale-img">
-                                        <img src="{{ asset('front/public/image/ban_an.jpg')}}" alt="VẬN CHUYỂN">
-                                    </a>
-                                    <div class="name_policy"><a class="catchuoi1" href="#">VẬN CHUYỂN</a></div>
-                                </div>
-                                <!-- policy -->
-
+                                @endforeach
                             </div>
                         </div>
                     </div>

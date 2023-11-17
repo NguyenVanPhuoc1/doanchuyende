@@ -172,18 +172,11 @@
                             <!-- Grid column -->
                             <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
                                 <h6 class="text-uppercase mb-4 font-weight-bold">Tin Tức</h6>
+                                @foreach($listNews as $item)
                                 <p>
-                                    <a class="text-white" href="#">Tin Tức 1</a>
+                                    <a class="text-white" href="#">{{$item -> news_name}}</a>
                                 </p>
-                                <p>
-                                    <a class="text-white" href="#">Tin Tức 2</a>
-                                </p>
-                                <p>
-                                    <a class="text-white" href="#">Tin Tức 3</a>
-                                </p>
-                                <p>
-                                    <a class="text-white" href="#">Tin Tức 4</a>
-                                </p>
+                                @endforeach
                             </div>
                             <!-- Grid column -->
                 
@@ -194,18 +187,11 @@
                                 <h6 class="text-uppercase mb-4 font-weight-bold">
                                     Chính Sách
                                 </h6>
+                                @foreach($listPoli as $item)
                                 <p>
-                                    <a class="text-white" href="#">Chính Sách 1</a>
+                                    <a class="text-white" href="#">{{$item->poli_name}}</a>
                                 </p>
-                                <p>
-                                    <a class="text-white" href="#">Chính Sách 2</a>
-                                </p>
-                                <p>
-                                    <a class="text-white" href="#">Chính Sách 3</a>
-                                </p>
-                                <p>
-                                    <a class="text-white" href="#">Chính Sách 4</a>
-                                </p>
+                                @endforeach
                             </div>
                 
                             <!-- Grid column -->
