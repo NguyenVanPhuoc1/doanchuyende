@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 use App\Http\Controllers\HomeController;
 Route::get('/', [HomeController::class, 'viewHome']);
+Route::get('/san-pham', [HomeController::class, 'searchProduct'])->name('search');
+Route::get('/get-products/{categoryId}', [HomeController::class, 'getProductbyCate']);
+
 
 use App\Http\Controllers\NewsController;
 //Page Tin Tức

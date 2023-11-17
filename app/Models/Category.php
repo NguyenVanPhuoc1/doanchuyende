@@ -15,6 +15,6 @@ class Category extends Model
 
     // quan hệ 1-n t dùng hasMany
     public function products(){
-        return $this-> hasMany(Product::class, 'cate_id','id');
+        return $this-> hasMany(Product::class, 'id','cate_id');
     }
 }

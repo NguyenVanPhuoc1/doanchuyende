@@ -86,10 +86,17 @@
                             <p class="info-header">Hotline: <span>0123 456 789</span></p>
                             <div class="box-info__header d-flex align-items-center">
                                 <div class="search d-flex">
-                                    <input type="text" name="search" id="keyword">
-                                    <p>
-                                        <i class="fa-solid fa-magnifying-glass"></i>
-                                    </p>
+                                    <form action="{{route('search')}}" method="GET" id="searchForm">
+                                        @csrf
+                                        <input type="text" name="searchProduct" id="keyword" placeholder="Tìm Kiếm" required>
+                                        <p id="searchIcon" onclick="performSearch()">
+                                            <i class="fa-solid fa-magnifying-glass"></i>
+                                        </p>
+                                        <span id="searchError1" class="d-none alert alert-danger" style="position:absolute;"></span>
+                                        @if ($errors->has('searchProduct'))
+                                            <span id="searchError" class="d-block alert alert-danger" style="position:absolute;">{{ $errors->first('searchProduct') }}</span>
+                                        @endif
+                                    </form>
                                 </div>
                                 <div class="lang-header d-flex">
                                     <a href="" class="transition">
@@ -131,10 +138,16 @@
                     <a id="hamburger" href="#menu" title="Menu"><span></span></a>
                     <div class="box-flex flex-center align-items-center">
                         <div class="search">
-                            <input class="txtsearch" type="text" id="keyword2" placeholder="Tìm kiếm" onkeypress="doEnter(event,'keyword2');">
-                            <p onclick="onSearch('keyword2');">
-                                <i class="fa-solid fa-magnifying-glass"></i>
-                            </p>
+                            <form action="# " method="GET" id="searchForm">
+                                @csrf
+                                <input type="text" name="searchProduct" id="keyword" placeholder="Tìm Kiếm" required>
+                                <p id="searchIcon" onclick="performSearch()">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </p>
+                                @if ($errors->has('searchProduct'))
+                                    <span class="alert alert-danger">{{ $errors->first('searchProduct') }}</span>
+                                @endif
+                            </form>
                         </div>
                         <div class="lang-header">
                             <a class="transition" href="#"><img src="{{ asset('front/public/image/ic-vi.png')}}" alt="vi"></a>
@@ -157,7 +170,7 @@
                             <!-- Grid column -->
                             <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mt-3">
                                 <h6 class="text-uppercase mb-4 font-weight-bold">
-                                    Company name
+                                    Nhóm B
                                 </h6>
                                 <p>
                                     Here you can use rows and columns to organize your footer
@@ -224,11 +237,6 @@
                 <!-- Grid container -->
             </footer>
             <!-- Footer -->
-            <!-- Footer map -->
-            <!-- <div class="footer-map" id="footer-map">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3918.4749787803385!2d106.7580641!3d10.8514325!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752797e321f8e9%3A0xb3ff69197b10ec4f!2zVHLGsOG7nW5nIGNhbyDEkeG6s25nIEPDtG5nIG5naOG7hyBUaOG7pyDEkOG7qWM!5e0!3m2!1svi!2s!4v1691219936543!5m2!1svi!2s" width="600" height="450" style="border:0;width: 100vw;  " allowfullscreen="true" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
-            </div> -->
             <!-- difference here -->
             @yield('ggmap')
             <!-- difference here -->
@@ -273,62 +281,8 @@
         <!-- Liên kết đến tệp -->
         <script src="{{ asset('front/public/js/index.js')}}"></script>
         <script src="{{ asset('front/public/js/gioithieu.js')}}"></script>
-        <script>
 
-
-            // Hàm để kiểm tra và khởi tạo menu
-            new Mmenu(document.querySelector("#menu"));
-            // const menu_tab = document.querySelector('#menu');
-            // khi mà tạo menu thì tự động tạo class mm-wrapper--position-left
-            var bodyElement = document.body;
-
-            if (window.innerWidth > 1000) {
-                bodyElement.classList.remove("mm-wrapper--position-left");
-            }
-            // document.addEventListener("click", function (evnt) {
-            //     var anchor = evnt.target.closest('a[href="#/"]');
-            //     if (anchor) {
-            //         alert("Thank you for clicking, but that's a demo link.");
-            //         evnt.preventDefault();
-            //     }
-            // });
             
-
-            // HoldOn load trang
-            var options = {
-                theme: "sk-folding-cube",
-                backgroundColor: "#fff",
-            };
-
-            HoldOn.open(options);
-
-            // Sử dụng setTimeout để đóng HoldOn sau 2 giây (2000 mili giây)
-            setTimeout(function() {
-                HoldOn.close();
-            }, 2000); // 2 giây
-            
-            // Data animations mảng hiệu ứng
-            // create array animations
-            var data_animations = [
-                'animate__fadeInDown', 'animate__backInUp', 'animate__rollIn', 'animate__backInRight', 'animate__zoomInUp', 'animate__backInLeft', 'animate__rotateInDownLeft', 'animate__backInDown', 'animate__zoomInDown', 'animate__fadeInUp', 'animate__zoomIn',
-            ]; 
-
-            $(document).ready(function () {
-                $('#carouselExampleControls').on('slide.bs.carousel', function (e) {
-                    var $e = $(e.relatedTarget);
-                    // Chọn ngẫu nhiên một animation từ danh sách
-                    var randomAnimation = data_animations[Math.floor(Math.random() * data_animations.length)];
-                    console.log(randomAnimation)
-                    // Xóa tất cả các lớp animations hiện tại
-                    $e.removeClass(data_animations.join(' '));
-                    
-                    // Thêm lớp animation mới
-                    $e.addClass(randomAnimation).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
-                        $e.removeClass(randomAnimation); // Sau khi hoàn thành animation, loại bỏ lớp
-                    });
-                });
-            });
-        </script>
-        
+        @yield('script')
     </body>
 </html>

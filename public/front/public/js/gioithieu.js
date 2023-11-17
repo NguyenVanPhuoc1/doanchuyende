@@ -43,10 +43,11 @@ const backToTopBtn = document.querySelector('.scrollToTop');
 
 
 // chuyển tab
-
+document.addEventListener('DOMContentLoaded', function() {
     const tabs = document.querySelectorAll('.tab-nav li');
     const tabContents = document.querySelectorAll('.tab-pane');
-
+    // Kiểm tra xem có phần tử tabs hay không
+    if (tabs.length > 0) {
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
                 tabs.forEach(t => t.classList.remove('active'));
@@ -60,7 +61,75 @@ const backToTopBtn = document.querySelector('.scrollToTop');
         });
 
         // Set the initial active tab
+
         tabs[0].click();
+    }
+});
+
+// Hàm để kiểm tra và khởi tạo menu
+new Mmenu(document.querySelector("#menu"));
+// const menu_tab = document.querySelector('#menu');
+// khi mà tạo menu thì tự động tạo class mm-wrapper--position-left
+var bodyElement = document.body;
+
+if (window.innerWidth > 1000) {
+    bodyElement.classList.remove("mm-wrapper--position-left");
+}
+// document.addEventListener("click", function (evnt) {
+//     var anchor = evnt.target.closest('a[href="#/"]');
+//     if (anchor) {
+//         alert("Thank you for clicking, but that's a demo link.");
+//         evnt.preventDefault();
+//     }
+// });
 
 
- 
+// HoldOn load trang
+var options = {
+    theme: "sk-folding-cube",
+    backgroundColor: "#fff",
+};
+
+HoldOn.open(options);
+
+// Sử dụng setTimeout để đóng HoldOn sau 2 giây (2000 mili giây)
+setTimeout(function() {
+    HoldOn.close();
+}, 2000); // 2 giây
+
+// Data animations mảng hiệu ứng
+// create array animations
+var data_animations = [
+    'animate__fadeInDown', 'animate__backInUp', 'animate__rollIn', 'animate__backInRight', 'animate__zoomInUp', 'animate__backInLeft', 'animate__rotateInDownLeft', 'animate__backInDown', 'animate__zoomInDown', 'animate__fadeInUp', 'animate__zoomIn',
+]; 
+
+$(document).ready(function () {
+    $('#carouselExampleControls').on('slide.bs.carousel', function (e) {
+        var $e = $(e.relatedTarget);
+        // Chọn ngẫu nhiên một animation từ danh sách
+        var randomAnimation = data_animations[Math.floor(Math.random() * data_animations.length)];
+        console.log(randomAnimation)
+        // Xóa tất cả các lớp animations hiện tại
+        $e.removeClass(data_animations.join(' '));
+        
+        // Thêm lớp animation mới
+        $e.addClass(randomAnimation).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+            $e.removeClass(randomAnimation); // Sau khi hoàn thành animation, loại bỏ lớp
+        });
+    });
+});
+
+// Tìm kiếm
+function performSearch() {
+    // Lấy giá trị từ input
+    var searchKeyword = document.getElementById('keyword').value;
+
+    // Nếu input không rỗng, submit form
+    if (searchKeyword.trim() !== '') {
+        document.getElementById('searchForm').submit();
+    } else {
+        // Nếu input rỗng, hiển thị thông báo lỗi
+        document.getElementById('searchError1').textContent = 'Vui lòng nhập từ khóa tìm kiếm.';
+        document.getElementById('searchError1').style.setProperty('display', 'block', 'important');
+    }
+}

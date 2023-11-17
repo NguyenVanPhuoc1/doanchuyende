@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Ban',
                 'cate_id' => 1,
-                'image'=> 'hinh1.jpg',
+                'image'=> 'np4-1267.jpg',
                 'description'=>'Ban go cao cap',
                 'noi_bat' => true
             
