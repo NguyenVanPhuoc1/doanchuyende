@@ -13,10 +13,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
+
 Route::get('/', [HomeController::class, 'viewHome']);
-Route::get('/san-pham', [HomeController::class, 'searchProduct'])->name('search');
+Route::get('tin-tuc', [NewsController::class, 'viewTinTuc']);
 Route::get('/get-products/{categoryId}', [HomeController::class, 'getProductbyCate']);
 
+
+// Hưng
+// Route::get('/san-pham', [ProductController::class, 'index']);
+Route::get('/san-pham', [ProductController::class, 'index'])->name('products.index');
+Route::get('/san-pham', [ProductController::class, 'index'])->name('products.index');
+Route::get('/chitietsanpham/{id}', [ProductController::class, 'show'])->name('products.show');
+
+Route::get('/a', function(){
+    return view('frontend.chitietsanpham');
+});
 
 use App\Http\Controllers\NewsController;
 //Page Tin Tức
