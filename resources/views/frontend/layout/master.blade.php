@@ -18,6 +18,7 @@
         <link type="text/css" rel="stylesheet" href="{{ asset('front/public/css/gioithieu.css')}}" />
         <link type="text/css" rel="stylesheet" href="{{ asset('front/public/css/styles.css')}}" />
         <link type="text/css" rel="stylesheet" href="{{ asset('front/public/css/mmenu.css')}}" />
+        <link type="text/css" rel="stylesheet" href="{{ asset('front/public/css/sanpham.css')}}" />
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
         <!-- Liên kết đến tệp CSS của Slick Carousel qua CDN -->
@@ -27,7 +28,7 @@
          <!-- Magic zoom -->
          <link rel="stylesheet" href="{{ asset('front/public/css/magiczoomplus.css')}}">
          <script src="{{ asset('front/public/js/magiczoomplus.js')}}"></script>
-          <!-- Load the css and js file in your document -->
+        <!-- Load the css and js file in your document -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <link href="{{ asset('front/public/css/HoldOn.min.css')}}" rel="stylesheet">
         <script src="{{ asset('front/public/js/HoldOn.min.js')}}"></script>
@@ -86,7 +87,7 @@
                             <p class="info-header">Hotline: <span>0123 456 789</span></p>
                             <div class="box-info__header d-flex align-items-center">
                                 <div class="search d-flex">
-                                    <form action="{{route('search')}}" method="GET" id="searchForm">
+                                    <form action="" method="GET" id="searchForm">
                                         @csrf
                                         <input type="text" name="searchProduct" id="keyword" placeholder="Tìm Kiếm" required>
                                         <p id="searchIcon" onclick="performSearch()">
@@ -141,12 +142,12 @@
                             <form action="# " method="GET" id="searchForm">
                                 @csrf
                                 <input type="text" name="searchProduct" id="keyword" placeholder="Tìm Kiếm" required>
-                                <p id="searchIcon" onclick="performSearch()">
+                                <p id="searchIcon" onclick="">
                                     <i class="fa-solid fa-magnifying-glass"></i>
                                 </p>
-                                @if ($errors->has('searchProduct'))
+                                {{-- @if ($errors->has('searchProduct'))
                                     <span class="alert alert-danger">{{ $errors->first('searchProduct') }}</span>
-                                @endif
+                                @endif --}}
                             </form>
                         </div>
                         <div class="lang-header">
