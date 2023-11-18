@@ -13,7 +13,7 @@
                         <h1>Quản Lí</h1>
                         <div class="row">
                             <div class="d-flex">
-                                <a class="btn btn-sm bg-gradient-primary text-white m-2" href="#" title="Thêm mới">
+                                <a class="btn btn-sm bg-gradient-primary text-white m-2" href="{{route('add_news')}}" title="Thêm mới">
                                     <i class="fas fa-plus mr-2">
                                     </i>Thêm mới
                                 </a>
@@ -66,8 +66,8 @@
                                 <tr>
                                     <th class="align-middle" style="width: 5%;">
                                         <div class="custom-control custom-checkbox my-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="selectall-checkbox1">
-                                            <label for="selectall-checkbox1" class="custom-control-label"></label>
+                                            <input type="checkbox" class="custom-control-input" id="selectall-checkboxtintuc">
+                                            <label for="selectall-checkboxtintuc" class="custom-control-label"></label>
                                         </div>
                                     </th>
                                     <th class="align-middle text-center" style="width: 10%;">STT</th>
@@ -78,40 +78,44 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach($newsList as $item)
                                 <tr>
                                     <td class="align-middle">
                                         <div class="custom-control custom-checkbox my-checkbox">
-                                            <input type="checkbox" class="custom-control-input select-checkbox" id="select-checkbox" value="14">
+                                            <input type="checkbox" class="custom-control-input select-checkbox" id="select-checkbox" value="{{$item->id}}">
                                             <label for="select-checkbox" class="custom-control-label"></label>
                                         </div>
                                     </td>
                                     <td class="align-middle">
-                                        <p class="text-center m-1">1</p>
+                                        <!-- biến đếm số thứ tự {{ $loop->index + 1 }}-->
+                                        <p class="text-center m-1">{{ $loop->index + 1 }}</p>
                                     </td>
                                     <td class="align-middle text-center">
-                                        <a href="#" title="Bàn ăn">
-                                            <img class="rounded img-preview" src="{{ asset('front/public/image/ban_an.jpg')}}" alt="Bàn ăn" style="max-width: 70px; max-height: 55px;">                                        </a>
+                                        <a href="{{route('admin_view_news',['id' => $item->id])}}" title="Bàn ăn">
+                                            <img class="rounded img-preview" src="{{ asset('front/public/image/'.$item -> news_image)}}" alt="{{$item -> news_image}}" style="max-width: 70px; max-height: 55px;">                                        </a>
                                     </td>
                                     <td class="align-middle text-center">
-                                        <a class="text-dark text-break" href="#S"
-                                            title="SANITARY EQUIMENT">SANITARY EQUIMENT</a>
+                                        <a class="text-dark text-break" href="{{route('admin_view_news',['id' => $item->id])}}"
+                                            title="{{$item -> news_name}}">{{$item -> news_name}}</a>
                                     </td>
                                     <td class="align-middle text-center">
                                         <div class="custom-control custom-checkbox my-checkbox">
-                                            <input type="checkbox" class="custom-control-input show-checkbox" id="show-checkbox-hienthi-14"
-                                                data-table="product_list" data-id="14" data-attr="hienthi" checked="">
-                                            <label for="show-checkbox-hienthi-14" class="custom-control-label"></label>
+                                            <input type="checkbox" class="custom-control-input show-checkbox" id="show-checkbox-hienthi-{{$item->id}}"
+                                                data-table="product_list" data-id="{{$item->id}}" data-attr="hienthi" checked="">
+                                            <label for="show-checkbox-hienthi-{{$item->id}}" class="custom-control-label"></label>
                                         </div>
                                     </td>
                                     <td class="align-middle text-center text-md text-nowrap">
-                                        <a class="text-primary mr-2" href="#"
+                                        <a class="text-primary mr-2" href="{{route('admin_view_news',['id' => $item->id])}}"
                                             title="Chỉnh sửa"><i class="fas fa-edit"></i></a>
                                         <a class="text-danger" id="delete-item" href="#"  title="Xóa"><i
                                                 class="fas fa-trash-alt"></i></a>
                                     </td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
+                        {{$newsList->appends(request()->query())->links('pagination::bootstrap-4')}}
                     </div>
                 </div>
             <!-- /.card-body -->
@@ -148,4 +152,20 @@
 
 @section('javascript')
 <script src="{{ asset('admin/dist/js/quanli.js')}}"></script>
+<script>
+    // chọn tất cả chekbox
+    $(document).ready(function() {
+        $('#selectall-checkboxtintuc').change(function() {
+            $('.select-checkbox').prop('checked', this.checked);
+        });
+
+        $('.select-checkbox').change(function() {
+            if ($('.select-checkbox:checked').length === $('.select-checkbox').length) {
+                $('#selectall-checkbox1').prop('checked', true);
+            } else {
+                $('#selectall-checkbox1').prop('checked', false);
+            }
+        });
+    });
+</script>
 @endsection

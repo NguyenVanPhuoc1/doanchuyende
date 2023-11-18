@@ -24,6 +24,7 @@ class Product extends Model
     public function productImage(){
         return $this->hasMany(ProductImage::class,'pro_id','id');   }
     //1 sản phẩm có nhiều comment
+    
     public function productComment(){
         return $this->hasMany(ProductComment::class,'pro_id','id');
     }

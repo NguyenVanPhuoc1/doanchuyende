@@ -173,6 +173,7 @@
             <li class="nav-item">
                 <a href="#" class="nav-link">
                     <i class="fas fa-reply"></i>
+                    Trang chủ
                 </a>
             </li>
             <!-- Messages Dropdown Menu -->
@@ -250,8 +251,8 @@
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                 with font-awesome or any other icon font library -->
-                    <li class="nav-item menu-open">
-                        <a href="#" class="nav-link active">
+                    <li class="nav-item ">
+                        <a href="#" class="nav-link ">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
                                 Bảng Điều Khiển
@@ -282,17 +283,18 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
+                    @if(request()->is('admin/quanlibaiviet/*'))
+                    <li class="nav-item menu-is-opening menu-open">
+                        <a href="#" class="nav-link active">
                             <i class="nav-icon fas fa-chart-pie"></i>
                             <p>
                                 Quản lí bài viết
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
-                        <ul class="nav nav-treeview">
+                        <ul class="nav nav-treeview d-block">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="#" class="nav-link {{ request()->is('admin/quanlibaiviet/tintuc*') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Tin Tức</p>
                                 </a>
@@ -303,14 +305,9 @@
                                     <p>Chính Sách</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Dịch Vụ</p>
-                                </a>
-                            </li>
                         </ul>
                     </li>
+                    @endif
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-tree"></i>
