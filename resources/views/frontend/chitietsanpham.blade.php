@@ -1,6 +1,6 @@
 @extends('frontend.layout.master')
 
-@section('title', 'sfdaf')
+@section('title', 'Chi Tiết Sản Phẩm')
 
 @section('body')
         <!-- Body -->

@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Policy;
 
 class PolicyController extends Controller
 {
     public function viewChinhSach(){
         $policy = Policy::orderBy('created_at', 'desc')->get();
-        return view('frontend.chinhsach', compact('chinhsach'));
+        return view('frontend.chinhsach', compact('policy'));
     }
 
     public function viewDetailPolicy($id){
@@ -24,7 +25,6 @@ class PolicyController extends Controller
             }
             return view('frontend.chitietchinhsach',compact('policy','relatedpolicy'));
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-         
             abort(404); // Hiển thị trang lỗi
         }
     }

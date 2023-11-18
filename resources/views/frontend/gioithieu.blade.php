@@ -59,15 +59,3 @@
 
  @endsection
 
-
- @section('script')
-    <script>
-        const pathname = window.location.pathname;
-
-        // Kiểm tra đường dẫn có chứa "gioi-thieu" hay không
-        if (pathname.includes("gioi-thieu")) {
-        // Xóa class body
-        document.querySelector("body").classList.remove("body");
-        }
-    </script>
- @endsection

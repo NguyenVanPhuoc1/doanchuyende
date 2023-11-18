@@ -26,7 +26,7 @@
                         <span>Chính sách</span>
                     </div>
                     <div class="row">
-                        @foreach($chinhsach as $item)
+                        @foreach($policy as $item)
                             <div class=" col-12 col-lg-6 ">
                                 <!-- item news -->
                                 <div class="item_news d-flex slick-slider">

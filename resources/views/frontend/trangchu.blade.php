@@ -171,6 +171,15 @@
 
 @section('script')
     <script>
+        
+        const pathname = document.title;
+
+        // Kiểm tra đường dẫn có chứa "gioi-thieu" hay không
+        if (pathname.includes("Trang Chủ")) {
+        // Xóa class body
+        document.querySelector("body").classList.add("body");
+        }
+
         // Xử lý khi click vào một thẻ <a>
         $(document).ready(function() {
             // Thêm class 'active' cho thẻ <a> đầu tiên khi trang load

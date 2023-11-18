@@ -13,35 +13,35 @@ use Illuminate\Support\Facades\Route;
 |
 */
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ProductController;
 
 Route::get('/', [HomeController::class, 'viewHome']);
-Route::get('tin-tuc', [NewsController::class, 'viewTinTuc']);
+Route::get('/ket-qua-tim-kiem-san-pham', [HomeController::class, 'searchProduct'])->name('search');
 Route::get('/get-products/{categoryId}', [HomeController::class, 'getProductbyCate']);
 
 
 // Hưng
+
+use App\Http\Controllers\ProductController;
 // Route::get('/san-pham', [ProductController::class, 'index']);
-Route::get('/san-pham', [ProductController::class, 'index'])->name('products.index');
 Route::get('/san-pham', [ProductController::class, 'index'])->name('products.index');
 Route::get('/chitietsanpham/{id}', [ProductController::class, 'show'])->name('products.show');
 
-Route::get('/a', function(){
-    return view('frontend.chitietsanpham');
-});
 
 use App\Http\Controllers\NewsController;
 //Page Tin Tức
 Route::get('/tin-tuc', [NewsController::class, 'viewTinTuc']);
-Route::get('/chinh-sach', [NewsController::class, 'viewChinhSach']);
 Route::get('/tin-tuc/tin-tuc-{id}', [NewsController::class, 'viewDetailNews'])->name('news_detail');
-Route::get('/chinh-sach/chinh-sach-{id}', [NewsController::class, 'viewDetailPolicy'])->name('policy_detail');
 
 //Admin quản lí tin tức
 Route::get('/admin/quanlibaiviet/tintuc',[NewsController::class, 'viewAdminTinTuc'] )->name('news_search');
 Route::get('/admin/quanlibaiviet/add-tintuc',[NewsController::class, 'addNews'] )->name('add_news');
 Route::get('/admin/quanlibaiviet/tintuc/tin-tuc-{id}',[NewsController::class, 'viewDetailNews'] )->name('admin_view_news');
 
+//Chính sách
+use App\Http\Controllers\PolicyController;
+Route::get('/chinh-sach', [PolicyController::class, 'viewChinhSach']);
+
+Route::get('/chinh-sach/chinh-sach-{id}', [PolicyController::class, 'viewDetailPolicy'])->name('policy_detail');
 //page giới thiệu
 
 use App\Http\Controllers\IntroductPageController;
