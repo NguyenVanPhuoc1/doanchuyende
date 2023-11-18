@@ -22,3 +22,8 @@ use App\Http\Controllers\NewsController;
 //Page Tin Tức
 Route::get('/tin-tuc', [NewsController::class, 'viewTinTuc']);
 Route::get('/tin-tuc/tin-tuc-{id}', [NewsController::class, 'viewDetailNews'])->name('news_detail');
+//Admin quản lí tin tức
+Route::get('/admin/quanlibaiviet/tintuc',[NewsController::class, 'viewAdminTinTuc'] );
+Route::get('/admin/quanlibaiviet/add-tintuc',[NewsController::class, 'addNews'] )->name('add_news');
+Route::get('/admin/quanlibaiviet/tintuc/tin-tuc-{id}',[NewsController::class, 'viewDetailNews'] )->name('admin_view_news');
+
