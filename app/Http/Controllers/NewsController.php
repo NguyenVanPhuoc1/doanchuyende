@@ -42,8 +42,17 @@ class NewsController extends Controller
 
     }
     // view admin quản lí tin tức
-    public function viewAdminTintuc(){
-        $newsList = News::orderBy('created_at', 'desc')->paginate(5);
+    public function viewAdminTintuc(Request $request){
+        $url = $request->fullUrl();
+        if(str_contains($url, 'keyword')){
+            $request->validate([
+                'keyword' => 'required|max:100',
+            ]);
+            $keyword = $request->input('keyword');
+            $newsList = News::where('news_name', 'like', '%' . $keyword . '%')->orderBy('created_at', 'desc')->paginate(5);
+        }else{
+            $newsList = News::orderBy('created_at', 'desc')->paginate(5);
+        }
         return view('admin.qlitintuc', compact('newsList'));
     }
     // hàm tìm tiếm bài viết tin tức
