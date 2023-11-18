@@ -146,7 +146,7 @@
                                                     <p class="text-split">{{ $item->news_desc}} </p>
                                                 </div>
                                                 <div class="btn_more_index">
-                                                    <a href="#" class="text-decoration-none tintuc-xemthem">XEM THÊM</a>
+                                                    <a href="{{route('news_detail',['id' => $item->id])}}" class="text-decoration-none tintuc-xemthem">XEM THÊM</a>
                                                 </div>
                                             </div>
                                         </div>

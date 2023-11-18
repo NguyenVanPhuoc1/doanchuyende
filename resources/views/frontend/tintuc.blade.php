@@ -22,136 +22,32 @@
             </div>
             <div class="wrap-info wrap-content mt-5 mb-5">
                 <div class="container">
+                    <div class="title-main">
+                        <span>Tin Tức</span>
+                    </div>
                     <div class="row">
-                        <h1 class="text-black-50 text-uppercase text-center" style="font-size: 30px; font-weight: bold;">Tin Tức</h1>
+                        @foreach($tintuc as $item)
                             <div class=" col-12 col-lg-6 ">
-                                <div class="news_list1" >
-                                    <!-- item news -->
-                                    <div class="item_news d-flex justify-content-between slick-slider">
-                                        <a href="" class="hover_sang2 d-block">
-                                            <img src="{{ asset('front/public/image/tin-tuc-1.jpg')}}" alt="tin-tuc-1">
-                                        </a>
-                                        <div class="content_news_index">
-                                            <div class="name_news_index">
-                                                <p class="text-split">Thiết kế nội thất phòng khách</p>
-                                            </div>
-                                            <div class="desc_news_index">
-                                                <p class="text-split">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore nulla dolores, possimus praesentium ducimus
-                                                    eum facilis corrupti deleniti reiciendis
-                                                    eaque molestiae qui sunt odit, quas animi, nobis adipisci cumque accusamus.</p>
-                                            </div>
-                                            <div class="btn_more_index">
-                                                <a href="#" class="text-decoration-none tintuc-xemthem">XEM THÊM</a>
-                                            </div>
+                                <!-- item news -->
+                                <div class="item_news d-flex slick-slider">
+                                    <a href="" class="hover_sang2 d-block col-4">
+                                        <img src="{{ asset('front/public/image/'.$item -> news_image)}}" alt="{{$item -> news_image}}">
+                                    </a>
+                                    <div class="content_news_index col-8">
+                                        <div class="name_news_index">
+                                            <p class="text-split">{{$item -> news_name}}</p>
+                                        </div>
+                                        <div class="desc_news_index">
+                                            <p class="text-split">{{$item -> news_desc}}</p>
+                                        </div>
+                                        <div class="btn_more_index">
+                                            <a href="{{route('news_detail',['id' => $item->id])}}" class="text-decoration-none tintuc-xemthem">XEM THÊM</a>
                                         </div>
                                     </div>
-                                    <!-- item news -->
-                                    <!-- item news -->
-                                    <div class="item_news d-flex justify-content-between slick-slider">
-                                        <a href="" class="hover_sang2 d-block">
-                                            <img src="{{ asset('front/public/image/tin-tuc-1.jpg')}}" alt="tin-tuc-1">
-                                        </a>
-                                        <div class="content_news_index">
-                                            <div class="name_news_index">
-                                                <p class="text-split">Thiết kế nội thất phòng khách</p>
-                                            </div>
-                                            <div class="desc_news_index">
-                                                <p class="text-split">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore nulla dolores, possimus praesentium ducimus
-                                                    eum facilis corrupti deleniti reiciendis
-                                                    eaque molestiae qui sunt odit, quas animi, nobis adipisci cumque accusamus.</p>
-                                            </div>
-                                            <div class="btn_more_index">
-                                                <a href="#" class="text-decoration-none tintuc-xemthem">XEM THÊM</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- item news -->
-                                    <!-- item news -->
-                                    <div class="item_news d-flex justify-content-between slick-slider">
-                                        <a href="" class="hover_sang2 d-block">
-                                            <img src="{{ asset('front/public/image/tin-tuc-1.jpg')}}" alt="tin-tuc-1">
-                                        </a>
-                                        <div class="content_news_index">
-                                            <div class="name_news_index">
-                                                <p class="text-split">Thiết kế nội thất phòng khách</p>
-                                            </div>
-                                            <div class="desc_news_index">
-                                                <p class="text-split">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore nulla dolores, possimus praesentium ducimus
-                                                    eum facilis corrupti deleniti reiciendis
-                                                    eaque molestiae qui sunt odit, quas animi, nobis adipisci cumque accusamus.</p>
-                                            </div>
-                                            <div class="btn_more_index">
-                                                <a href="#" class="text-decoration-none tintuc-xemthem">XEM THÊM</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- item news -->
                                 </div>
+                                <!-- item news -->
                             </div>
-                            <div class=" col-12 col-lg-6">
-                                <div class="news_list1" >
-                                    <!-- item news -->
-                                    <div class="item_news d-flex justify-content-between slick-slider">
-                                        <a href="" class="hover_sang2 d-block">
-                                            <img src="{{ asset('front/public/image/tin-tuc-1.jpg')}}" alt="tin-tuc-1">
-                                        </a>
-                                        <div class="content_news_index">
-                                            <div class="name_news_index">
-                                                <p class="text-split">Thiết kế nội thất phòng khách</p>
-                                            </div>
-                                            <div class="desc_news_index">
-                                                <p class="text-split">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore nulla dolores, possimus praesentium ducimus
-                                                    eum facilis corrupti deleniti reiciendis
-                                                    eaque molestiae qui sunt odit, quas animi, nobis adipisci cumque accusamus.</p>
-                                            </div>
-                                            <div class="btn_more_index">
-                                                <a href="#" class="text-decoration-none tintuc-xemthem">XEM THÊM</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- item news -->
-                                    <!-- item news -->
-                                    <div class="item_news d-flex justify-content-between slick-slider">
-                                        <a href="" class="hover_sang2 d-block">
-                                            <img src="{{ asset('front/public/image/tin-tuc-1.jpg')}}" alt="tin-tuc-1">
-                                        </a>
-                                        <div class="content_news_index">
-                                            <div class="name_news_index">
-                                                <p class="text-split">Thiết kế nội thất phòng khách</p>
-                                            </div>
-                                            <div class="desc_news_index">
-                                                <p class="text-split">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore nulla dolores, possimus praesentium ducimus
-                                                    eum facilis corrupti deleniti reiciendis
-                                                    eaque molestiae qui sunt odit, quas animi, nobis adipisci cumque accusamus.</p>
-                                            </div>
-                                            <div class="btn_more_index">
-                                                <a href="#" class="text-decoration-none tintuc-xemthem">XEM THÊM</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- item news -->
-                                    <!-- item news -->
-                                    <div class="item_news d-flex justify-content-between slick-slider">
-                                        <a href="" class="hover_sang2 d-block ">
-                                            <img src="{{ asset('front/public/image/tin-tuc-1.jpg')}}    " alt="tin-tuc-1">
-                                        </a>
-                                        <div class="content_news_index">
-                                            <div class="name_news_index">
-                                                <p class="text-split">Thiết kế nội thất phòng khách</p>
-                                            </div>
-                                            <div class="desc_news_index">
-                                                <p class="text-split">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore nulla dolores, possimus praesentium ducimus
-                                                    eum facilis corrupti deleniti reiciendis
-                                                    eaque molestiae qui sunt odit, quas animi, nobis adipisci cumque accusamus.</p>
-                                            </div>
-                                            <div class="btn_more_index">
-                                                <a href="#" class="text-decoration-none tintuc-xemthem">XEM THÊM</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- item news -->
-                                </div>
-                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
