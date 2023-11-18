@@ -123,7 +123,7 @@
                                         <a class="{{ request()->is('san-pham') ? 'active' : '' }} transition" href="{{ url('/san-pham') }}" title="Sản phẩm">Sản phẩm</a>
                                     </li>
                                     <li class="line"></li>
-                                    <li><a class="{{ request()->is('tin-tuc') ? 'active' : '' }} transition" href="{{ url('/tin-tuc') }}" title="Tin tức">Tin tức</a></li>
+                                    <li><a class="{{ request()->is('tin-tuc*') ? 'active' : '' }} transition" href="{{ url('/tin-tuc') }}" title="Tin tức">Tin tức</a></li>
                                     <li class="line"></li>
                                     <li><a class="{{ request()->is('lien-he') ? 'active' : '' }} transition" href="{{ url('/lien-he') }}" title="Liên hệ">Liên hệ</a></li>
                                 </ul>
@@ -187,7 +187,7 @@
                                 <h6 class="text-uppercase mb-4 font-weight-bold">Tin Tức</h6>
                                 @foreach($listNews as $item)
                                 <p>
-                                    <a class="text-white" href="#">{{$item -> news_name}}</a>
+                                    <a class="text-white" href="{{route('news_detail',['id' => $item->id])}}">{{$item -> news_name}}</a>
                                 </p>
                                 @endforeach
                             </div>
