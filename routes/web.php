@@ -21,4 +21,6 @@ Route::get('/get-products/{categoryId}', [HomeController::class, 'getProductbyCa
 use App\Http\Controllers\NewsController;
 //Page Tin Tức
 Route::get('/tin-tuc', [NewsController::class, 'viewTinTuc']);
+Route::get('/chinh-sach', [NewsController::class, 'viewChinhSach']);
 Route::get('/tin-tuc/tin-tuc-{id}', [NewsController::class, 'viewDetailNews'])->name('news_detail');
+Route::get('/chinh-sach/chinh-sach-{id}', [NewsController::class, 'viewDetailPolicy'])->name('policy_detail');
