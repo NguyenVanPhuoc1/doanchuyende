@@ -38,7 +38,7 @@ Route::get('/tin-tuc/tin-tuc-{id}', [NewsController::class, 'viewDetailNews'])->
 Route::get('/chinh-sach/chinh-sach-{id}', [NewsController::class, 'viewDetailPolicy'])->name('policy_detail');
 
 //Admin quản lí tin tức
-Route::get('/admin/quanlibaiviet/tintuc',[NewsController::class, 'viewAdminTinTuc'] );
+Route::get('/admin/quanlibaiviet/tintuc',[NewsController::class, 'viewAdminTinTuc'] )->name('news_search');
 Route::get('/admin/quanlibaiviet/add-tintuc',[NewsController::class, 'addNews'] )->name('add_news');
 Route::get('/admin/quanlibaiviet/tintuc/tin-tuc-{id}',[NewsController::class, 'viewDetailNews'] )->name('admin_view_news');
 

@@ -22,14 +22,21 @@
                                 </a>
                             </div>
                             <div class="form-inline form-search d-inline-block align-middle col-lg-3 w-100  mt-2 mb-2">
-                                <div class="input-group input-group-sm">
-                                    <input class="form-control form-control-navbar text-sm" type="search" id="keyword" placeholder="Tìm kiếm" aria-label="Tìm kiếm" value="" onkeypress="">
-                                    <div class="input-group-append bg-primary rounded-right">
-                                        <button class="btn btn-navbar text-white" type="button" onclick="">
-                                            <i class="fas fa-search"></i>
-                                        </button>
-                                    </div>
-                                </div>
+                                <form action="{{route('news_search')}}" method="GET" id="news_search" >
+                                    <div class="input-group input-group-sm">
+                                        @csrf
+                                        <input class="form-control form-control-navbar text-sm" type="search" name="keyword" id="keyword" placeholder="Tìm kiếm" aria-label="Tìm kiếm" required >
+                                        <div class="input-group-append bg-primary rounded-right">
+                                            <button class="btn btn-navbar text-white" type="button" onclick="performSearchNews()" >
+                                                <i class="fas fa-search"></i>
+                                            </button>
+                                        </div>
+                                        <span id="searchError" class="d-none alert alert-danger" style="position: absolute;z-index: 1;width: 100%;transform: translateY(50%);opacity: 0.8;">Please enter your title</span>
+                                        @if ($errors->has('keyword'))
+                                            <span id="searchError" class="d-block alert alert-danger" style="position: absolute;z-index: 1;width: 100%;transform: translateY(50%);opacity: 0.8;">{{ $errors->first('keyword') }}</span>
+                                        @endif
+                                    </div>      
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -61,6 +68,7 @@
                 </div>
                 <div class="card-body p-0">
                     <div class="card-body table-responsive p-0">
+                        @if($newsList->count() > 0)
                         <table class="table table-hover">
                             <thead> 
                                 <tr>
@@ -116,6 +124,11 @@
                             </tbody>
                         </table>
                         {{$newsList->appends(request()->query())->links('pagination::bootstrap-4')}}
+                        @else
+                        <div class="alert alert-warning w-100 text-center" role="alert">
+                            <strong>News article not found</strong>
+                        </div>  
+                        @endif
                     </div>
                 </div>
             <!-- /.card-body -->
@@ -167,5 +180,21 @@
             }
         });
     });
+
+
+    // hàm tìm kiếm khi click vào button tìm kiếm
+    function performSearchNews() {
+        var keyword = document.getElementById('keyword').value;
+
+        // Kiểm tra xem trường nhập liệu có giá trị không
+        if (keyword.trim() === "") {
+            // Nếu không có giá trị, hiển thị lỗi
+            document.getElementById('searchError').style.setProperty('display', 'block', 'important');
+            return;
+        }
+
+        // Nếu có giá trị, gửi form
+        document.getElementById('news_search').submit();
+    }
 </script>
 @endsection
