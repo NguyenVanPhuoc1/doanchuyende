@@ -14,7 +14,7 @@
                     <div class="col-6 col-md-4 col-lg-3 col-xl-3 product-item">
                         <a href="{{ route('products.show', ['id' => $product->id]) }}">
                             <div class="scale-img product-image">
-                                <img src="{{ asset('front/public/image/tin-tuc-1.jpg')}}" alt="">
+                                <img src="{{ asset('front/public/image/' . $product->image) }}" alt="Ảnh sản phẩm">
                                 <div class="product-price">Giá sản phẩm</div>
                             </div>
                             <div class="product-content">

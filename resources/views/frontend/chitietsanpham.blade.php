@@ -13,7 +13,7 @@
                             <div class="pro-zoom col ">
                                 <a href="./public/image/c2-1918.jpg" class="MagicZoom" id="sanpham"
                                     data-options="zoomMode: on; hint: on; rightClick: true; selectorTrigger: hover; expandCaption: false; history: false;">
-                                    <img id="mainImage" src="{{ asset('front/public/image/tin-tuc-1.jpg')}}" alt=""
+                                    <img id="mainImage" src="{{ asset('front/public/image/' . $product->image) }}" alt="Ảnh sản phẩm"
                                         style="max-width: 570px; max-height: 550px;">
                                 </a>
                             </div>
@@ -153,7 +153,7 @@
                     </div>
                 </div>
                 <!-- Sản phẩm liên quan -->
-                <div class="box_product_list_tab">
+                {{-- <div class="box_product_list_tab">
                     <div class="container">
                         <div class="title-main">
                             <span>SẢN PHẨM LIÊN QUAN</span>
@@ -229,7 +229,7 @@
                                 </div> -->
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </main>
