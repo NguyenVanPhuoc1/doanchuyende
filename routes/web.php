@@ -33,7 +33,10 @@ Route::get('/a', function(){
 use App\Http\Controllers\NewsController;
 //Page Tin Tức
 Route::get('/tin-tuc', [NewsController::class, 'viewTinTuc']);
+Route::get('/chinh-sach', [NewsController::class, 'viewChinhSach']);
 Route::get('/tin-tuc/tin-tuc-{id}', [NewsController::class, 'viewDetailNews'])->name('news_detail');
+Route::get('/chinh-sach/chinh-sach-{id}', [NewsController::class, 'viewDetailPolicy'])->name('policy_detail');
+
 //Admin quản lí tin tức
 Route::get('/admin/quanlibaiviet/tintuc',[NewsController::class, 'viewAdminTinTuc'] );
 Route::get('/admin/quanlibaiviet/add-tintuc',[NewsController::class, 'addNews'] )->name('add_news');
