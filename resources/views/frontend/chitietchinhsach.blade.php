@@ -17,8 +17,8 @@
                         <span>Chính sách</span>
                     </a>
                 </li>
-                <li class="breadcrumb-item active">
-                    <a class="text-decoration-none" >
+                <li class="breadcrumb-item ">
+                    <a class="text-decoration-none active" >
                         <span>{{$policy->poli_name}}</span>
                     </a>
                 </li>
