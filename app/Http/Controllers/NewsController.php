@@ -58,8 +58,39 @@ class NewsController extends Controller
     // hàm tìm tiếm bài viết tin tức
 
 
-    //hàm thêm mới tin tức
-    public function addNews(){
+    //hàm xem trang thêm mới tin tức
+    public function viewPageaddNews(){
         return view('admin.crudtintuc');
+    }
+
+    //hàm thêm mới tin tức
+    //tạo data dữ liệu
+    public function create(array $data)
+    {
+        return News::create([
+            'news_name' => $data['news_name'],
+            'news_desc' => $data['contentvi'],
+            'news_image' => $data['fileToUpload'],
+            'cus_id' => '0',
+            'noi_bat' => true,
+        ]);
+    }     
+    //thêm sản phẩm
+    public function AddNews(Request $request)
+    { 
+        $request->validate([
+            'news_name' => 'required|max:500',
+        ]);
+        if($request->hasFile('fileToUpload')){
+            $file = $request->file('fileToUpload');
+            $filename = $file->getClientOriginalName();
+            $file->move('front/public/image/',$filename);
+        }else{
+            $filename = 'noimage.png';
+        }
+        $data = $request->all();
+        $data['fileToUpload'] = $filename;
+        $news = $this->create($data);
+        return redirect('/admin/quanlibaiviet/tintuc')->withSuccess('Thêm Thành công!');
     }
 }

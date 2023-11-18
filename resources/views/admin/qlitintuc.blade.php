@@ -13,7 +13,7 @@
                         <h1>Quản Lí</h1>
                         <div class="row">
                             <div class="d-flex">
-                                <a class="btn btn-sm bg-gradient-primary text-white m-2" href="{{route('add_news')}}" title="Thêm mới">
+                                <a class="btn btn-sm bg-gradient-primary text-white m-2" href="{{route('view_add_news')}}" title="Thêm mới">
                                     <i class="fas fa-plus mr-2">
                                     </i>Thêm mới
                                 </a>
