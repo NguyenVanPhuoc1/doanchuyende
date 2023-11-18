@@ -39,3 +39,7 @@ Route::get('/admin/quanlibaiviet/tintuc',[NewsController::class, 'viewAdminTinTu
 Route::get('/admin/quanlibaiviet/add-tintuc',[NewsController::class, 'addNews'] )->name('add_news');
 Route::get('/admin/quanlibaiviet/tintuc/tin-tuc-{id}',[NewsController::class, 'viewDetailNews'] )->name('admin_view_news');
 
+//page giới thiệu
+
+use App\Http\Controllers\IntroductPageController;
+Route::get('/gioi-thieu', [IntroductPageController::class, 'viewIntroducePage']);
