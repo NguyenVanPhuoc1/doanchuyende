@@ -26,7 +26,6 @@ use App\Http\Controllers\ProductController;
 Route::get('/san-pham', [ProductController::class, 'index'])->name('products.index');
 Route::get('/chitietsanpham/{id}', [ProductController::class, 'show'])->name('products.show');
 
-
 use App\Http\Controllers\NewsController;
 //Page Tin Tức
 Route::get('/tin-tuc', [NewsController::class, 'viewTinTuc']);
