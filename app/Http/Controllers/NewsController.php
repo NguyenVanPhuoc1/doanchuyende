@@ -9,7 +9,7 @@ class NewsController extends Controller
 {
     //
     public function viewTinTuc(){
-        $tintuc = News::orderBy('created_at', 'desc')->get();
+        $tintuc = News::orderBy('created_at', 'desc')->paginate(6);
         return view('frontend.tintuc', compact('tintuc'));
     }
     // xem chi tiết tin tức theo id
@@ -92,5 +92,31 @@ class NewsController extends Controller
         $data['fileToUpload'] = $filename;
         $news = $this->create($data);
         return redirect('/admin/quanlibaiviet/tintuc')->withSuccess('Thêm Thành công!');
+    }
+
+    //sửa news
+    public function updateNews(Request $request){
+        // Lấy ID từ request
+        $newsId = $request->input('news_id');
+        // Kiểm tra xem tin tức có tồn tại không
+        $news = News::find($newsId);
+        if(!$news){
+            $request->validate([
+                'news_name' => 'required|max:500',
+            ]);
+            $news->news_name = $request->input('news_name');
+            $news->news_desc = $request->input('contentvi');
+            if($request->hasFile('fileToUpload')){
+                $file = $request->file('fileToUpload');
+                $filename = $file->getClientOriginalName();
+                $file->move('front/public/image/',$filename);
+            }else{
+                $filename = 'noimage.png';
+            }
+            $news->save();
+        }else{
+            dd('lỗi');die();
+        }
+        return redirect()->route('admin-updateNews')->withSuccess('Sửa Thành công!');
     }
 }

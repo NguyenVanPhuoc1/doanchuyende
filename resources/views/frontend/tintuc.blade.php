@@ -48,6 +48,9 @@
                                 <!-- item news -->
                             </div>
                         @endforeach
+                        <div class="pagination mx-auto">
+                        {{$tintuc->appends(request()->query())->links('pagination::bootstrap-4')}}
+                        </div>
                     </div>
                 </div>
             </div>

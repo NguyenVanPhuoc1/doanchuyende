@@ -36,6 +36,7 @@ Route::get('/admin/quanlibaiviet/tintuc',[NewsController::class, 'viewAdminTinTu
 Route::get('/admin/quanlibaiviet/add-tintuc',[NewsController::class, 'viewPageaddNews'] )->name('view_add_news');
 Route::post('/admin/quanlibaiviet/tintuc', [NewsController::class, 'AddNews'])->name('add-news');
 Route::get('/admin/quanlibaiviet/tintuc/tin-tuc-{id}',[NewsController::class, 'viewDetailNews'] )->name('admin_view_news');
+Route::post('/admin/quanlibaiviet/tintuc', [NewsController::class, 'updateNews'])-> name('admin-updateNews');
 
 //Chính sách
 use App\Http\Controllers\PolicyController;
