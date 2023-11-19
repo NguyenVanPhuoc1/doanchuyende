@@ -128,11 +128,11 @@
                             <h1>Quản Lí</h1>
                             <div class="row">
                                 <div class="d-flex">
-                                    <button class="btn btn-sm bg-gradient-primary text-white m-2"  title="Thêm mới" >
+                                    <button class="btn btn-sm bg-gradient-primary text-white m-2"  title="Lưu" >
                                         <i class="fas fa-save mr-2">
                                         </i>Lưu
                                     </button>
-                                    <a class="btn btn-sm bg-gradient-danger text-white m-2" id="delete-all" href="{{url('admin/quanlibaiviet/tintuc')}}" title="Xóa tất cả">
+                                    <a class="btn btn-sm bg-gradient-danger text-white m-2" id="thoat" href="{{url('admin/quanlibaiviet/tintuc')}}" title="Xóa tất cả">
                                         <i class="fas fa-sign-out-alt mr-2"></i>Thoát
                                     </a>
                                 </div>
