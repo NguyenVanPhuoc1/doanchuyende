@@ -1,6 +1,6 @@
 @extends('frontend.layout.master')
 
-@section('title', 'Tin Tức')
+@section('title', 'Chính sách')
 
 @section('body')
 <!-- Body -->
@@ -13,8 +13,8 @@
                             </a>
                         </li>
                         <li class="breadcrumb-item ">
-                            <a class="text-decoration-none active" href="{{url('/tin-tuc')}}">
-                                <span>Tin Tức</span>
+                            <a class="text-decoration-none active" href="{{url('/chinh-sach')}}">
+                                <span>Chính sách</span>
                             </a>
                         </li>
                     </ol>
@@ -23,25 +23,25 @@
             <div class="wrap-info wrap-content mt-5 mb-5">
                 <div class="container">
                     <div class="title-main">
-                        <span>Tin Tức</span>
+                        <span>Chính sách</span>
                     </div>
                     <div class="row">
-                        @foreach($tintuc as $item)
+                        @foreach($policy as $item)
                             <div class=" col-12 col-lg-6 ">
                                 <!-- item news -->
                                 <div class="item_news d-flex slick-slider">
                                     <a href="" class="hover_sang2 d-block col-4">
-                                        <img src="{{ asset('front/public/image/'.$item -> news_image)}}" alt="{{$item -> news_image}}">
+                                        <img src="{{ asset('front/public/image/'.$item -> poli_image)}}" alt="{{$item -> poli_image}}">
                                     </a>
                                     <div class="content_news_index col-8">
                                         <div class="name_news_index">
-                                            <p class="text-split">{{$item -> news_name}}</p>
+                                            <p class="text-split">{{$item -> poli_name}}</p>
                                         </div>
                                         <div class="desc_news_index">
-                                            <p class="text-split">{{$item -> news_desc}}</p>
+                                            <p class="text-split">{{$item -> poli_desc}}</p>
                                         </div>
                                         <div class="btn_more_index">
-                                            <a href="{{route('news_detail',['id' => $item->id])}}" class="text-decoration-none tintuc-xemthem">XEM THÊM</a>
+                                            <a href="{{route('policy_detail',['id' => $item->id])}}" class="text-decoration-none chinhsach-xemthem">XEM THÊM</a>
                                         </div>
                                     </div>
                                 </div>
@@ -51,5 +51,4 @@
                     </div>
                 </div>
             </div>
-
 @endsection

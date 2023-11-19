@@ -13,13 +13,13 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('admin/plugins/fontawesome-free/css/all.min.css')}}">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"> -->
     <!-- Tempusdominus Bootstrap 4 -->
     <link rel="stylesheet" href="{{ asset('admin/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
     <!-- iCheck -->
     <link rel="stylesheet" href="{{ asset('admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
     <!-- JQVMap -->
-    <link rel="stylesheet" href="{{ asset('admin/plugins/jqvmap/jqvmap.min.css')}}">
+    <!-- <link rel="stylesheet" href="{{ asset('admin/plugins/jqvmap/jqvmap.min.css')}}"> -->
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('admin/dist/css/adminlte.min.css')}}">
     <!-- overlayScrollbars -->
@@ -27,7 +27,7 @@
     <!-- Daterange picker -->
     <!-- <link rel="stylesheet" href="../admin/plugins/daterangepicker/daterangepicker.css"> -->
     <!-- summernote -->
-    <link rel="stylesheet" href="{{ asset('admin/plugins/summernote/summernote-bs4.min.css')}}">
+    <!-- <link rel="stylesheet" href="{{ asset('admin/plugins/summernote/summernote-bs4.min.css')}}"> -->
     <!-- char js -->
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
@@ -173,6 +173,7 @@
             <li class="nav-item">
                 <a href="#" class="nav-link">
                     <i class="fas fa-reply"></i>
+                    Trang chủ
                 </a>
             </li>
             <!-- Messages Dropdown Menu -->
@@ -250,8 +251,8 @@
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                 with font-awesome or any other icon font library -->
-                    <li class="nav-item menu-open">
-                        <a href="#" class="nav-link active">
+                    <li class="nav-item ">
+                        <a href="#" class="nav-link ">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
                                 Bảng Điều Khiển
@@ -282,17 +283,18 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
+                    @if(request()->is('admin/quanlibaiviet/*'))
+                    <li class="nav-item menu-is-opening menu-open">
+                        <a href="#" class="nav-link active">
                             <i class="nav-icon fas fa-chart-pie"></i>
                             <p>
                                 Quản lí bài viết
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
-                        <ul class="nav nav-treeview">
+                        <ul class="nav nav-treeview d-block">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{url('admin/quanlibaiviet/tintuc')}}" class="nav-link {{ request()->is('admin/quanlibaiviet/tintuc*') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Tin Tức</p>
                                 </a>
@@ -303,14 +305,9 @@
                                     <p>Chính Sách</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Dịch Vụ</p>
-                                </a>
-                            </li>
                         </ul>
                     </li>
+                    @endif
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-tree"></i>
@@ -437,17 +434,17 @@
 <!-- Sparkline -->
 <!-- <script src="../'admin/plugins/sparklines/sparkline.js"></script> -->
 <!-- JQVMap -->
-<script src="{{ asset('admin/plugins/jqvmap/jquery.vmap.min.js')}}"></script>
-<script src="{{ asset('admin/plugins/jqvmap/maps/jquery.vmap.usa.js')}}"></script>
+<!-- <script src="{{ asset('admin/plugins/jqvmap/jquery.vmap.min.js')}}"></script> -->
+<!-- <script src="{{ asset('admin/plugins/jqvmap/maps/jquery.vmap.usa.js')}}"></script> -->
 <!-- jQuery Knob Chart -->
 <script src="{{ asset('admin/plugins/jquery-knob/jquery.knob.min.js')}}"></script>
 <!-- daterangepicker -->
 <!-- <script src="../'admin/plugins/moment/moment.min.js"></script> -->
-<script src="{{ asset('admin/plugins/daterangepicker/daterangepicker.js')}}"></script>
+<!-- <script src="{{ asset('admin/plugins/daterangepicker/daterangepicker.js')}}"></script> -->
 <!-- Tempusdominus Bootstrap 4 -->
 <!-- <script src="../admin/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script> -->
 <!-- Summernote -->
-<script src="{{ asset('admin/plugins/summernote/summernote-bs4.min.js')}}"></script>
+<!-- <script src="{{ asset('admin/plugins/summernote/summernote-bs4.min.js')}}"></script> -->
 <!-- overlayScrollbars -->
 <script src="{{ asset('admin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
 <!-- AdminLTE App -->

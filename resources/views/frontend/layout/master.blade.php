@@ -53,7 +53,7 @@
             }
         </style>
     </head>
-    <body class="body">
+    <body >
         <!-- menu -->
         <nav class="menu" id="menu">
             <ul>
@@ -87,7 +87,7 @@
                             <p class="info-header">Hotline: <span>0123 456 789</span></p>
                             <div class="box-info__header d-flex align-items-center">
                                 <div class="search d-flex">
-                                    <form action="" method="GET" id="searchForm">
+                                    <form action="{{route('search')}}" method="GET" id="searchForm">
                                         @csrf
                                         <input type="text" name="searchProduct" id="keyword" placeholder="Tìm Kiếm" required>
                                         <p id="searchIcon" onclick="performSearch()">
@@ -116,15 +116,15 @@
                                     <li class="line"></li>
                                     <li><a class="{{ request()->is('gioi-thieu') ? 'active' : '' }} transition" href="{{ url('/gioi-thieu') }}" title="Giới thiệu">Giới thiệu</a></li>
                                     <li class="line"></li>
-                                    <li><a class="{{ request()->is('chinh-sach') ? 'active' : '' }} transition" href="{{ url('/chinh-sach') }}" title="Chính Sách">Chính Sách</a></li>
+                                    <li><a class="{{ request()->is('chinh-sach*') ? 'active' : '' }} transition" href="{{ url('/chinh-sach') }}" title="Chính Sách">Chính Sách</a></li>
                                     <!-- <li class="line"></li> -->
                                     <!-- <li><a class="transition" href="#" title="Dự án">Dự án</a></li> -->
                                     <li class="line"></li>
                                     <li>
-                                        <a class="{{ request()->is('san-pham') ? 'active' : '' }} transition" href="{{ url('/san-pham') }}" title="Sản phẩm">Sản phẩm</a>
+                                        <a class="{{ request()->is('san-pham*') ? 'active' : '' }} transition" href="{{ url('/san-pham') }}" title="Sản phẩm">Sản phẩm</a>
                                     </li>
                                     <li class="line"></li>
-                                    <li><a class="{{ request()->is('tin-tuc') ? 'active' : '' }} transition" href="{{ url('/tin-tuc') }}" title="Tin tức">Tin tức</a></li>
+                                    <li><a class="{{ request()->is('tin-tuc*') ? 'active' : '' }} transition" href="{{ url('/tin-tuc') }}" title="Tin tức">Tin tức</a></li>
                                     <li class="line"></li>
                                     <li><a class="{{ request()->is('lien-he') ? 'active' : '' }} transition" href="{{ url('/lien-he') }}" title="Liên hệ">Liên hệ</a></li>
                                 </ul>
@@ -188,7 +188,7 @@
                                 <h6 class="text-uppercase mb-4 font-weight-bold">Tin Tức</h6>
                                 @foreach($listNews as $item)
                                 <p>
-                                    <a class="text-white" href="#">{{$item -> news_name}}</a>
+                                    <a class="text-white" href="{{route('news_detail',['id' => $item->id])}}">{{$item -> news_name}}</a>
                                 </p>
                                 @endforeach
                             </div>

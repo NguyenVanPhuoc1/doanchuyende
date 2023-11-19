@@ -28,25 +28,25 @@ class HomeController extends Controller
     }
 
     // tìm kiếm sản phẩm
-    // public function searchProduct(Request $request){
-    //     $request->validate([
-    //         'searchProduct' => 'required|max:100',
-    //     ]);
-    //     $searchTerm = $request->input('searchProduct');
-    //     if($searchTerm != null){
-    //         $products = DB::table('product')
-    //         ->where('description', 'LIKE', '%'.$searchTerm.'%')
-    //         ->paginate(12);
-    //         dd($products);die();
-    //         if($products->isEmpty()){
-    //             // Nếu không tìm thấy sản phẩm, có thể chuyển thông báo hoặc thực hiện xử lý khác
-    //             $products = "Không tìm thấy sản phẩm";
-    //         }
+    public function searchProduct(Request $request){
+        $request->validate([
+            'searchProduct' => 'required|max:100',
+        ]);
+        $searchTerm = $request->input('searchProduct');
+        if($searchTerm != ''){
+            $products = DB::table('product')
+            ->where('name', 'LIKE', '%'.$searchTerm.'%')
+            ->paginate(12);
+            if($products->isEmpty()){
+                // Nếu không tìm thấy sản phẩm, có thể chuyển thông báo hoặc thực hiện xử lý khác
+                $products = "Không tìm thấy sản phẩm";
+            }
             
-    //     }else{
-    //         $products = "Không tìm thấy sản phẩm";
-    //     }
-    //     return view('frontend.sanpham',compact('products'));
-    // }
+        }else{
+            $products = "Không tìm thấy sản phẩm";
+        }
+        // var_dump($products);die();
+        return view('frontend.sanpham',compact('products'));
+    }
 
 }
