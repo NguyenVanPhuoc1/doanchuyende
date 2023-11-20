@@ -34,7 +34,7 @@ Route::get('/tin-tuc/tin-tuc-{id}', [NewsController::class, 'viewDetailNews'])->
 //Admin quản lí tin tức
 Route::get('/admin/quanlibaiviet/tintuc',[NewsController::class, 'viewAdminTinTuc'] )->name('news_search');
 Route::get('/admin/quanlibaiviet/add-tintuc',[NewsController::class, 'viewPageaddNews'] )->name('view_add_news');
-Route::post('/admin/quanlibaiviet/tintuc', [NewsController::class, 'AddNews'])->name('add-news');
+Route::post('/admin/quanlibaiviet/tintuc/add-tintuc', [NewsController::class, 'AddNews'])->name('add-news');
 Route::get('/admin/quanlibaiviet/tintuc/tin-tuc-{id}',[NewsController::class, 'viewDetailNews'] )->name('admin_view_news');
 Route::post('/admin/quanlibaiviet/tintuc', [NewsController::class, 'updateNews'])-> name('admin-updateNews');
 Route::get('/admin/quanlibaiviet/tintuc/delete', [NewsController::class, 'deleteNews'])->name('deleteNews');//xóa theo checkbox

@@ -38,7 +38,8 @@
                                             <p class="text-split">{{$item -> news_name}}</p>
                                         </div>
                                         <div class="desc_news_index">
-                                            <p class="text-split">{{$item -> news_desc}}</p>
+                                            
+                                            <p class="text-split">{!! $item -> news_desc !!}</p> 
                                         </div>
                                         <div class="btn_more_index">
                                             <a href="{{route('news_detail',['id' => $item->id])}}" class="text-decoration-none tintuc-xemthem">XEM THÊM</a>
