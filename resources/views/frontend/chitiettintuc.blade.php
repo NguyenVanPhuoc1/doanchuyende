@@ -35,7 +35,7 @@
         </div>
         @if($news->news_desc)
             <div class="alert w-100" role="alert">
-                <p>{{$news->news_desc}}</p>
+                <p>{!!$news->news_desc!!}</p>
             </div>
         @else
         <div class="alert alert-warning w-100" role="alert">
@@ -46,7 +46,7 @@
             <b>Chính sách khác :</b>
             <ul class="list-news-other">
                 @foreach($relatedNews as $item)
-                <li><a class="text-decoration-none" href="{{route('news_detail',['id' => $item->id])}}">{{$news->news_name}}</a></li>
+                <li><a class="text-decoration-none" href="{{route('news_detail',['id' => $item->id])}}">{{$item ->news_name}}</a></li>
                 @endforeach
             </ul>
         </div>
