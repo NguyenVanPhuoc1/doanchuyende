@@ -114,9 +114,42 @@ class NewsController extends Controller
                 $filename = 'noimage.png';
             }
             $news->save();
-        }else{
-            dd('lỗi');die();
         }
         return redirect()->route('admin-updateNews')->withSuccess('Sửa Thành công!');
+    }
+
+    //xóa sản phẩm
+    public function deleteNews(Request $request){
+        $type = $request->input('delete_type', 'single');
+        // dd($request->all());
+        if($type == 'single'){
+            // Xóa một bài viết
+            $id = $request->input('selected_ids')[0];
+            // dd($id);die();
+            $news = News::findOrFail($id);
+            $news->delete();
+        } elseif ($type == 'multiple') {
+            // Xóa nhiều bài viết (nếu có các selected_ids được chọn)
+            $selectedIds = $request->input('selected_ids', []);
+
+            if (!empty($selectedIds)) {
+                // Xóa các bài viết với các ID đã chọn
+                News::whereIn('id', $selectedIds)->delete();
+            }
+        } elseif ($type == 'all') {
+            // Xóa tất cả bài viết
+            News::truncate(); 
+        } else {
+            abort(404);
+        }
+
+        return redirect('/admin/quanlibaiviet/tintuc')->withSuccess('Xóa Thành công!');
+    }
+
+    // xóa theo id
+    public function deleteNewsbyId($id){
+        $news = News::findOrFail($id);
+        $news->delete();
+        return redirect('/admin/quanlibaiviet/tintuc')->withSuccess('Xóa Thành công!');
     }
 }

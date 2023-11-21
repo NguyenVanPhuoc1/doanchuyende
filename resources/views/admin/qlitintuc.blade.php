@@ -17,9 +17,9 @@
                                     <i class="fas fa-plus mr-2">
                                     </i>Thêm mới
                                 </a>
-                                <a class="btn btn-sm bg-gradient-danger text-white m-2" id="delete-all" data-url="#" title="Xóa tất cả">
+                                <button class="btn btn-sm bg-gradient-danger text-white m-2" type="button" id="delete-all" data-url="#" title="Xóa tất cả">
                                     <i class="far fa-trash-alt mr-2"></i>Xóa tất cả
-                                </a>
+                                </button>
                             </div>
                             <div class="form-inline form-search d-inline-block align-middle col-lg-3 w-100  mt-2 mb-2">
                                 <form action="{{route('news_search')}}" method="GET" id="news_search" >
@@ -27,7 +27,7 @@
                                         @csrf
                                         <input class="form-control form-control-navbar text-sm" type="search" name="keyword" id="keyword" placeholder="Tìm kiếm" aria-label="Tìm kiếm" required >
                                         <div class="input-group-append bg-primary rounded-right">
-                                            <button class="btn btn-navbar text-white" type="button" onclick="performSearchNews()" >
+                                            <button class="btn btn-navbar text-white" type="button" id="search-button" >
                                                 <i class="fas fa-search"></i>
                                             </button>
                                         </div>
@@ -67,69 +67,75 @@
                     </div>
                 </div>
                 <div class="card-body p-0">
-                    <div class="card-body table-responsive p-0">
-                        @if($newsList->count() > 0)
-                        <table class="table table-hover">
-                            <thead> 
-                                <tr>
-                                    <th class="align-middle" style="width: 5%;">
-                                        <div class="custom-control custom-checkbox my-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="selectall-checkboxtintuc">
-                                            <label for="selectall-checkboxtintuc" class="custom-control-label"></label>
-                                        </div>
-                                    </th>
-                                    <th class="align-middle text-center" style="width: 10%;">STT</th>
-                                    <th class="align-middle text-center">Hình</th>
-                                    <th class="align-middle text-center"style="width: 40%;" >Tiêu Đề</th>
-                                    <th class="align-middle text-center">Nổi Bật</th>
-                                    <th class="align-middle text-center">Thao Tác</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($newsList as $item)
-                                <tr>
-                                    <td class="align-middle">
-                                        <div class="custom-control custom-checkbox my-checkbox">
-                                            <input type="checkbox" class="custom-control-input select-checkbox" id="select-checkbox" value="{{$item->id}}">
-                                            <label for="select-checkbox" class="custom-control-label"></label>
-                                        </div>
-                                    </td>
-                                    <td class="align-middle">
-                                        <!-- biến đếm số thứ tự {{ $loop->index + 1 }}-->
-                                        <p class="text-center m-1">{{ $loop->index + 1 }}</p>
-                                    </td>
-                                    <td class="align-middle text-center">
-                                        <a href="{{route('admin_view_news',['id' => $item->id])}}" title="Bàn ăn">
-                                            <img class="rounded img-preview" src="{{ asset('front/public/image/'.$item -> news_image)}}" alt="{{$item -> news_image}}" style="max-width: 70px; max-height: 55px;">                                        </a>
-                                    </td>
-                                    <td class="align-middle text-center">
-                                        <a class="text-dark text-break" href="{{route('admin_view_news',['id' => $item->id])}}"
-                                            title="{{$item -> news_name}}">{{$item -> news_name}}</a>
-                                    </td>
-                                    <td class="align-middle text-center">
-                                        <div class="custom-control custom-checkbox my-checkbox">
-                                            <input type="checkbox" class="custom-control-input show-checkbox" id="show-checkbox-hienthi-{{$item->id}}"
-                                                data-table="product_list" data-id="{{$item->id}}" data-attr="hienthi" checked="">
-                                            <label for="show-checkbox-hienthi-{{$item->id}}" class="custom-control-label"></label>
-                                        </div>
-                                    </td>
-                                    <td class="align-middle text-center text-md text-nowrap">
-                                        <a class="text-primary mr-2" href="{{route('admin_view_news',['id' => $item->id])}}"
-                                            title="Chỉnh sửa"><i class="fas fa-edit"></i></a>
-                                        <a class="text-danger" id="delete-item" href="#"  title="Xóa"><i
-                                                class="fas fa-trash-alt"></i></a>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                        {{$newsList->appends(request()->query())->links('pagination::bootstrap-4')}}
-                        @else
-                        <div class="alert alert-warning w-100 text-center" role="alert">
-                            <strong>News article not found</strong>
-                        </div>  
-                        @endif
-                    </div>
+                    <form action="{{route('deleteNews')}}" method="get" id="delete-form">
+                    @csrf
+                        <input type="hidden" name="delete_type" id="delete_type" value="single">
+                        <div class="card-body table-responsive p-0">
+                            @if($newsList->count() > 0)
+                            <table class="table table-hover">
+                                <thead> 
+                                    <tr>
+                                        <th class="align-middle" style="width: 5%;">
+                                            <div class="custom-control custom-checkbox my-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="selectall-checkboxtintuc">
+                                                <label for="selectall-checkboxtintuc" class="custom-control-label"></label>
+                                            </div>
+                                        </th>
+                                        <th class="align-middle text-center" style="width: 10%;">STT</th>
+                                        <th class="align-middle text-center">Hình</th>
+                                        <th class="align-middle text-center"style="width: 40%;" >Tiêu Đề</th>
+                                        <th class="align-middle text-center">Nổi Bật</th>
+                                        <th class="align-middle text-center">Thao Tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($newsList as $item)
+                                    <tr>
+                                        <td class="align-middle">
+                                            <div class="custom-control custom-checkbox my-checkbox">
+                                                <input type="checkbox" class="custom-control-input select-checkbox" name="selected_ids[]" id="select-checkbox-{{$item->id}}" value="{{$item->id}}">
+                                                <label for="select-checkbox-{{$item->id}}" class="custom-control-label"></label>
+                                            </div>
+                                        </td>
+                                        <td class="align-middle">
+                                            <!-- biến đếm số thứ tự {{ $loop->index + 1 }}-->
+                                            <p class="text-center m-1">{{ $loop->index + 1 }}</p>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <a href="{{route('admin_view_news',['id' => $item->id])}}" title="Bàn ăn">
+                                                <img class="rounded img-preview" src="{{ asset('front/public/image/'.$item -> news_image)}}" alt="{{$item -> news_image}}" style="max-width: 70px; max-height: 55px;">                                        </a>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <a class="text-dark text-break" href="{{route('admin_view_news',['id' => $item->id])}}"
+                                                title="{{$item -> news_name}}">{{$item -> news_name}}</a>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <div class="custom-control custom-checkbox my-checkbox">
+                                                <input type="checkbox" class="custom-control-input show-checkbox" id="show-checkbox-noibat-{{$item->id}}"
+                                                    data-table="product_list" data-id="{{$item->id}}" data-attr="noibat" checked="">
+                                                <label for="show-checkbox-noibat-{{$item->id}}" class="custom-control-label"></label>
+                                            </div>
+                                        </td>
+                                        <td class="align-middle text-center text-md text-nowrap">
+                                            <a class="text-primary mr-2" href="{{route('admin_view_news',['id' => $item->id])}}"
+                                                title="Chỉnh sửa"><i class="fas fa-edit"></i></a>
+                                            <a class="text-danger" id="delete-item" href="{{route('deleteNewsbyId',['id' => $item->id ])}}"  title="Xóa"><i
+                                                    class="fas fa-trash-alt"></i></a>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <div class="pagination justify-content-center">
+                                {{$newsList->appends(request()->query())->links('pagination::bootstrap-4')}}
+                            </div>
+                            @else
+                            <div class="alert alert-warning w-100 text-center" role="alert">
+                                <strong>News article not found</strong>
+                            </div>  
+                            @endif
+                        </div>
+                    </form>       
                 </div>
             <!-- /.card-body -->
             </div>
@@ -137,7 +143,7 @@
 
         </section>
         <!-- /.content -->
-    </div>
+</div>
     <!-- difference here -->
     
     <!-- Modal xóa tất cả -->
@@ -151,7 +157,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    Bạn có chắc chắn muốn xóa tất cả các bài viết không?
+                    Bạn có chắc chắn muốn xóa tất cả các bài viết đã được chọn không?
                 </div>
                 <div class="modal-footer">
                     <button id="confirmDelete" type="button" class="btn btn-danger">Yes</button>
@@ -160,6 +166,12 @@
             </div>
         </div>
     </div>
+    <!--   Hiện thông báo  -->
+    @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+    @endif
 
 @endsection
 
@@ -170,15 +182,35 @@
     $(document).ready(function() {
         $('#selectall-checkboxtintuc').change(function() {
             $('.select-checkbox').prop('checked', this.checked);
+
+            if (this.checked) {
+                $('#delete_type').val('all');
+            } else {
+                $('#delete_type').val('single');
+            }
         });
 
         $('.select-checkbox').change(function() {
-            if ($('.select-checkbox:checked').length === $('.select-checkbox').length) {
-                $('#selectall-checkbox1').prop('checked', true);
+            // huy click đi
+            $('#selectall-checkboxtintuc').prop('checked', false);
+
+            if ($('.select-checkbox:checked').length > 1) {
+                $('#delete_type').val('multiple');
             } else {
-                $('#selectall-checkbox1').prop('checked', false);
-            }
+                $('#delete_type').val('single');
+            }    
         });
+    });
+
+    // Đặt sự kiện khi nút "Xóa tất cả" được nhấp
+    $('#confirmDelete').click(function() {
+        // Kiểm tra xem có ít nhất một checkbox nào đó được chọn không
+        if ($('.select-checkbox:checked').length > 0) {
+            // Gửi biểu mẫu để xử lý xóa
+            $('#delete-form').submit();
+        } else {
+            alert('Vui lòng chọn ít nhất một bài viết để xóa.');
+        }
     });
 
 
@@ -196,5 +228,10 @@
         // Nếu có giá trị, gửi form
         document.getElementById('news_search').submit();
     }
+
+    document.getElementById('news_search').addEventListener('submit', function(event) {
+        event.preventDefault(); 
+        performSearchNews()
+    });
 </script>
 @endsection
