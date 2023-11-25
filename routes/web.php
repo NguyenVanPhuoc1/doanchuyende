@@ -35,9 +35,10 @@ Route::get('/admin/quanlibaiviet/tintuc',[NewsController::class, 'viewAdminTinTu
 Route::get('/admin/quanlibaiviet/add-tintuc',[NewsController::class, 'viewPageaddNews'] )->name('view_add_news');
 Route::post('/admin/quanlibaiviet/tintuc/add-tintuc', [NewsController::class, 'AddNews'])->name('add-news');
 Route::get('/admin/quanlibaiviet/tintuc/tin-tuc-{id}',[NewsController::class, 'viewDetailNews'] )->name('admin_view_news');
-Route::post('/admin/quanlibaiviet/tintuc', [NewsController::class, 'updateNews'])-> name('admin-updateNews');
+Route::post('/admin/quanlibaiviet/tintuc/update-tintuc', [NewsController::class, 'updateNews'])-> name('admin-updateNews');
 Route::get('/admin/quanlibaiviet/tintuc/delete', [NewsController::class, 'deleteNews'])->name('deleteNews');//xóa theo checkbox
 Route::get('/admin/quanlibaiviet/tintuc/delete/{id}', [NewsController::class, 'deleteNewsbyId'])->name('deleteNewsbyId');//xóa khi có id
+Route::get('/admin/quanlibaiviet/tintuc/tin-tuc-{id}/update-noibat', [NewsController::class, 'checkNoiBat'])->name('news.update-noibat');
 
 //Chính sách
 use App\Http\Controllers\PolicyController;
@@ -58,3 +59,11 @@ Route::get('/admin/quanlichinhsach/chinhsach/delete/{id}', [PolicyController::cl
 
 use App\Http\Controllers\IntroductPageController;
 Route::get('/gioi-thieu', [IntroductPageController::class, 'viewIntroducePage']);
+
+use App\Http\Controllers\SendMailController;
+// Page trang chủ
+Route::post('/', [SendMailController::class, 'AddCustomer'])->name('add-customer');
+//page quan lí nhận tin admin
+Route::get('/admin/quanlinhantin', [SendMailController::class, 'viewPageQliNhanTin']);
+Route::get('/admin/quanlibaiviet/customer/delete', [SendMailController::class, 'totalCustomer'])->name('delete_send_Customer');
+Route::get('/admin/quanlinhantin/customer/delete/{id}', [SendMailController::class, 'deleteCustomerbyId'])->name('deleteCusbyId');
