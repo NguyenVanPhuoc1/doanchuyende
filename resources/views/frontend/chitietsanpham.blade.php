@@ -4,6 +4,27 @@
 
 @section('body')
         <!-- Body -->
+        <div class="breadCrumbs">
+            <div class="wrap-content">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a class="text-decoration-none" href="{{ url('/') }}">
+                            <span>Trang chủ</span>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a class="text-decoration-none" href="{{ url('/san-pham') }}">
+                            <span>Sản phẩm</span>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a class="text-decoration-none active" href="{{ url('/chitietsanpham/' . $product->id) }}">
+                            <span>{{ $product->id }}</span>
+                        </a>
+                    </li>
+                </ol>
+            </div>
+        </div>
         <main style="background-color: white">
         <div class="wrap-info wrap-content pt-5 pb-5">
             <div class="wrap-pro-detail">
