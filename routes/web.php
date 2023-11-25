@@ -20,11 +20,10 @@ Route::get('/get-products/{categoryId}', [HomeController::class, 'getProductbyCa
 
 
 // Hưng
-
 use App\Http\Controllers\ProductController;
-// Route::get('/san-pham', [ProductController::class, 'index']);
 Route::get('/san-pham', [ProductController::class, 'index'])->name('products.index');
 Route::get('/chitietsanpham/{id}', [ProductController::class, 'show'])->name('products.show');
+Route::get('/a', [ProductController::class, 'indexAdmin'])->name('productsAdmin.show');
 
 use App\Http\Controllers\NewsController;
 //Page Tin Tức

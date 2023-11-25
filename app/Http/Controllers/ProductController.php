@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Category;
 
 class ProductController extends Controller
 {
@@ -17,5 +18,12 @@ class ProductController extends Controller
     {
     $product = Product::findOrFail($id);
     return view('frontend.chitietsanpham', ['product' => $product]);
+    }
+
+    public function indexAdmin()
+    {
+        $products = Product::all();
+        $categories = Category::all();
+        return view('admin.qlsanpham', ['products' => $products], ['categories' => $categories]);
     }
 }
