@@ -79,12 +79,17 @@ class NewsController extends Controller
     public function AddNews(Request $request)
     { 
         $request->validate([
-            'news_name' => 'required|max:500',
+            'news_name' => 'required|max:500|unique:news,news_name',
         ]);
         if($request->hasFile('fileToUpload')){
             $file = $request->file('fileToUpload');
-            $filename = $file->getClientOriginalName();
-            $file->move('front/public/image/',$filename);
+            $filename = strtolower($file->getClientOriginalName());
+            if(pathinfo($filename, PATHINFO_EXTENSION) === 'jpg' || pathinfo($filename, PATHINFO_EXTENSION) === 'png'){
+                $file->move('front/public/image/',$filename);
+            }
+            else{
+                $filename = 'noimage.png';
+            }
         }else{
             $filename = 'noimage.png';
         }
@@ -99,29 +104,36 @@ class NewsController extends Controller
         // Lấy ID từ request
         $newsId = $request->input('news_id');
         // Kiểm tra xem tin tức có tồn tại không
-        $news = News::find($newsId);
-        if(!$news){
+        $news = News::find($newsId); 
+        if($news){
             $request->validate([
                 'news_name' => 'required|max:500',
             ]);
             $news->news_name = $request->input('news_name');
             $news->news_desc = $request->input('contentvi');
-            if($request->hasFile('fileToUpload')){
+            if($request->hasFile('fileToUpload') ){
                 $file = $request->file('fileToUpload');
-                $filename = $file->getClientOriginalName();
-                $file->move('front/public/image/',$filename);
-            }else{
+                $filename = strtolower($file->getClientOriginalName());
+                if(pathinfo($filename, PATHINFO_EXTENSION) === 'jpg' || pathinfo($filename, PATHINFO_EXTENSION) === 'png'){
+                    $file->move('front/public/image/',$filename);
+                }
+                else{
+                    $filename = 'noimage.png';
+                }
+            }
+            else{
                 $filename = 'noimage.png';
             }
+            $news->news_image = $filename;
             $news->save();
         }
-        return redirect()->route('admin-updateNews')->withSuccess('Sửa Thành công!');
+        return redirect('/admin/quanlibaiviet/tintuc')->withSuccess('Sửa Thành công!');
     }
 
     //xóa sản phẩm
     public function deleteNews(Request $request){
         $type = $request->input('delete_type', 'single');
-        // dd($request->all());
+
         if($type == 'single'){
             // Xóa một bài viết
             $id = $request->input('selected_ids')[0];
@@ -151,5 +163,24 @@ class NewsController extends Controller
         $news = News::findOrFail($id);
         $news->delete();
         return redirect('/admin/quanlibaiviet/tintuc')->withSuccess('Xóa Thành công!');
+    }
+    // checkbox nổi bật
+    public function checkNoiBat(Request $request, $id){
+        try {
+            $news = News::findOrFail(intval($id));
+            // dd($news->noi_bat);die();
+            if($request->input('noi_bat') == 'true'){
+                $news->noi_bat = 1;// Nếu không có giá trị, đặt mặc định là false
+            }else{
+                $news->noi_bat = 0;// Nếu không có giá trị, đặt mặc định là false
+            }
+            $news->save();
+            // dd($news);die();
+            // Trả về phản hồi thành công
+            return response()->json(['message' => 'Cập nhật trạng thái nổi bật thành công.'], 200);
+        } catch (\Exception $e) {
+            // Xử lý lỗi và trả về phản hồi lỗi
+            return response()->json(['error' => 'Có lỗi xảy ra khi cập nhật trạng thái nổi bật.']);
+        } 
     }
 }

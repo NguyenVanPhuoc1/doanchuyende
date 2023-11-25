@@ -144,19 +144,19 @@ class DatabaseSeeder extends Seeder
         DB::table('customer')->insert([
             [
                 'cus_name' => 'Cus1',
-                'cus_email' => 'cus1@gmail.com',
+                'email' => 'cus1@gmail.com',
                 'cus_phone' => '0159357862',
                 'cus_content' => 'No comment'
             ],
             [
                 'cus_name' => 'Cus2',
-                'cus_email' => 'cus2@gmail.com',
+                'email' => 'cus2@gmail.com',
                 'cus_phone' => '0159357862',
                 'cus_content' => 'No comment'
             ],
             [
                 'cus_name' => 'Cus3',
-                'cus_email' => 'cus3@gmail.com',
+                'email' => 'cus3@gmail.com',
                 'cus_phone' => '0159357862',
                 'cus_content' => 'No comment'
             ],

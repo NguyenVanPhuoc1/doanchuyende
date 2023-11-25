@@ -112,7 +112,8 @@
                                         <td class="align-middle text-center">
                                             <div class="custom-control custom-checkbox my-checkbox">
                                                 <input type="checkbox" class="custom-control-input show-checkbox" id="show-checkbox-noibat-{{$item->id}}"
-                                                    data-table="product_list" data-id="{{$item->id}}" data-attr="noibat" checked="">
+                                                    data-table="product_list" data-id="{{$item->id}}" data-attr="noibat" {{ $item->noi_bat ? 'checked' : '' }}
+                                                    onchange="updateNoiBat({{$item->id}})" >
                                                 <label for="show-checkbox-noibat-{{$item->id}}" class="custom-control-label"></label>
                                             </div>
                                         </td>
@@ -233,5 +234,30 @@
         event.preventDefault(); 
         performSearchNews()
     });
+    document.getElementById('search-button').addEventListener('click', function(event) {
+        event.preventDefault(); 
+        performSearchNews()
+    });
+
+    function updateNoiBat(newsId) {
+        var isChecked = $('#show-checkbox-noibat-' + newsId).prop('checked');
+        $.ajax({
+            url: '/admin/quanlibaiviet/tintuc/tin-tuc-' + newsId + '/update-noibat',
+            type: 'get',
+            data: {
+                _token: '{{ csrf_token() }}',
+                noi_bat: isChecked
+            },
+            success: function (response) {
+                console.log(response    );
+                // Có thể thêm các xử lý khác sau khi cập nhật thành công
+                
+            },
+            error: function (error) {
+                console.log('Có lỗi xảy ra: ' + error.statusText);
+                // Xử lý lỗi nếu cần thiết
+            }
+        });
+    }
 </script>
 @endsection

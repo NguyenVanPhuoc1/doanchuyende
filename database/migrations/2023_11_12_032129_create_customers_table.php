@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('customer', function (Blueprint $table) {
             $table->id();
             $table->string('cus_name');//tên
-            $table->string('cus_email')->unique();//email
-            $table->string('cus_phone',10);//số điện thoại
-            $table->string('cus_content');//nội dung
+            $table->string('email')->unique();//email
+            $table->string('cus_phone',10)->nullable();//số điện thoại
+            $table->string('cus_content')->nullable();//nội dung
             $table->timestamps();
         });
     }

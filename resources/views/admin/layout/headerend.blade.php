@@ -171,7 +171,7 @@
         <ul class="navbar-nav ml-auto">
             <!-- Reply Main Layout -->
             <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{url('/')}}" target="_blank" class="nav-link">
                     <i class="fas fa-reply"></i>
                     Trang chủ
                 </a>
@@ -283,13 +283,12 @@
                             </li>
                         </ul>
                     </li>
-                    @if(request()->is('admin/quanlibaiviet/*'))
                     <li class="nav-item menu-is-opening menu-open">
-                        <a href="#" class="nav-link active">
+                        <a href="#" class="nav-link ">
                             <i class="nav-icon fas fa-chart-pie"></i>
                             <p>
                                 Quản lí bài viết
-                                <i class="right fas fa-angle-left"></i>
+                                <i class="right fas fa-angle-left right"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview d-block">
@@ -307,23 +306,14 @@
                             </li>
                         </ul>
                     </li>
-                    @endif
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{url('admin/quanlinhantin')}}" class="nav-link {{ request()->is('admin/quanlinhantin*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-tree"></i>
                             <p>
                                 Quản lí nhận tin
-                                <i class="fas fa-angle-left right"></i>
+                                <!-- <i class="fas fa-angle-left right" ></i> -->
                             </p>
                         </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Đăng kí nhận tin</p>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
@@ -455,6 +445,18 @@
 <!-- <script src="../admin/dist/js/pages/dashboard.js"></script> -->
 <script src="{{ asset('admin/dist/js/filterjs/jquery.filer.min.js')}}" type="text/javascript"></script>
 <script src="{{ asset('admin/dist/js/filterjs/custom.js')}}" type="text/javascript"></script>
+
+<script src="{{ asset('js/app.js') }}"></script>
+<script>
+        // Lắng nghe sự kiện 'UserRegistered' trên kênh 'admin-notifications'
+        window.Echo.channel('admin-notifications')
+            .listen('UserRegistered', (event) => {
+                // Xử lý sự kiện khi có người dùng đăng ký mới
+                console.log('Admin Notification:', event.message);
+                alert('1');
+                // Hiển thị thông báo hoặc thực hiện các xử lý khác
+            });
+    </script>
 
 <!-- difference here -->
 @yield('javascript')
