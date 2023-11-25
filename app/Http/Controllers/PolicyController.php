@@ -96,25 +96,38 @@ class PolicyController extends Controller
     //sửa news
     public function updatePolicys(Request $request){
         // Lấy ID từ request
-        $policyId = $request->input('poli_id');
-        // Kiểm tra xem tin tức có tồn tại không
-        $policy = Policy::find($policyId);
-        if(!$policy){
-            $request->validate([
-                'poli_name' => 'required|max:500',
-            ]);
-            $policy->poli_name = $request->input('poli_name');
-            $Policy->poli_desc = $request->input('contentvi');
-            if($request->hasFile('fileToUpload')){
-                $file = $request->file('fileToUpload');
-                $filename = $file->getClientOriginalName();
-                $file->move('front/public/image/',$filename);
-            }else{
-                $filename = 'noimage.png';
-            }
-            $policy->save();
+    $policyId = $request->input('poli_id');
+    // Kiểm tra xem policy có tồn tại không
+    $policy = Policy::find($policyId);
+    if($policy){
+        // Validate dữ liệu trước khi cập nhật
+        $request->validate([
+            'poli_name' => 'required|max:500',
+            // Thêm các rule validation khác nếu cần thiết
+        ]);
+
+        // Cập nhật thông tin của policy
+        $policy->poli_name = $request->input('poli_name');
+        $policy->poli_desc = $request->input('contentvi');
+
+        if($request->hasFile('fileToUpload')){
+            $file = $request->file('fileToUpload');
+            $filename = $file->getClientOriginalName();
+            $file->move('front/public/image/', $filename);
+            $policy->image_path = 'front/public/image/' . $filename; // Giả sử có trường lưu đường dẫn ảnh
+        } else {
+            $filename = 'noimage.png';
+            // Cập nhật lại đường dẫn ảnh nếu cần thiết
+            // $policy->image_path = 'front/public/image/' . $filename;
         }
-        return redirect()->route('admin-updatePolicys')->withSuccess('Sửa Thành công!');
+
+        $policy->save();
+        return redirect()->route('admin-updatePolicys')->withSuccess('Cập nhật thành công!');
+    } else {
+        // Xử lý khi policy không tồn tại
+        // Trả về thông báo hoặc thực hiện hành động phù hợp
+        return redirect()->route('admin-updatePolicys')->withError('Policy không tồn tại!');
+    }
     }
 
     //xóa sản phẩm
