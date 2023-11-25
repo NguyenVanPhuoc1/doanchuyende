@@ -114,11 +114,9 @@ class PolicyController extends Controller
             $file = $request->file('fileToUpload');
             $filename = $file->getClientOriginalName();
             $file->move('front/public/image/', $filename);
-            $policy->image_path = 'front/public/image/' . $filename; // Giả sử có trường lưu đường dẫn ảnh
+            $policy->poli_image = $filename;
         } else {
             $filename = 'noimage.png';
-            // Cập nhật lại đường dẫn ảnh nếu cần thiết
-            // $policy->image_path = 'front/public/image/' . $filename;
         }
 
         $policy->save();

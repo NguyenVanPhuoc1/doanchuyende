@@ -45,7 +45,7 @@
         <div class="share othernews mb-3">
             <b>Chính sách khác :</b>
             <ul class="list-news-other">
-                @foreach($relatedpolicy as $item)
+                @foreach($relatedPolicys as $item)
                 <li><a class="text-decoration-none" href="{{route('news_detail',['id' => $item->id])}}">{{$policy->poli_name}}</a></li>
                 @endforeach
             </ul>

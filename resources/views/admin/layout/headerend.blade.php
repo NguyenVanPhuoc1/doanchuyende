@@ -163,7 +163,7 @@
                 <a href="#" class="nav-link">Home</a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="#" class="nav-link">Đăng xuất</a>
+                <a href="{{route('signout')}}" class="nav-link">Đăng xuất</a>
             </li>
         </ul>
 
@@ -283,9 +283,8 @@
                             </li>
                         </ul>
                     </li>
-                    @if(request()->is('admin/quanlibaiviet/*'))
                     <li class="nav-item menu-is-opening menu-open">
-                        <a href="#" class="nav-link active">
+                        <a class="nav-link">
                             <i class="nav-icon fas fa-chart-pie"></i>
                             <p>
                                 Quản lí bài viết
@@ -300,14 +299,13 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{url('admin/quanlichinhsach/chinhsach')}}" class="nav-link {{ request()->is('admin/quanlichinhsach/chinhsach*') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Chính Sách</p>
                                 </a>
                             </li>
                         </ul>
                     </li>
-                    @endif
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-tree"></i>
