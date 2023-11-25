@@ -3,30 +3,47 @@
 @section('title', 'Quản Lí Sản Phẩm')
 
 @section('body')
-<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper addproduct" id="themsanpham">
+    <script>
+        var products = @json($products);
+        var categories = @json($categories);
+    </script>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper qlisanpham" id="qlisanpham">
         <!-- Content Header (Page header) -->
-        <section class="content-header ">
+        <section class="content-header">
             <div class="container-fluid">
-                <div class="row mb-2 ">
+                <div class="row mb-2">
                     <div class=" col-md-12 ">
                         <h1>Quản Lí</h1>
                         <div class="row">
                             <div class="d-flex">
-                                <a class="btn btn-sm bg-gradient-primary text-white m-2" href="#" title="Thêm mới">
-                                    <i class="fas fa-save mr-2">
-                                    </i>Lưu
+                                <a class="btn btn-sm bg-gradient-primary text-white m-2" href="/them-san-pham"
+                                    title="Thêm mới">
+                                    <i class="fas fa-plus mr-2">
+                                    </i>Thêm mới
                                 </a>
-                                <a class="btn btn-sm bg-gradient-danger text-white m-2" id="delete-all" data-url="#" title="Xóa tất cả">
-                                    <i class="fas fa-sign-out-alt mr-2"></i>Thoát
+                                <a class="btn btn-sm bg-gradient-danger text-white m-2" id="delete-all" data-url="#"
+                                    title="Xóa tất cả">
+                                    <i class="far fa-trash-alt mr-2"></i>Xóa tất cả
                                 </a>
+                            </div>
+                            <div class="form-inline form-search d-inline-block align-middle col-lg-3 w-100  mt-2 mb-2">
+                                <div class="input-group input-group-sm">
+                                    <input class="form-control form-control-navbar text-sm" type="search" id="keyword"
+                                        placeholder="Tìm kiếm" aria-label="Tìm kiếm" value="" onkeypress="">
+                                    <div class="input-group-append bg-primary rounded-right">
+                                        <button class="btn btn-navbar text-white" type="button" onclick="">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-12">
                         <ol class="breadcrumb float-sm-left">
                             <li class="breadcrumb-item"><a href="index.php">Bảng Điều Khiển</a></li>
-                            <li class="breadcrumb-item active">Thêm mới Tin Tức</li>
+                            <li class="breadcrumb-item active">Quản lí Sản Phẩm</li>
                         </ol>
                     </div>
                 </div>
@@ -34,140 +51,138 @@
         </section>
 
         <!-- Main content -->
-        <section class="content">
-            <form action="#" class="validation-form" method="post" enctype="multipart/form-data">
-                <!-- Default box -->
-                <div class="row">
-                    <div class="col-xl-8">
-                        <div class="card card-primary card-outline text-sm mb-0">
-                            <div class="card-header">
-                                <h3 class="card-title">Nội dung Tin Tức</h3>
-                            </div>
-                            <!-- card-body table-responsive p-0 -->
-                            <div class="card-body ">
-                                
-                                <div class="card card-primary card-outline card-outline-tabs">
-                                    <div class="card-header p-0 border-bottom-0">
-                                        <ul class="nav nav-tabs" id="custom-tabs-three-tab-lang" role="tablist">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" id="tabs-lang" data-toggle="pill" href="#tabs-lang-vi" role="tab"
-                                                    aria-controls="tabs-lang-vi" aria-selected="true">Tiếng Việt</a>
-                                            </li>                
-                                        </ul>
-                                    </div>
-                                    <div class="card-body card-article">
-                                        <div class="tab-content" id="custom-tabs-three-tabContent-lang">
-                                            <div class="tab-pane fade show active" id="tabs-lang-vi" role="tabpanel" aria-labelledby="tabs-lang">
-                                                <div class="form-group">
-                                                    <label for="news_name">Tên Tin Tức (vi):</label>
-                                                    <input type="text" class="form-control for-seo text-sm" name="data[news_name]" id="news_name" placeholder="Tên Tin Tức (vi)" value="" required="">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="namevi">Nội dung (vi):</label>
-                                                    <textarea name="contentvi" id="contentvi" cols="10" rows="80" ></textarea>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>  
-                    </div>
-                    <div class="col-xl-4">
-                        <div class="card card-primary card-outline text-sm">
-                            <div class="card-header">
-                                <h3 class="card-title">Hình ảnh Tin Tức</h3>
-                                <div class="card-tools">
-                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-                                </div>
-                            </div>
-                            <div class="card-body text-center">
-                                <div class="photoUpload-zone">
-                                    <div class="photoUpload-detail mb-3 justify-content-center d-flex"  >
-                                        <img class="rounded" src="{{ asset('admin/image/noimage.png')}}"
-                                        alt="Alt Photo" id="photoUpload-preview" style="border: 1px solid black;"  >
-                                    </div>
-                                    <label class="photoUpload-file" id="photo-zone" for="fileToUpload">
-                                        <input type="file" name="fileToUpload" id="fileToUpload">
-                                        <i class="fas fa-cloud-upload-alt"></i>
-                                        <p class="photoUpload-drop">Kéo và thả hình vào đây</p>
-                                        <p class="photoUpload-or">hoặc</p>
-                                        <p class="photoUpload-choose btn btn-sm bg-gradient-success">Chọn hình</p> 
-                                    </label> 
-                                    <div class="photoUpload-dimension">Width: 565 px - Height: 545 px (.jpg|.gif|.png|.jpeg|.gif)</div> 
+        <section class="container-fluid content">
+            <!-- Danh mục -->
+            <div class="card-footer form-group-category text-sm bg-light row">
+                <div class="form-group col-xl-2 col-lg-3 col-md-4 col-sm-4 mb-2">
+                    <select id="id_list" name="id_list" onchange="displayProducts(this.value)"
+                        class="form-control filter-category select2 select2-hidden-accessible" data-select2-id="id_list"
+                        tabindex="-1" aria-hidden="true">
+                        @isset($categories)
+                            <option value="0" data-select2-id="2">Chọn danh mục</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->cate_name }}</option>
+                            @endforeach
+                        @endisset
+                    </select>
+                </div>
+            </div>
+            <!-- Danh mục  -->
+            <!-- Default box -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Danh Sách sản phẩm </h3>
 
-                                </div>
-                            </div>
-                        </div>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                            <i class="fas fa-times"></i>
+                        </button>
                     </div>
                 </div>
-                
-                <!-- /.card -->
-            </form>
+
+                @isset($products)
+                    <div class="card-body p-0">
+                        <div class="card-body table-responsive p-0">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="align-middle" style="width: 5%;">
+                                            <div class="custom-control custom-checkbox my-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="selectall-checkbox1">
+                                                <label for="selectall-checkbox1" class="custom-control-label"></label>
+                                            </div>
+                                        </th>
+                                        <th class="align-middle text-center" style="width: 10%;">STT</th>
+                                        <th class="align-middle text-center">Ảnh</th>
+                                        <th class="align-middle" style="width: 30%;">Tên SP</th>
+                                        <th class="align-middle text-center" style="width: 20%;">Danh mục</th>
+                                        <th class="align-middle text-center">Nổi Bật</th>
+                                        <th class="align-middle text-center">Thao Tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{-- Duyệt và hiển thị ra danh sách sản phẩm xuống bảng sản phẩm  --}}
+                                    @foreach ($products as $product)
+                                        <tr categoryID="{{ $product->cate_id }}">
+                                            <td class="align-middle">
+                                                <div class="custom-control custom-checkbox my-checkbox">
+                                                    <input type="checkbox" class="custom-control-input select-checkbox"
+                                                        id="select-checkbox" value="14">
+                                                    <label for="select-checkbox" class="custom-control-label"></label>
+                                                </div>
+                                            </td>
+                                            <td class="align-middle">
+                                                <p class="text-center m-1">{{ $product->id }}</p>
+                                            </td>
+                                            <td class="align-middle text-center">
+                                                <a href="#" title="Bàn ăn">
+                                                    <img class="rounded img-preview"
+                                                        src="{{ asset('front/public/image/' . $product->image) }}"
+                                                        alt="Ảnh sản phẩm" style="max-width: 70px; max-height: 55px;"> </a>
+                                            </td>
+                                            <td class="align-middle">
+                                                <a class="text-dark text-break" href="#S">{{ $product->name }}</a>
+                                            </td>
+                                            <td class="align-middle">
+                                                <p class="text-center">{{ $product->cate_id }}</p>
+                                            </td>
+                                            <td class="align-middle text-center">
+                                                <div class="custom-control custom-checkbox my-checkbox">
+                                                    <input type="checkbox" class="custom-control-input show-checkbox"
+                                                        id="show-checkbox-hienthi-14" data-table="product_list"
+                                                        data-id="14" data-attr="hienthi" checked="">
+                                                    <label for="show-checkbox-hienthi-14"
+                                                        class="custom-control-label"></label>
+                                                </div>
+                                            </td>
+                                            <td class="align-middle text-center text-md text-nowrap">
+                                                <a class="text-primary mr-2" href="#" title="Chỉnh sửa"><i
+                                                        class="fas fa-edit"></i></a>
+                                                <a class="text-danger" id="delete-item" href="#" title="Xóa"><i
+                                                        class="fas fa-trash-alt"></i></a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                @endisset
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
         </section>
         <!-- /.content -->
-    </div>  
-
+    </div>
 @endsection
 
 @section('javascript')
-<!-- Tạo thư viện classEditor -->
-<script>
-        ClassicEditor
-            .create(document.querySelector('#contentvi'))
-            .catch(error => {
-                console.error(error);
-            });
-
-        // Kéo và láy ảnh
-            // Lấy tham chiếu đến các phần tử cần sử dụng
-        const dropzone = document.getElementById('photo-zone');
-        const fileInput = document.getElementById('fileToUpload');
-        const imagePreview = document.getElementById('photoUpload-preview');
-
-
-        fileInput.addEventListener('change', () => {
-            const selectedFile = fileInput.files[0];
-
-            if (selectedFile) {
-                const reader = new FileReader();
-
-                reader.onload = function () {
-                    imagePreview.src = reader.result;
-                    imagePreview.style.display = 'block';
-                }
-
-                reader.readAsDataURL(selectedFile);
+    <script>
+        const tableRows = document.querySelectorAll('.card-body.table-responsive.p-0 table.table-hover tbody tr');
+        var products = @json($products);
+        var categories = @json($categories);
+        var productId;
+        function displayProducts(categoryId) {
+            if (categoryId == 0) {
+                tableRows.forEach(function(row) {
+                    row.classList.remove('d-none'); 
+                });
+                return;
+            } else {
+                tableRows.forEach(function(row) {
+                    product_cate_id = row.getAttribute("categoryID");
+                    console.log(product_cate_id);
+                    if (product_cate_id != categoryId) {
+                        row.classList.add('d-none');
+                    } else {
+                        row.classList.remove('d-none');
+                    }
+                });
             }
-        });
-
-        dropzone.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            dropzone.classList.add('scale');
-        });
-
-        dropzone.addEventListener('dragleave', (e) => {
-            e.preventDefault();
-            dropzone.classList.remove('scale');
-        });
-
-        dropzone.addEventListener('drop', (e) => {
-            e.preventDefault();
-            // dropzone.style.borderColor = '#cccccc';
-            const file = e.dataTransfer.files[0];
-
-            if (file) {
-                const reader = new FileReader();
-
-                reader.onload = function () {
-                    imagePreview.src = reader.result;
-                    imagePreview.style.display = 'block';
-                }
-
-                reader.readAsDataURL(file);
-            }
-        });
-
+        }
     </script>
-
 @endsection
