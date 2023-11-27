@@ -30,11 +30,11 @@
                             <div class=" col-12 col-lg-6 ">
                                 <!-- item news -->
                                 <div class="item_news d-flex slick-slider">
-                                    <a href="" class="hover_sang2 d-block col-4">
+                                    <a href="{{route('policy_detail',['id' => $item->id])}}" class="hover_sang2 d-block col-4">
                                         <img src="{{ asset('front/public/image/'.$item -> poli_image)}}" alt="{{$item -> poli_image}}">
                                     </a>
                                     <div class="content_news_index col-8">
-                                        <div class="name_news_index">
+                                        <div class="name_news_index" >
                                             <p class="text-split">{{$item -> poli_name}}</p>
                                         </div>
                                         <div class="desc_news_index">

@@ -16,8 +16,7 @@
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
         </div>
-        <!-- /.content-header -->
-    
+        <!-- /.content-header -->   
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
@@ -28,7 +27,6 @@
                         <div class="small-box bg-info">
                             <div class="inner">
                                 <!-- <h3>150</h3> -->
-    
                                 <p>Đổi Mật Khẩu</p>
                             </div>
                             <div class="icon">
@@ -43,7 +41,6 @@
                         <div class="small-box bg-success">
                             <div class="inner">
                                 <!-- <h3>53<sup style="font-size: 20px">%</sup></h3> -->
-    
                                 <p>Thư Liên Hệ</p>
                             </div>
                             <div class="icon">
