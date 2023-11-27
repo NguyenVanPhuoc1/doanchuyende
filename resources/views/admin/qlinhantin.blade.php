@@ -14,7 +14,7 @@
                         <h1>Quản Lí</h1>
                         <div class="row">
                             <div class="d-flex">
-                                <a class="btn btn-sm bg-success text-white m-2" href="#" title="Thêm mới">
+                                <a class="btn btn-sm bg-success text-white m-2" id="send-all" title="sendmail">
                                     <i class="fas fa-paper-plane mr-2">
                                     </i>Gửi Email
                                 </a>
@@ -49,6 +49,9 @@
         </section>
 
         <!-- Main content -->
+    <form action="{{route('delete_send_Customer')}}" method="get" id="delete-form">
+    @csrf
+        <input type="hidden" name="type_click" id="type_click" value="">
         <section class="content">
             <!-- Default box -->
             <div class="card">
@@ -65,65 +68,83 @@
                     </div>
                 </div>
                 <div class="card-body p-0">
-                    <div class="card-body table-responsive p-0">
-                        <table class="table table-hover">
-                            <thead> 
-                                <tr>
-                                    <th class="align-middle" style="width: 5%;">
-                                        <div class="custom-control custom-checkbox my-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="selectall-checkbox1">
-                                            <label for="selectall-checkbox1" class="custom-control-label"></label>
-                                        </div>
-                                    </th>
-                                    <th class="align-middle text-center" style="width: 10%;">STT</th>
-                                    <th class="align-middle text-center">Tên</th>
-                                    <th class="align-middle"style="width: 20%;" >Email</th>
-                                    <!-- <th class="align-middle"style="width: 30%;" >Nội Dung</th> -->
-                                    <th class="align-middle text-center">Ngày Gửi</th>
-                                    <th class="align-middle text-center">Thao Tác</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="align-middle">
-                                        <div class="custom-control custom-checkbox my-checkbox">
-                                            <input type="checkbox" class="custom-control-input select-checkbox" id="select-checkbox" value="14">
-                                            <label for="select-checkbox" class="custom-control-label"></label>
-                                        </div>
-                                    </td>
-                                    <td class="align-middle">
-                                        <p class="text-center m-1">1</p>
-                                    </td>
-                                    <td class="align-middle text-center">
-                                        Nguyễn văn Phước
-                                    </td>
-                                    <td class="align-middle">
-                                        phuoc031123@gmail.com
-                                    </td>
-                                    <!-- <td class="align-middle text-center">
-                                        <div class="custom-control custom-checkbox my-checkbox pl-0">
-                                            <p class="text-truncate" style="overflow: hidden; text-overflow: ellipsis; white-space: normal; -webkit-box-orient: vertical;display: -webkit-box;
-                                            -webkit-line-clamp: 3; text-align: justify;
-                                        ">
-                                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
-                                                Id est beatae doloribus maiores ipsum voluptatibus magnam animi, ratione distinctio consequuntur perferendis impedit deleniti saepe hic odio minima perspiciatis, autem sequi.
-                                            </p>
-                                        </div>
-                                    </td>
-                                     -->
-                                     <td class="align-middle text-center text-md text-nowrap">
-                                        3/11/2023
-                                    </td>
-                                    <td class="align-middle text-center text-md text-nowrap">
-                                        <!-- <a class="text-primary mr-2" href="#"
-                                            title="Chỉnh sửa"><i class="fas fa-edit"></i></a> -->
-                                        <a class="text-danger" id="delete-item" href="#"  title="Xóa"><i
-                                                class="fas fa-trash-alt"></i></a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                        <input type="hidden" name="delete_type" id="delete_type" value="single">
+                        <div class="card-body table-responsive p-0">
+                            @if($cusList->count() > 0)
+                            <table class="table table-hover">
+                                <thead> 
+                                    <tr>
+                                        <th class="align-middle" style="width: 5%;">
+                                            <div class="custom-control custom-checkbox my-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="selectall-checkboxcustomer">
+                                                <label for="selectall-checkboxcustomer" class="custom-control-label"></label>
+                                            </div>
+                                        </th>
+                                        <th class="align-middle text-center" style="width: 10%;">STT</th>
+                                        <th class="align-middle text-center">Tên</th>
+                                        <th class="align-middle"style="width: 20%;" >Email</th>
+                                        <th class="align-middle"style="width: 30%;" >Nội Dung</th>
+                                        <th class="align-middle text-center">Ngày Gửi</th>
+                                        <th class="align-middle text-center">Thao Tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($cusList as $item)
+                                    <tr>
+                                        <td class="align-middle customer">
+                                            <div class="custom-control custom-checkbox my-checkbox">
+                                                <input type="checkbox" class="custom-control-input select-checkbox" name="customer_ids[]" id="select-checkbox-{{$item->id}}" value="{{$item->id}}">
+                                                <label for="select-checkbox-{{$item->id}}" class="custom-control-label"></label>
+                                            </div>
+                                        </td>
+                                        <td class="align-middle">
+                                            <p class="text-center m-1">{{ $loop->index + 1 }}</p>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                        {{$item->cus_name}}
+                                        </td>
+                                        <td class="align-middle">
+                                        {{$item->email}} - {{$item->cus_phone}} 
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <div class="custom-control custom-checkbox my-checkbox pl-0">
+                                                <p class="text-truncate" style="overflow: hidden; text-overflow: ellipsis; white-space: normal; -webkit-box-orient: vertical;display: -webkit-box;
+                                                -webkit-line-clamp: 5; text-align: justify; margin-bottom:0;
+                                            ">
+                                                @if($item->cus_content)
+                                                    {{$item->cus_content}} 
+                                                @else
+                                                    Không có nội dung
+                                                @endif
+                                                </p>
+                                            </div>
+                                        </td>
+                                        <td class="align-middle text-center text-md text-nowrap">
+                                        @if($item->created_at != null)
+                                            {{$item->created_at->format('d-m-Y')}} 
+                                        @else
+                                            Chưa cập nhật
+                                        @endif
+                                        </td>
+                                        <td class="align-middle text-center text-md text-nowrap">
+                                            <!-- <a class="text-primary mr-2" href="#"
+                                                title="Chỉnh sửa"><i class="fas fa-edit"></i></a> -->
+                                            <a class="text-danger" id="delete-item" href="{{route('deleteCusbyId',['id' => $item->id ])}}"  title="Xóa"><i
+                                                    class="fas fa-trash-alt"></i></a>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <div class="pagination justify-content-center">
+                                {{$cusList->appends(request()->query())->links('pagination::bootstrap-4')}}
+                            </div>
+                            @else
+                            <div class="alert alert-warning w-100 text-center" role="alert">
+                                <strong>No Customer </strong>
+                            </div>  
+                            @endif
+                        </div>
                 </div>
             <!-- /.card-body -->
             </div>
@@ -134,7 +155,6 @@
 
         <!-- Main content -->
         <section class="content">
-            <form action="#" class="validation-form" method="post" enctype="multipart/form-data">
                 <!-- Default box -->
                 <div class="row">
                     <div class="col-xl-12">
@@ -150,12 +170,18 @@
                                         <div class="tab-content" id="custom-tabs-three-tabContent-lang">
                                             <div class="tab-pane fade show active" id="tabs-lang-vi" role="tabpanel" aria-labelledby="tabs-lang">
                                                 <div class="form-group">
-                                                    <label for="email_name">Tiêu đề :</label>
-                                                    <input type="text" class="form-control for-seo text-sm" name="data[email_name]" id="email_name" placeholder="Tiêu đề" value="" required="">
+                                                    <label for="title_email">Tiêu đề :</label>
+                                                    <input type="text" class="form-control for-seo text-sm" name="title_email" id="title_email" placeholder="Tiêu đề" value="" required>
+                                                    @if ($errors->has('title_email'))
+                                                        <span id="searchError" class="d-block alert text-danger" >{{ $errors->first('title_email') }}</span>
+                                                    @endif
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="content_email">Nội dung cần gửi:</label>
-                                                    <textarea class="form-control for-seo text-sm" name="content_email" id="content_email" ></textarea>
+                                                    <textarea class="form-control for-seo text-sm" name="content_email" id="content_email" placeholder="Nội dung" required></textarea>
+                                                    @if ($errors->has('content_email'))
+                                                        <span id="searchError" class="d-block alert text-danger" >{{ $errors->first('content_email') }}</span>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
@@ -167,9 +193,9 @@
                 </div>
                 
                 <!-- /.card -->
-            </form>
         </section>
         <!-- /.content -->
+    </form>
     </div>
     <!-- difference here -->
     
@@ -193,8 +219,83 @@
             </div>
         </div>
     </div>
+    <!-- Modal send mail -->
+    <div class="modal" id="confirmationModalsend" tabindex="-2">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Xác nhận gửi mail?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Bạn có chắc chắn muốn gửi đến các khách hàng đã chọn không?
+                </div>
+                <div class="modal-footer">
+                    <button id="confirmSend" type="button" class="btn btn-danger">Yes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('javascript')
 <script src="{{ asset('admin/dist/js/quanli.js')}}"></script>
+<script>
+    // chọn tất cả chekbox
+    $(document).ready(function() {
+        $('#selectall-checkboxcustomer').change(function() {
+            $('.select-checkbox').prop('checked', this.checked);
+            // hàm prop thiết lập giá trị
+            if (this.checked) {
+                $('#delete_type').val('all');
+            } else {
+                $('#delete_type').val('single');
+            }
+        });
+
+        $('.select-checkbox').change(function() {
+            // huy click đi
+            $('#selectall-checkboxcustomer').prop('checked', false);
+
+            if ($('.select-checkbox:checked').length > 1) {
+                $('#delete_type').val('multiple');
+            } else {
+                $('#delete_type').val('single');
+            }    
+        });
+        $('#send-all').click(function(){
+            $('#type_click').val('send');
+        })
+        $('#delete-all').click(function(){
+            $('#type_click').val('delete');
+        })
+    });
+
+    // Đặt sự kiện khi nút "Xóa tất cả" được nhấp
+    $('#confirmDelete').click(function() {
+        // Kiểm tra xem có ít nhất một checkbox nào đó được chọn không
+        if ($('.select-checkbox:checked').length > 0) {
+            // Gửi biểu mẫu để xử lý xóa
+            $('#delete-form').submit();
+        } else {
+            alert('Vui lòng chọn ít nhất một phần tử để xóa.');
+        }
+    });
+
+    // Đặt sự kiện khi nút "Xóa tất cả" được nhấp
+    $('#confirmSend').click(function() {
+        // Kiểm tra xem có ít nhất một checkbox nào đó được chọn không
+        if ($('.select-checkbox:checked').length > 0) {
+            // Gửi biểu mẫu để xử lý xóa
+            $('#delete-form').submit();
+        } else {
+            alert('Vui lòng chọn ít nhất một phần tử để gửi.');
+        }
+    });
+
+
+</script>
 @endsection

@@ -58,6 +58,7 @@ Route::middleware(['admin.access'])->group(function () {
 });
 
 
+
 //Chính sách
 use App\Http\Controllers\PolicyController;
 Route::get('/chinh-sach', [PolicyController::class, 'viewChinhSach']);
@@ -66,3 +67,11 @@ Route::get('/chinh-sach/chinh-sach-{id}', [PolicyController::class, 'viewDetailP
 //page giới thiệu
 use App\Http\Controllers\IntroductPageController;
 Route::get('/gioi-thieu', [IntroductPageController::class, 'viewIntroducePage']);
+
+use App\Http\Controllers\SendMailController;
+// Page trang chủ
+Route::post('/', [SendMailController::class, 'AddCustomer'])->name('add-customer');
+//page quan lí nhận tin admin
+Route::get('/admin/quanlinhantin', [SendMailController::class, 'viewPageQliNhanTin']);
+Route::get('/admin/quanlibaiviet/customer/delete', [SendMailController::class, 'totalCustomer'])->name('delete_send_Customer');
+Route::get('/admin/quanlinhantin/customer/delete/{id}', [SendMailController::class, 'deleteCustomerbyId'])->name('deleteCusbyId');
