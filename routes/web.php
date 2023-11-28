@@ -22,8 +22,12 @@ Route::get('/get-products/{categoryId}', [HomeController::class, 'getProductbyCa
 // Hưng
 use App\Http\Controllers\ProductController;
 Route::get('/san-pham', [ProductController::class, 'index'])->name('products.index');
-Route::get('/chitietsanpham/{id}', [ProductController::class, 'show'])->name('products.show');
-Route::get('/a', [ProductController::class, 'indexAdmin'])->name('productsAdmin.show');
+Route::get('/chi-tiet-san-pham/{id}', [ProductController::class, 'show'])->name('products.show');
+Route::get('/quan-li-san-pham', [ProductController::class, 'indexAdmin'])->name('productsAdmin.show');
+Route::get('a', function(){
+    return view('admin.qlilogo');
+});
+
 
 use App\Http\Controllers\NewsController;
 //Page Tin Tức
