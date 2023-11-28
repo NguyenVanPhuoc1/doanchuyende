@@ -254,7 +254,7 @@
                     <!-- Add icons to the links using the .nav-icon class
                 with font-awesome or any other icon font library -->
                     <li class="nav-item ">
-                        <a href="#" class="nav-link ">
+                        <a href="{{url('admin/trang-chu')}}" class="nav-link ">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
                                 Bảng Điều Khiển
@@ -272,7 +272,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{url('admin/quanlidanhmuc')}}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Danh mục cấp 1</p>
                                 </a>
@@ -285,7 +285,7 @@
                             </li>
                         </ul>
                     </li>
-                    <
+                    <li class="nav-item">
                         <a class="nav-link">
 
                             <i class="nav-icon fas fa-chart-pie"></i>
@@ -331,18 +331,6 @@
                                 <a href="#" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Giới Thiệu</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Copyright</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Liên Hệ</p>
                                 </a>
                             </li>
                             <li class="nav-item">
