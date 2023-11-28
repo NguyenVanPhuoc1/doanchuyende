@@ -36,6 +36,8 @@
 
     <!-- ckeditor.js: Thư viện soạn thảo văn bản --> 
     <script src="{{ asset('admin/dist/js/ckeditor.js')}}"></script>
+    <script src="https://apis.google.com/js/client.js"></script>
+
     <!-- thêm album ảnh -->
     <!-- Styles -->
 	<link href="{{ asset('admin/dist/css/filterjs/jquery-filer.css')}}" rel="stylesheet" >
@@ -420,21 +422,11 @@
 <!-- Bootstrap 4 -->
 <script src="{{ asset('admin/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- ChartJS -->
-<script src="{{ asset('admin/plugins/chart.js/Chart.min.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <!-- Sparkline -->
-<!-- <script src="../'admin/plugins/sparklines/sparkline.js"></script> -->
-<!-- JQVMap -->
-<!-- <script src="{{ asset('admin/plugins/jqvmap/jquery.vmap.min.js')}}"></script> -->
-<!-- <script src="{{ asset('admin/plugins/jqvmap/maps/jquery.vmap.usa.js')}}"></script> -->
 <!-- jQuery Knob Chart -->
 <script src="{{ asset('admin/plugins/jquery-knob/jquery.knob.min.js')}}"></script>
 <!-- daterangepicker -->
-<!-- <script src="../'admin/plugins/moment/moment.min.js"></script> -->
-<!-- <script src="{{ asset('admin/plugins/daterangepicker/daterangepicker.js')}}"></script> -->
-<!-- Tempusdominus Bootstrap 4 -->
-<!-- <script src="../admin/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script> -->
-<!-- Summernote -->
-<!-- <script src="{{ asset('admin/plugins/summernote/summernote-bs4.min.js')}}"></script> -->
 <!-- overlayScrollbars -->
 <script src="{{ asset('admin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
 <!-- AdminLTE App -->
@@ -447,17 +439,6 @@
 <script src="{{ asset('admin/dist/js/filterjs/custom.js')}}" type="text/javascript"></script>
 
 <script src="{{ asset('js/app.js') }}"></script>
-<script>
-        // Lắng nghe sự kiện 'UserRegistered' trên kênh 'admin-notifications'
-        window.Echo.channel('admin-notifications')
-            .listen('UserRegistered', (event) => {
-                // Xử lý sự kiện khi có người dùng đăng ký mới
-                console.log('Admin Notification:', event.message);
-                alert('1');
-                // Hiển thị thông báo hoặc thực hiện các xử lý khác
-            });
-    </script>
-
 <!-- difference here -->
 @yield('javascript')
 <!-- difference here -->

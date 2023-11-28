@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+use App\Http\Controllers\ChartController;
+Route::get('/admin/trang-chu', [ChartController::class, 'viewChart']);
+// Route::get('/admin/trang-chu', [ChartController::class, 'getAnalyticsData']);
+
 use App\Http\Controllers\HomeController;
 
 Route::get('/', [HomeController::class, 'viewHome']);
