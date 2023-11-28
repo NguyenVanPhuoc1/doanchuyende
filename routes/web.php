@@ -83,3 +83,7 @@ Route::post('/', [SendMailController::class, 'AddCustomer'])->name('add-customer
 Route::get('/admin/quanlinhantin', [SendMailController::class, 'viewPageQliNhanTin']);
 Route::get('/admin/quanlibaiviet/customer/delete', [SendMailController::class, 'totalCustomer'])->name('delete_send_Customer');
 Route::get('/admin/quanlinhantin/customer/delete/{id}', [SendMailController::class, 'deleteCustomerbyId'])->name('deleteCusbyId');
+
+// page lien he
+Route::get('/lien-he', [IntroductPageController::class, 'viewContact']);
+Route::post('/lien-he', [SendMailController::class, 'AddCustomer'])->name('regis-customer');

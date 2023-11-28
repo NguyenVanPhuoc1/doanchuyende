@@ -118,7 +118,7 @@ class SendMailController extends Controller
     { 
         $request->validate([
             'fullname' => 'required|max:255',
-            'phone' => 'required|min:10|starts_with:0',
+            'phone' => 'required|digits:10|starts_with:0',
             'email' => 'required|email|unique:customer| max:255',
             'content' => 'required|max:1000'
         ]);
@@ -127,9 +127,13 @@ class SendMailController extends Controller
         $cus = $this->create($data);
 
         // Gửi sự kiện đến Laravel Echo
-        dd(new UserRegistered('New user registered: ' . $data['fullname']));die();
+        // dd(new UserRegistered('New user registered: ' . $data['fullname']));die();
         event(new UserRegistered('New user registered: ' . $data['fullname']));
 
-        return redirect('/')->withSuccess('Đăng kí Thành công!');
+        if (str_contains($request->header('referer'), 'lien-he')) {
+            return redirect('/lien-he')->withSuccess('Đăng kí Thành công!');
+        } else {
+            return redirect('/')->withSuccess('Đăng kí Thành công!');
+        }
     }
 }
