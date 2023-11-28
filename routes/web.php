@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 */
+use App\Http\Controllers\ChartController;
+Route::get('/admin/trang-chu', [ChartController::class, 'viewChart']);
+// Route::get('/admin/trang-chu', [ChartController::class, 'getAnalyticsData']);
+
 use App\Http\Controllers\HomeController;
 
 //Login Admin

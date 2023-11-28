@@ -52,6 +52,15 @@
                 padding-top: 0;
             }
         </style>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-HKZMS27N37"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+            gtag('config', 'G-HKZMS27N37');
+        </script>
     </head>
     <body >
         <!-- menu -->
