@@ -17,16 +17,16 @@ class ChartController extends Controller
         $modifiedData = "";
         switch($giatri){
             case '7day':
-                $modifiedData = Analytics::fetchTotalVisitorsAndPageViews(Period::days(7),7);
+                //$modifiedData = Analytics::fetchTotalVisitorsAndPageViews(Period::days(7),7);
                 break;
             case '30day':
-                $modifiedData = Analytics::fetchTotalVisitorsAndPageViews(Period::days(30),30);
+                //$modifiedData = Analytics::fetchTotalVisitorsAndPageViews(Period::days(30),30);
                 break;
             // case '1year':
             //     $modifiedData = $this-> ttThang();
             //     break;
             default:
-                $modifiedData = Analytics::fetchTotalVisitorsAndPageViews(Period::days(7),7);
+                //$modifiedData = Analytics::fetchTotalVisitorsAndPageViews(Period::days(7),7);
                 break;
             }
          

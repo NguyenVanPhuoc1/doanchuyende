@@ -42,7 +42,9 @@ use App\Http\Controllers\NewsController;
 Route::get('/tin-tuc', [NewsController::class, 'viewTinTuc']);
 Route::get('/tin-tuc/tin-tuc-{id}', [NewsController::class, 'viewDetailNews'])->name('news_detail');
 
-Route::middleware(['admin.access'])->group(function () {
+
+use App\Http\Controllers\PolicyController;
+Route::middleware(['auth', 'admin.access'])->group(function () {
     // Các route của trang admin
     Route::get('/admin', [CustomAuthController::class, 'Dashboard'])->name('admin');
     // ...
@@ -68,7 +70,7 @@ Route::middleware(['admin.access'])->group(function () {
 
 
 //Chính sách
-use App\Http\Controllers\PolicyController;
+
 Route::get('/chinh-sach', [PolicyController::class, 'viewChinhSach']);
 Route::get('/chinh-sach/chinh-sach-{id}', [PolicyController::class, 'viewDetailPolicy'])->name('policy_detail');
 
