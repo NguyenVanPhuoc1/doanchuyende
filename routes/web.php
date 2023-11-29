@@ -63,6 +63,10 @@ Route::middleware(['auth','admin.access'])->group(function () {
     Route::post('/admin/quanlichinhsach/chinhsach', [PolicyController::class, 'updatePolicys'])-> name('admin-updatePolicys');
     Route::get('/admin/quanlichinhsacht/chinhsach/delete', [PolicyController::class, 'deletePolicys'])->name('deletePolicys');//xóa theo checkbox
     Route::get('/admin/quanlichinhsach/chinhsach/delete/{id}', [PolicyController::class, 'deletePolicybyId'])->name('deletePolibyId');//xóa khi có id
+
+    // change password - chiến
+    Route::get('/admin/changepassword', [CustomAuthController::class, 'viewChangePassword']);
+    Route::post('/admin/changepassword', [CustomAuthController::class, 'changePassword'])->name('change.password.post');
 });
 
 

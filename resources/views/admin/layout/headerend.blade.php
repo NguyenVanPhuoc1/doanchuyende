@@ -198,7 +198,7 @@
                         <!-- Thông tin admin -->
                     </a>
                     <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
+                    <a href="{{url('/admin/changepassword')}}" class="dropdown-item">
                         <!-- Đổi mật khẩu -->
                         <div class="media">
                             <i class="fas fa-key mr-3"></i>
