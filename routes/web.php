@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FaviconController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,11 +22,20 @@ Route::get('/get-products/{categoryId}', [HomeController::class, 'getProductbyCa
 
 // Hưng
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\LogoController;
+
+// danh sách sản phẩm & chi tiết sản
 Route::get('/san-pham', [ProductController::class, 'index'])->name('products.index');
 Route::get('/chi-tiet-san-pham/{id}', [ProductController::class, 'show'])->name('products.show');
 // them, xóa sửa sản phẩm
 Route::resource('admin/san-pham', ProductController::class);
 Route::get('admin/san-pham', [ProductController::class, 'indexAdmin'])->name('productsAdmin.show');
+// quản lí logo
+Route::get('admin/logo', [LogoController::class, 'index']);
+Route::post('admin/update-logo', [LogoController::class, 'updateLogo']);
+// quan li favicon
+Route::get('admin/favicon', [FaviconController::class, 'index']);
+Route::post('admin/update-favicon', [FaviconController::class, 'updateFavicon']);
 
 use App\Http\Controllers\NewsController;
 //Page Tin Tức

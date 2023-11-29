@@ -11,9 +11,13 @@ h1{
 
 .row .product-item{
     margin-top: 30px;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 2px;
+    border-radius: 5px;
+    text-align: center;
 }
 
 .product-image {
+    text-align: center;
     position: relative;
     overflow: hidden;
 }
@@ -29,15 +33,14 @@ h1{
 
 .product-price {
     width: 100%;
-    text-align: center;
     position: absolute;
     bottom: 0;
     left: 0;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 255, 0.3);
     color: white;
     padding: 10px;
     transform: translateY(100%);
-    transition: transform 0.3s ease;
+    transition: transform 0.2s ease;
 }
 
 .product-image:hover .product-price {

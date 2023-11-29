@@ -1,6 +1,6 @@
 @extends('admin.layout.headerend')
 
-@section('title', 'Quản Lí Logo')
+@section('title', 'Quản Lí Favicon')
 
 @section('body')
     <div class="content-wrapper qlidanhmuc" id="qlidanhmuc">
@@ -9,13 +9,13 @@
             <div class="container-fluid">
                 <div class="row mb-2 ">
                     <div class=" col-md-12 ">
-                        <h1>Quản Lí Logo</h1>
+                        <h1>Quản Lí Favicon</h1>
                     </div>
                 </div>
             </div><!-- /.container-fluid -->
         </section>
 
-        <form class="ml-5" action="/admin/update-logo" method="POST" enctype="multipart/form-data">
+        <form class="ml-5" action="/admin/update-favicon" method="POST" enctype="multipart/form-data">
             @csrf
             <section class="content-header ">
                 <div class="container-fluid">
@@ -39,11 +39,10 @@
                 </div><!-- /.container-fluid -->
             </section>
             <!-- Main content -->
-            @if ($logo_name)
-                <img id="previewLogo" src="{{ asset('front/public/image/' . $logo_name) }}" alt="" width="400px"
-                    height="400px">
+            @if ($favicon_name)
+                <img id="previewFavicon" src="{{ asset('front/public/image/' . $favicon_name) }}" alt="" width="100px">
             @endif
-            <input id="newLogoInput" type="file" name="new_logo" onchange="preview(event)" accept="image/*">
+            <input id="newFaviconInput" type="file" name="new_favicon" onchange="preview(event)" accept=".jpg,.jpeg,.png,.ico">
         </form>
     @endsection
 
@@ -53,9 +52,9 @@
                 const file = event.target.files[0];
                 const fileSize = file.size; // Dung lượng file
 
-                // Kiểm tra dung lượng file (256kb = 256 * 1024 bytes)
-                if (fileSize > 256 * 1024) {
-                    alert("File quá lớn. Vui lòng chọn file có dung lượng dưới 256KB.");
+                // Kiểm tra dung lượng file (100kb = 100 * 1024 bytes)
+                if (fileSize > 100 * 1024) {
+                    alert("File quá lớn. Vui lòng chọn file có dung lượng dưới 100KB.");
                     // Xóa giá trị trong input để người dùng có thể chọn lại file
                     event.target.value = '';
                     return;
@@ -63,7 +62,7 @@
 
                 const reader = new FileReader();
                 reader.onload = function() {
-                    const preview = document.getElementById('previewLogo');
+                    const preview = document.getElementById('previewFavicon');
                     preview.src = reader.result;
                 };
 
@@ -74,5 +73,4 @@
                 alert("{{ Session::get('success') }}");
             @endif
         </script>
-
     @endsection

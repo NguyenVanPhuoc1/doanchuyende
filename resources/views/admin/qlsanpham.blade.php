@@ -84,7 +84,6 @@
                 </div>
 
                 @isset($products)
-                
                     <div class="card-body p-0">
                         <div class="card-body table-responsive p-0">
                             <table class="table table-hover">
@@ -118,7 +117,7 @@
                                                 <p class="text-center m-1">{{ $product->id }}</p>
                                             </td>
                                             <td class="align-middle text-center">
-                                                <a href="#">
+                                                <a href="/chi-tiet-san-pham/{{ $product->id }}">
                                                     <img class="rounded img-preview"
                                                         src="{{ asset('storage/' . $product->images->first()->file_name) }}"
                                                         alt="Ảnh sản phẩm" style="max-width: 70px; max-height: 55px;"> </a>
@@ -150,6 +149,8 @@
                             </table>
                         </div>
                     </div>
+                    <!-- Hiển thị phân trang -->
+                    {{ $products->links() }}
                 @endisset
                 <!-- /.card-body -->
             </div>

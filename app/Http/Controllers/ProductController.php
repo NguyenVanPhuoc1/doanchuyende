@@ -12,19 +12,19 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::all();
+        $products = Product::with('images')->paginate(12);
         return view('frontend.sanpham', ['products' => $products]);
     }
 
     public function show($id)
     {
-        $product = Product::findOrFail($id);
+        $product = Product::with('images')->findOrFail($id);
         return view('frontend.chitietsanpham', ['product' => $product]);
     }
 
     public function indexAdmin()
     {
-        $products = Product::with('images')->get();
+        $products = Product::with('images')->paginate(12);
         $categories = Category::all();
         return view('admin.qlsanpham', ['products' => $products], ['categories' => $categories]);
     }

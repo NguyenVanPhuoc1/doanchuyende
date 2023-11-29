@@ -2,6 +2,49 @@
 
 @section('title', 'Chi Tiết Sản Phẩm')
 
+@section('css')
+    <style>
+        .carousel {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .carousel-images {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .carousel-images img {
+            width: 33%;
+            height: auto;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+
+        .prev-btn,
+        .next-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 30%;
+            border: none;
+            cursor: pointer;
+        }
+
+        .prev-btn {
+            left: 10px;
+        }
+
+        .next-btn {
+            right: 10px;
+        }
+    </style>
+@endsection
 @section('body')
     <!-- Body -->
     <div class="breadCrumbs">
@@ -18,153 +61,127 @@
                     </a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a class="text-decoration-none active" href="{{ url('/chitietsanpham/' . $product->id) }}">
-                        <span>{{ $product->id }}</span>
+                    <a class="text-decoration-none active" href="{{ url('/chi-tiet-san-pham/' . $product->id) }}">
+                        <span>{{ $product->name }}</span>
                     </a>
                 </li>
             </ol>
         </div>
     </div>
+
     <main style="background-color: white">
         <div class="wrap-info wrap-content pt-5 pb-5">
             <div class="wrap-pro-detail">
                 <div class="box-flex align-items-start">
                     <div class="row">
-                        <div class="col-12 left-pro-detail col-lg-5 ">
-                            <div class="pro-zoom col ">
-                                <a href="./public/image/c2-1918.jpg" class="MagicZoom" id="sanpham"
-                                    data-options="zoomMode: on; hint: on; rightClick: true; selectorTrigger: hover; expandCaption: false; history: false;">
-                                    <img id="mainImage" src="{{ asset('front/public/image/' . $product->image) }}"
-                                        alt="Ảnh sản phẩm" style="max-width: 570px; max-height: 550px;">
-                                </a>
+                        <div class="left-pro-detail col-12 col-md-6  col-lg-5 ">
+                            {{-- // anh lon --}}
+                            <div class="big-image mb-3">
+                                @if ($product->images->isNotEmpty())
+                                    <img width="100%" src="{{ asset('storage/' . $product->images->first()->file_name) }}"
+                                        alt="">
+                                @endif
+
                             </div>
-                            <div class="gallery-thumb-pro col">
-                                <div class="owl-thumb-pro slick-slider">
-                                    <a class="thumb-pro-detail slick-slide" data-zoom-id="sanpham"
-                                        href="./public/image/c2-1918.jpg" data-image="./Public/image/sp1.jpg">
-                                        <img src="./public/image/c2-1918.jpg">
-                                    </a>
-                                    <a class="thumb-pro-detail slick-slide" data-zoom-id="sanpham"
-                                        href="./public/image/c2-1918.jpg" data-image="./Public/image/sp2.jpg">
-                                        <img src="./public/image/c2-1918.jpg">
-                                    </a>
-                                    <a class="thumb-pro-detail slick-slide" data-zoom-id="sanpham"
-                                        href="./public/image/c2-1918.jpg" data-image="./Public/image/sp4.jpg">
-                                        <img src="./public/image/c2-1918.jpg">
-                                    </a>
-                                    <a class="thumb-pro-detail slick-slide" data-zoom-id="sanpham"
-                                        href="./public/image/c2-1918.jpg" data-image="./Public/image/sp5.jpg">
-                                        <img src="./public/image/c2-1918.jpg">
-                                    </a>
-                                    <a class="thumb-pro-detail slick-slide" data-zoom-id="sanpham"
-                                        href="./public/image/c2-1918.jpg" data-image="./Public/image/sp5.jpg">
-                                        <img src="./public/image/c2-1918.jpg">
-                                    </a>
+
+                            {{-- carousel --}}
+                            <div class="carousel">
+                                <div class="carousel-images">
+                                    @if ($product->images->isNotEmpty())
+                                            @foreach ($product->images as $image)
+                                                <img src="{{ asset('storage/' . $image->file_name) }}" alt="Ảnh sản phẩm">
+                                            @endforeach
+                                    @endif
                                 </div>
+                                <button class="prev-btn btn">
+                                    <<button class="next-btn btn">>
+                                </button>
                             </div>
                         </div>
-                        <div class="col-6 right-pro-detail col-lg-7 col-12">
+                        <div class="right-pro-detail col-12 col-md-6 col-lg-7">
                             <p class="title-pro-detail text-center">{{ $product->name }}</p>
                             <div class="desc-pro-detail">
-                                <h3>Mô tả:</h3>
-                                {{ $product->description }}
+                                <h4 style="font-style: italic">Mô tả:</h4>
+                                <hr>
+                                {!! $product->description !!}
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- bình luận đánh giá sản phẩm -->
+                <hr>
                 <div class="pro-detail">
                     <div class="tabs-pro-detail" id="product-tab">
-                        <ul class="tab-nav">
-                            <!-- <li class="active"><a data-toggle="tab" href="#tab1">Details</a></li> -->
-                            <li><a data-toggle="tab" href="#tab2">Reviews (3)</a></li>
-                        </ul>
-                        <!-- /product tab nav -->
-
                         <!-- product tab content -->
                         <div class="tab-content">
-                            <!-- tab1  -->
-                            <!-- <div id="tab1" class="tab-pane active ">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            Phuoc
-                                        </div>
-                                    </div>
-                                </div> -->
-                            <!-- /tab1  -->
-
-                            <!-- tab2  -->
-                            <div id="tab2" class="tab-pane ">
-                                <div class="row">
-                                    <!-- Reviews -->
-                                    <div class="col-md-6">
-                                        <h3 class="title text-center text-black-50">BÌNH LUẬN</h3>
-                                        <div id="reviews">
-                                            <ul class="reviews">
-                                                <li>
-                                                    <div class="review-heading">
-                                                        <h5 class="name">Tên </h5>
-                                                    </div>
-                                                    <div class="review-body">
-                                                        <p> Bình Luận 1</p>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                            <ul class="reviews">
-                                                <li>
-                                                    <div class="review-heading">
-                                                        <h5 class="name">Tên </h5>
-                                                    </div>
-                                                    <div class="review-body">
-                                                        <p> Bình Luận 2</p>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                            <ul class="reviews">
-                                                <li>
-                                                    <div class="review-heading">
-                                                        <h5 class="name">Tên </h5>
-                                                    </div>
-                                                    <div class="review-body">
-                                                        <p> Bình Luận 3</p>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                            <ul class="reviews-pagination">
-                                                <li class="active">1</li>
-                                                <li><a href="#">2</a></li>
-                                                <li><a href="#">3</a></li>
-                                                <li><a href="#">4</a></li>
-                                                <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <!-- /Reviews -->
-
-                                    <!-- Review Form -->
-                                    <div class="col-md-6">
-                                        <div id="review-form ">
-                                            <form class="review-form" method="post" action="#">
-                                                <input class="input form-control" type="text" name="name"
-                                                    id="name" placeholder="Your Name">
-                                                <input class="input form-control" type="email" name="email"
-                                                    id="email" placeholder="Your Email">
-                                                <textarea class="input form-control" name="content" id="content" placeholder="Your Review"></textarea>
-                                                <button class="btn btn-primary" name="submit">Submit</button>
-
-                                            </form>
-                                        </div>
-
+                            <div class="row">
+                                <!-- Reviews -->
+                                <div class="col-md-6">
+                                    <h3 class="title text-center">BÌNH LUẬN</h3>
+                                    <div id="reviews">
+                                        <ul class="reviews">
+                                            <li>
+                                                <div class="review-heading">
+                                                    <h5 class="name">Tên </h5>
+                                                </div>
+                                                <div class="review-body">
+                                                    <p> Bình Luận 1</p>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <ul class="reviews">
+                                            <li>
+                                                <div class="review-heading">
+                                                    <h5 class="name">Tên </h5>
+                                                </div>
+                                                <div class="review-body">
+                                                    <p> Bình Luận 2</p>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <ul class="reviews">
+                                            <li>
+                                                <div class="review-heading">
+                                                    <h5 class="name">Tên </h5>
+                                                </div>
+                                                <div class="review-body">
+                                                    <p> Bình Luận 3</p>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <ul class="reviews-pagination">
+                                            <li class="active">1</li>
+                                            <li><a href="#">2</a></li>
+                                            <li><a href="#">3</a></li>
+                                            <li><a href="#">4</a></li>
+                                            <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                                        </ul>
                                     </div>
                                 </div>
+                                <!-- /Reviews -->
+
+                                <!-- Review Form -->
+                                <div class="col-md-6">
+                                    <div id="review-form ">
+                                        <form class="review-form" method="post" action="#">
+                                            <input class="input form-control" type="text" name="name" id="name"
+                                                placeholder="Your Name">
+                                            <input class="input form-control" type="email" name="email" id="email"
+                                                placeholder="Your Email">
+                                            <textarea class="input form-control" name="content" id="content" placeholder="Your Review"></textarea>
+                                            <button class="btn btn-primary" name="submit">Submit</button>
+
+                                        </form>
+                                    </div>
+
+                                </div>
+                                <!-- /tab2  -->
                             </div>
-                            <!-- /tab2  -->
+                            <!-- /product tab content  -->
                         </div>
-                        <!-- /product tab content  -->
                     </div>
-                </div>
-                <!-- Sản phẩm liên quan -->
-                {{-- <div class="box_product_list_tab">
+                    <!-- Sản phẩm liên quan -->
+                    {{-- <div class="box_product_list_tab">
                     <div class="container">
                         <div class="title-main">
                             <span>SẢN PHẨM LIÊN QUAN</span>
@@ -241,7 +258,44 @@
                         </div>
                     </div>
                 </div> --}}
+                </div>
             </div>
-        </div>
     </main>
+@endsection
+
+
+@section('script')
+    <script>
+        const carousel = document.querySelector('.carousel');
+        const images = document.querySelector('.carousel-images');
+        const prevButton = document.querySelector('.prev-btn');
+        const nextButton = document.querySelector('.next-btn');
+
+        let imageIndex = 0;
+        const totalImages = images.children.length;
+        const imageWidth = images.firstElementChild.clientWidth;
+
+        nextButton.addEventListener('click', () => {
+            if (imageIndex < totalImages - 1) {
+                imageIndex++;
+                updateCarousel();
+            }
+        });
+
+        prevButton.addEventListener('click', () => {
+            if (imageIndex > 0) {
+                imageIndex--;
+                updateCarousel();
+            }
+        });
+
+        function updateCarousel() {
+            const offset = -imageIndex * imageWidth;
+            images.style.transform = `translateX(${offset}px)`;
+
+            // Ẩn/Hiện nút Previous và Next tại hình ảnh đầu và cuối
+            prevButton.disabled = (imageIndex === 0);
+            nextButton.disabled = (imageIndex === totalImages - 1);
+        }
+    </script>
 @endsection
