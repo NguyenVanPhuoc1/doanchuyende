@@ -278,7 +278,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{ url('admin/san-pham')}}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Sản Phẩm</p>
                                 </a>
