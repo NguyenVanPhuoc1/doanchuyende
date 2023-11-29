@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Ban',
                 'cate_id' => 1,
-                'image'=> 'np4-1267.jpg',
+                // 'image'=> 'np4-1267.jpg',
                 'description'=>'Ban go cao cap',
                 'noi_bat' => true
             
@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Ghe',
                 'cate_id' => 2,
-                'image'=> 'hinh2.jpg',
+                // 'image'=> 'hinh2.jpg',
                 'description'=>'Ghe da cao cap',
                 'noi_bat' => true
             
@@ -47,7 +47,7 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Ban da',
                 'cate_id' => 3,
-                'image'=> 'hinh3.jpg',
+                // 'image'=> 'hinh3.jpg',
                 'description'=>'Ban da cao cap',
                 'noi_bat' => true
             
@@ -55,32 +55,32 @@ class DatabaseSeeder extends Seeder
         ]);
 
          // Table product_image
-        DB::table('product_image')->insert([
-            [
-                'pro_image'=> 'hinh1.jpg',
-                'pro_id' => 1,
-            ],
-            [
-                'pro_image'=> 'hinh2.jpg',
-                'pro_id' => 1,
-            ],
-            [
-                'pro_image'=> 'hinh3.jpg',
-                'pro_id' => 2,
-            ],
-            [
-                'pro_image'=> 'hinh4.jpg',
-                'pro_id' => 2,
-            ],
-            [
-                'pro_image'=> 'hinh5.jpg',
-                'pro_id' => 3,
-            ],
-            [
-                'pro_image'=> 'hinh6.jpg',
-                'pro_id' => 3,
-            ]
-        ]);
+        // DB::table('product_image')->insert([
+        //     [
+        //         'pro_image'=> 'hinh1.jpg',
+        //         'pro_id' => 1,
+        //     ],
+        //     [
+        //         'pro_image'=> 'hinh2.jpg',
+        //         'pro_id' => 1,
+        //     ],
+        //     [
+        //         'pro_image'=> 'hinh3.jpg',
+        //         'pro_id' => 2,
+        //     ],
+        //     [
+        //         'pro_image'=> 'hinh4.jpg',
+        //         'pro_id' => 2,
+        //     ],
+        //     [
+        //         'pro_image'=> 'hinh5.jpg',
+        //         'pro_id' => 3,
+        //     ],
+        //     [
+        //         'pro_image'=> 'hinh6.jpg',
+        //         'pro_id' => 3,
+        //     ]
+        // ]);
 
          // Table comment
         DB::table('comment')->insert([
