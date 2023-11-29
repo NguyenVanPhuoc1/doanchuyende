@@ -18,53 +18,51 @@ class ChartController extends Controller
         switch($giatri){
             case '7day':
                 $startDate = Carbon::now()->subDays(7);
-                $modifiedData = $this->createArray($startDate, $endDate);
-
+                $modifiedData = $this->getData($startDate, $endDate);
                 break;
             case '30day':
                 $startDate = Carbon::now()->subDays(30);
-                $modifiedData = $this->createArray($startDate, $endDate);
+                $modifiedData = $this->getData($startDate, $endDate);
                 break;
             // case '1year':
             //     $modifiedData = $this-> ttThang();
             //     break;
             default:
                 $startDate = Carbon::now()->subDays(7);
-                $modifiedData = $this->createArray($startDate, $endDate);
+                $modifiedData = $this->getData($startDate, $endDate);
                 break;
             }
         
-        // dd(Analytics::fetchTotalVisitorsAndPageViews(Period::days(7)));
+        // dd($modifiedData);
         return view('admin.trangchu',compact('modifiedData'));
     }
 
-    public function createArray($startDate, $endDate){
-        // Lấy dữ liệu từ Google Analytics
+    public function getData($startDate, $endDate){
+
         $analyticsData = Analytics::fetchTotalVisitorsAndPageViews(Period::create($startDate, $endDate));
-        // Tạo mảng chứa tất cả các ngày trong khoảng thời gian
         $allDates = [];
         $currentDate = clone $startDate;
-        
         while ($currentDate <= $endDate) {
             $allDates[] = $currentDate->toDateString();
             $currentDate->addDay();
         }
-        $numberOfDays = $endDate->diffInDays($startDate) + 1;
-        // Tạo mảng dữ liệu để chứa thông tin từ Google Analytics
+
+
         $data = [];
+        $numberOfDays = $endDate->diffInDays($startDate) + 1;
+
         for ($i = $numberOfDays; $i > 0; $i--) {
-            $date = $allDates[$i - 1]; // Chú ý về chỉ số mảng bắt đầu từ 0
-        
+            $date = $allDates[$i - 1];
             $data[] = [
                 'date' => Carbon::parse($date),
                 'activeUsers' => 0,
                 'screenPageViews' => 0,
             ];
-            
+            // dd($analyticsData[0]['screenPageViews']);die();
             // Nếu có dữ liệu từ Google Analytics cho ngày đó, ghi đè giá trị mặc định
             if (isset($analyticsData[$i-1])) {
-                $data[$i - 1]['activeUsers'] = $analyticsData[$i-1]['activeUsers'];
-                $data[$i - 1]['screenPageViews'] = $analyticsData[$i-1]['screenPageViews'];
+                $data[$i - 1]['activeUsers'] = $analyticsData[$i - 1]['activeUsers'];
+                $data[$i - 1]['screenPageViews'] = $analyticsData[$i - 1]['screenPageViews'];
             }
         }
         return $data;

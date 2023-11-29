@@ -16,7 +16,9 @@ class HomeController extends Controller
     }
     // lấy tất cả các danh mục
     public function getCategory(){
-        $category = Category::all();
+        $category = Category::orderBy('created_at', 'desc')
+        ->where('noi_bat', true) 
+        ->get();
         return $category;
     }
     //lấy sản phẩm theo danh mục

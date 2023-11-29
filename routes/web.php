@@ -31,11 +31,17 @@ Route::get('/get-products/{categoryId}', [HomeController::class, 'getProductbyCa
 use App\Http\Controllers\ProductController;
 Route::get('/san-pham', [ProductController::class, 'index'])->name('products.index');
 Route::get('/chi-tiet-san-pham/{id}', [ProductController::class, 'show'])->name('products.show');
+<<<<<<< HEAD
 Route::get('/quan-li-san-pham', [ProductController::class, 'indexAdmin'])->name('productsAdmin.show');
 // Route::get('a', function(){
 //     return view('admin.qlilogo');
 // });
 
+=======
+// them, xóa sửa sản phẩm
+Route::resource('admin/san-pham', ProductController::class);
+Route::get('admin/san-pham', [ProductController::class, 'indexAdmin'])->name('productsAdmin.show');
+>>>>>>> 6e889ce540d515fb534e280225db563731ca4d06
 
 use App\Http\Controllers\NewsController;
 //Page Tin Tức
@@ -84,3 +90,18 @@ Route::post('/', [SendMailController::class, 'AddCustomer'])->name('add-customer
 Route::get('/admin/quanlinhantin', [SendMailController::class, 'viewPageQliNhanTin']);
 Route::get('/admin/quanlibaiviet/customer/delete', [SendMailController::class, 'totalCustomer'])->name('delete_send_Customer');
 Route::get('/admin/quanlinhantin/customer/delete/{id}', [SendMailController::class, 'deleteCustomerbyId'])->name('deleteCusbyId');
+
+// page lien he
+Route::get('/lien-he', [IntroductPageController::class, 'viewContact']);
+Route::post('/lien-he', [SendMailController::class, 'AddCustomer'])->name('regis-customer');
+
+// Admin danh muc
+use App\Http\Controllers\CategoryController;
+Route::get('/admin/quanlidanhmuc', [CategoryController::class, 'viewCategory']);
+Route::get('/admin/quanlidanhmuc/add-cate',[CategoryController::class, 'viewPageaddCate'] )->name('view_add_cate');
+Route::post('/admin/quanlidanhmuc/add-cate', [CategoryController::class, 'AddCate'])->name('add-cate');
+Route::get('/admin/quanlidanhmuc/danh-muc-{id}',[CategoryController::class, 'viewDetailCate'] )->name('admin_view_cate');
+Route::post('/admin/quanlidanhmuc', [CategoryController::class, 'updateCate'])-> name('admin-updateCate');
+Route::get('/admin/quanlidanhmuc/delete', [CategoryController::class, 'deleteCate'])->name('deleteCate');//xóa theo checkbox
+Route::get('/admin/quanlidanhmuc/delete/{id}', [CategoryController::class, 'deleteCatebyId'])->name('deleteCatebyId');//xóa khi có id
+Route::get('/admin/quanlidanhmuc/danh-muc-{id}/update-noibat', [CategoryController::class, 'checkNoiBat'])->name('checkNoiBat');//xóa khi có id

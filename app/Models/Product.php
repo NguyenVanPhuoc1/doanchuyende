@@ -21,10 +21,11 @@ class Product extends Model
     // Has Many Through (Mối quan hệ qua nhiều) Mối quan hệ "has many through" được sử dụng khi bạn muốn thiết lập mối quan hệ giữa hai mô hình thông qua một mô hình trung gian
 
     //1 sản phẩm có nhiều hình
-    public function productImage(){
-        return $this->hasMany(ProductImage::class,'pro_id','id');   }
+    public function images(){
+        return $this->hasMany(ProductImage::class);   
+    }
+
     //1 sản phẩm có nhiều comment
-    
     public function productComment(){
         return $this->hasMany(ProductComment::class,'pro_id','id');
     }
