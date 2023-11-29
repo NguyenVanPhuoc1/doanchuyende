@@ -32,9 +32,9 @@ use App\Http\Controllers\ProductController;
 Route::get('/san-pham', [ProductController::class, 'index'])->name('products.index');
 Route::get('/chi-tiet-san-pham/{id}', [ProductController::class, 'show'])->name('products.show');
 Route::get('/quan-li-san-pham', [ProductController::class, 'indexAdmin'])->name('productsAdmin.show');
-Route::get('a', function(){
-    return view('admin.qlilogo');
-});
+// Route::get('a', function(){
+//     return view('admin.qlilogo');
+// });
 
 
 use App\Http\Controllers\NewsController;
@@ -42,7 +42,8 @@ use App\Http\Controllers\NewsController;
 Route::get('/tin-tuc', [NewsController::class, 'viewTinTuc']);
 Route::get('/tin-tuc/tin-tuc-{id}', [NewsController::class, 'viewDetailNews'])->name('news_detail');
 
-Route::middleware(['admin.access'])->group(function () {
+use App\Http\Controllers\PolicyController;
+Route::middleware(['auth','admin.access'])->group(function () {
     // Các route của trang admin
     Route::get('/admin', [CustomAuthController::class, 'Dashboard'])->name('admin');
     // ...
@@ -54,6 +55,7 @@ Route::middleware(['admin.access'])->group(function () {
     Route::post('/admin/quanlibaiviet/tintuc', [NewsController::class, 'updateNews'])-> name('admin-updateNews');
     Route::get('/admin/quanlibaiviet/tintuc/delete', [NewsController::class, 'deleteNews'])->name('deleteNews');//xóa theo checkbox
     Route::get('/admin/quanlibaiviet/tintuc/delete/{id}', [NewsController::class, 'deleteNewsbyId'])->name('deleteNewsbyId');//xóa khi có id
+    Route::get('/admin/quanlibaiviet/tintuc/tin-tuc-{id}/update-noibat', [NewsController::class, 'checkNoiBat'])->name('checkNoiBat');//xóa khi có id
 
     //Admin quản lí chính sách
     Route::get('/admin/quanlichinhsach/chinhsach',[PolicyController::class, 'viewAdminChinhSach'] )->name('poli_search');
@@ -68,7 +70,6 @@ Route::middleware(['admin.access'])->group(function () {
 
 
 //Chính sách
-use App\Http\Controllers\PolicyController;
 Route::get('/chinh-sach', [PolicyController::class, 'viewChinhSach']);
 Route::get('/chinh-sach/chinh-sach-{id}', [PolicyController::class, 'viewDetailPolicy'])->name('policy_detail');
 

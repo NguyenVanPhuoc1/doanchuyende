@@ -162,7 +162,7 @@
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="#" class="nav-link">Home</a>
+                <a href="{{url('admin/trang-chu')}}" class="nav-link">Home</a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
                 <a href="{{route('signout')}}" class="nav-link">Đăng xuất</a>
@@ -220,7 +220,7 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
+                    <a href="{{url('admin/quanlinhantin')}}" class="dropdown-item">
                         <i class="fas fa-envelope mr-2"></i> 4 Liên Hệ
                     </a>
                 </div>
@@ -285,7 +285,7 @@
                             </li>
                         </ul>
                     </li>
-                    <
+                    <li class="nav-item">
                         <a class="nav-link">
 
                             <i class="nav-icon fas fa-chart-pie"></i>

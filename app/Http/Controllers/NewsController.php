@@ -168,7 +168,7 @@ class NewsController extends Controller
     public function checkNoiBat(Request $request, $id){
         try {
             $news = News::findOrFail(intval($id));
-            // dd($news->noi_bat);die();
+            // dd($news);die();
             if($request->input('noi_bat') == 'true'){
                 $news->noi_bat = 1;// Nếu không có giá trị, đặt mặc định là false
             }else{

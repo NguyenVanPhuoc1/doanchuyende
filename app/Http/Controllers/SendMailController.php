@@ -113,7 +113,7 @@ class SendMailController extends Controller
             'cus_content' => $data['content'],
         ]);
     }     
-    //thêm sản phẩm
+    //thêm đăng kí nhạn tin
     public function AddCustomer(Request $request)
     { 
         $request->validate([
@@ -127,7 +127,7 @@ class SendMailController extends Controller
         $cus = $this->create($data);
 
         // Gửi sự kiện đến Laravel Echo
-        dd(new UserRegistered('New user registered: ' . $data['fullname']));die();
+        // dd(new UserRegistered('New user registered: ' . $data['fullname']));die();
         event(new UserRegistered('New user registered: ' . $data['fullname']));
 
         return redirect('/')->withSuccess('Đăng kí Thành công!');

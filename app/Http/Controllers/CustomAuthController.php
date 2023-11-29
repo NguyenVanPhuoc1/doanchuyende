@@ -27,8 +27,8 @@ class CustomAuthController extends Controller
         $credentials = $request->only('name','email','password');
         if (Auth::attempt($credentials) ) {
             $id_admin = Auth::user()->id;
-            session()->put('id_admin', $id_admin);
-                return view('admin.trangchu')->with('Đăng nhập thành công');
+            // session()->put('id_admin', $id_admin);
+                return redirect()->intended('admin/trang-chu')->with('Đăng nhập thành công');
         }
         return view('admin.login')->with('Thông tin đăng nhập không chính xác');
     }
