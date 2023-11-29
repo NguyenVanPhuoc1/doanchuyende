@@ -13,25 +13,61 @@ class ChartController extends Controller
     //
     public function viewChart(Request $request){
         $giatri = $request->get('gia_tri');
+        $endDate = Carbon::now();
         // dd($giatri);die();
         $modifiedData = "";
         switch($giatri){
             case '7day':
-                $modifiedData = Analytics::fetchTotalVisitorsAndPageViews(Period::days(7),7);
+                $startDate = Carbon::now()->subDays(7);
+                $modifiedData = $this->getData($startDate, $endDate);
                 break;
             case '30day':
-                $modifiedData = Analytics::fetchTotalVisitorsAndPageViews(Period::days(30),30);
+                $startDate = Carbon::now()->subDays(30);
+                $modifiedData = $this->getData($startDate, $endDate);
                 break;
             // case '1year':
             //     $modifiedData = $this-> ttThang();
             //     break;
             default:
-                $modifiedData = Analytics::fetchTotalVisitorsAndPageViews(Period::days(7),7);
+                $startDate = Carbon::now()->subDays(7);
+                $modifiedData = $this->getData($startDate, $endDate);
                 break;
             }
-         
+        
         // dd($modifiedData);
         return view('admin.trangchu',compact('modifiedData'));
+    }
+
+    public function getData($startDate, $endDate){
+
+        $analyticsData = Analytics::fetchTotalVisitorsAndPageViews(Period::create($startDate, $endDate));
+        $allDates = [];
+        $currentDate = clone $startDate;
+
+        while ($currentDate <= $endDate) {
+            $allDates[] = $currentDate->toDateString();
+            $currentDate->addDay();
+        }
+
+        $data = [];
+        $numberOfDays = $endDate->diffInDays($startDate) + 1;
+
+        for ($i = $numberOfDays; $i > 0; $i--) {
+            $date = $allDates[$i - 1]; 
+            $data[] = [
+                'date' => Carbon::parse($date),
+                'activeUsers' => 0,
+                'screenPageViews' => 0,
+            ];
+            // dd($analyticsData[0]['screenPageViews']);die();
+            // Nếu có dữ liệu từ Google Analytics cho ngày đó, ghi đè giá trị mặc định
+            if (isset($analyticsData[$i-1])) {
+                $data[$i - 1]['activeUsers'] = $analyticsData[$i - 1]['activeUsers'];
+                $data[$i - 1]['screenPageViews'] = $analyticsData[$i - 1]['screenPageViews'];
+            }
+        }
+        return $data;
+
     }
     // public function ttThang()
     // {

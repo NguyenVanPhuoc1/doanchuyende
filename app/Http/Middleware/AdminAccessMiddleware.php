@@ -19,7 +19,7 @@ class AdminAccessMiddleware
         // Kiểm tra đường dẫn và quyết định chặn hoặc cho phép truy cập
         if ($request->is('admin/*')) {
             // Kiểm tra xác thực người dùng admin ở đây, ví dụ:
-            if (!auth()->check() || !auth()->user()->isAdmin()) {
+            if (!auth()->check() || !auth()->user()) {
                 return redirect('/login'); // Hoặc chuyển hướng đến trang khác
             }
         }
