@@ -14,7 +14,6 @@ class ChartController extends Controller
     public function viewChart(Request $request){
         $giatri = $request->get('gia_tri');
         $endDate = Carbon::now();
-        // dd($giatri);die();
         $modifiedData = "";
         switch($giatri){
             case '7day':
@@ -43,17 +42,17 @@ class ChartController extends Controller
         $analyticsData = Analytics::fetchTotalVisitorsAndPageViews(Period::create($startDate, $endDate));
         $allDates = [];
         $currentDate = clone $startDate;
-
         while ($currentDate <= $endDate) {
             $allDates[] = $currentDate->toDateString();
             $currentDate->addDay();
         }
 
+
         $data = [];
         $numberOfDays = $endDate->diffInDays($startDate) + 1;
 
         for ($i = $numberOfDays; $i > 0; $i--) {
-            $date = $allDates[$i - 1]; 
+            $date = $allDates[$i - 1];
             $data[] = [
                 'date' => Carbon::parse($date),
                 'activeUsers' => 0,

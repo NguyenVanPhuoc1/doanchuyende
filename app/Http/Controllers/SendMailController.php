@@ -113,7 +113,7 @@ class SendMailController extends Controller
             'cus_content' => $data['content'],
         ]);
     }     
-    //thêm sản phẩm
+    //thêm đăng kí nhạn tin
     public function AddCustomer(Request $request)
     { 
         $request->validate([
