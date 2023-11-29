@@ -35,7 +35,6 @@ Route::get('/chi-tiet-san-pham/{id}', [ProductController::class, 'show'])->name(
 Route::resource('admin/san-pham', ProductController::class);
 Route::get('admin/san-pham', [ProductController::class, 'indexAdmin'])->name('productsAdmin.show');
 
-
 use App\Http\Controllers\NewsController;
 //Page Tin Tức
 Route::get('/tin-tuc', [NewsController::class, 'viewTinTuc']);
