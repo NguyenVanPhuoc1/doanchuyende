@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->string('name');//tên sản phẩm
             $table->integer('cate_id');//id danh mục
-            $table->string('image');//ảnh
             $table->text('description')->nullable();//mô tả
             $table->boolean('noi_bat');
             $table->timestamps();

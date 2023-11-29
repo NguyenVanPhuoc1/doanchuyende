@@ -31,11 +31,9 @@ Route::get('/get-products/{categoryId}', [HomeController::class, 'getProductbyCa
 use App\Http\Controllers\ProductController;
 Route::get('/san-pham', [ProductController::class, 'index'])->name('products.index');
 Route::get('/chi-tiet-san-pham/{id}', [ProductController::class, 'show'])->name('products.show');
-Route::get('/quan-li-san-pham', [ProductController::class, 'indexAdmin'])->name('productsAdmin.show');
-Route::get('a', function(){
-    return view('admin.qlilogo');
-});
-
+// them, xóa sửa sản phẩm
+Route::resource('admin/san-pham', ProductController::class);
+Route::get('admin/san-pham', [ProductController::class, 'indexAdmin'])->name('productsAdmin.show');
 
 use App\Http\Controllers\NewsController;
 //Page Tin Tức

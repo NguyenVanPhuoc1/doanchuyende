@@ -3,29 +3,29 @@
 @section('title', 'Chi Tiết Sản Phẩm')
 
 @section('body')
-        <!-- Body -->
-        <div class="breadCrumbs">
-            <div class="wrap-content">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <a class="text-decoration-none" href="{{ url('/') }}">
-                            <span>Trang chủ</span>
-                        </a>
-                    </li>
-                    <li class="breadcrumb-item">
-                        <a class="text-decoration-none" href="{{ url('/san-pham') }}">
-                            <span>Sản phẩm</span>
-                        </a>
-                    </li>
-                    <li class="breadcrumb-item">
-                        <a class="text-decoration-none active" href="{{ url('/chitietsanpham/' . $product->id) }}">
-                            <span>{{ $product->id }}</span>
-                        </a>
-                    </li>
-                </ol>
-            </div>
+    <!-- Body -->
+    <div class="breadCrumbs">
+        <div class="wrap-content">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a class="text-decoration-none" href="{{ url('/') }}">
+                        <span>Trang chủ</span>
+                    </a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a class="text-decoration-none" href="{{ url('/san-pham') }}">
+                        <span>Sản phẩm</span>
+                    </a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a class="text-decoration-none active" href="{{ url('/chitietsanpham/' . $product->id) }}">
+                        <span>{{ $product->id }}</span>
+                    </a>
+                </li>
+            </ol>
         </div>
-        <main style="background-color: white">
+    </div>
+    <main style="background-color: white">
         <div class="wrap-info wrap-content pt-5 pb-5">
             <div class="wrap-pro-detail">
                 <div class="box-flex align-items-start">
@@ -34,8 +34,8 @@
                             <div class="pro-zoom col ">
                                 <a href="./public/image/c2-1918.jpg" class="MagicZoom" id="sanpham"
                                     data-options="zoomMode: on; hint: on; rightClick: true; selectorTrigger: hover; expandCaption: false; history: false;">
-                                    <img id="mainImage" src="{{ asset('front/public/image/' . $product->image) }}" alt="Ảnh sản phẩm"
-                                        style="max-width: 570px; max-height: 550px;">
+                                    <img id="mainImage" src="{{ asset('front/public/image/' . $product->image) }}"
+                                        alt="Ảnh sản phẩm" style="max-width: 570px; max-height: 550px;">
                                 </a>
                             </div>
                             <div class="gallery-thumb-pro col">
@@ -64,20 +64,11 @@
                             </div>
                         </div>
                         <div class="col-6 right-pro-detail col-lg-7 col-12">
-                            <p class="title-pro-detail">{{ $product->name }}</p>
-                            <ul class="attr-pro-detail p-3">
-                                <li>
-                                    <div class="attr-content-pro-detail name_product_detail">
-                                        <h2>{{ $product->price }} <span>vnd</span></h2>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="desc-pro-detail">
-                                        <h3>Mô tả:</h3>
-                                        <p>{{ $product->description }}</p>
-                                    </div>
-                                </li>
-                            </ul>
+                            <p class="title-pro-detail text-center">{{ $product->name }}</p>
+                            <div class="desc-pro-detail">
+                                <h3>Mô tả:</h3>
+                                {{ $product->description }}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -94,12 +85,12 @@
                         <div class="tab-content">
                             <!-- tab1  -->
                             <!-- <div id="tab1" class="tab-pane active ">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        Phuoc
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            Phuoc
+                                        </div>
                                     </div>
-                                </div>
-                            </div> -->
+                                </div> -->
                             <!-- /tab1  -->
 
                             <!-- tab2  -->
@@ -154,12 +145,11 @@
                                     <div class="col-md-6">
                                         <div id="review-form ">
                                             <form class="review-form" method="post" action="#">
-                                                <input class="input form-control" type="text" name="name" id="name"
-                                                    placeholder="Your Name">
-                                                <input class="input form-control" type="email" name="email" id="email"
-                                                    placeholder="Your Email">
-                                                <textarea class="input form-control" name="content" id="content"
-                                                    placeholder="Your Review"></textarea>
+                                                <input class="input form-control" type="text" name="name"
+                                                    id="name" placeholder="Your Name">
+                                                <input class="input form-control" type="email" name="email"
+                                                    id="email" placeholder="Your Email">
+                                                <textarea class="input form-control" name="content" id="content" placeholder="Your Review"></textarea>
                                                 <button class="btn btn-primary" name="submit">Submit</button>
 
                                             </form>
@@ -255,4 +245,3 @@
         </div>
     </main>
 @endsection
-        
