@@ -17,7 +17,7 @@
                         <h1>Quản Lí</h1>
                         <div class="row">
                             <div class="d-flex">
-                                <a class="btn btn-sm bg-gradient-primary text-white m-2" href="/them-san-pham"
+                                <a class="btn btn-sm bg-gradient-primary text-white m-2" href="/admin/san-pham/create"
                                     title="Thêm mới">
                                     <i class="fas fa-plus mr-2">
                                     </i>Thêm mới
@@ -84,6 +84,7 @@
                 </div>
 
                 @isset($products)
+                
                     <div class="card-body p-0">
                         <div class="card-body table-responsive p-0">
                             <table class="table table-hover">
@@ -99,7 +100,6 @@
                                         <th class="align-middle text-center">Ảnh</th>
                                         <th class="align-middle" style="width: 30%;">Tên SP</th>
                                         <th class="align-middle text-center" style="width: 20%;">Danh mục</th>
-                                        <th class="align-middle text-center">Nổi Bật</th>
                                         <th class="align-middle text-center">Thao Tác</th>
                                     </tr>
                                 </thead>
@@ -118,31 +118,31 @@
                                                 <p class="text-center m-1">{{ $product->id }}</p>
                                             </td>
                                             <td class="align-middle text-center">
-                                                <a href="#" title="Bàn ăn">
+                                                <a href="#">
                                                     <img class="rounded img-preview"
-                                                        src="{{ asset('front/public/image/' . $product->image) }}"
+                                                        src="{{ asset('storage/' . $product->images->first()->file_name) }}"
                                                         alt="Ảnh sản phẩm" style="max-width: 70px; max-height: 55px;"> </a>
                                             </td>
                                             <td class="align-middle">
                                                 <a class="text-dark text-break" href="#S">{{ $product->name }}</a>
                                             </td>
                                             <td class="align-middle">
-                                                <p class="text-center">{{ $product->cate_id }}</p>
+                                                <p class="text-center">{{ $product->category->cate_name }}</p>
                                             </td>
                                             <td class="align-middle text-center">
-                                                <div class="custom-control custom-checkbox my-checkbox">
-                                                    <input type="checkbox" class="custom-control-input show-checkbox"
-                                                        id="show-checkbox-hienthi-14" data-table="product_list"
-                                                        data-id="14" data-attr="hienthi" checked="">
-                                                    <label for="show-checkbox-hienthi-14"
-                                                        class="custom-control-label"></label>
-                                                </div>
-                                            </td>
-                                            <td class="align-middle text-center text-md text-nowrap">
-                                                <a class="text-primary mr-2" href="#" title="Chỉnh sửa"><i
-                                                        class="fas fa-edit"></i></a>
-                                                <a class="text-danger" id="delete-item" href="#" title="Xóa"><i
-                                                        class="fas fa-trash-alt"></i></a>
+                                                <a class="btn text-primary mr-2" href="san-pham/{{ $product->id }}/edit"
+                                                    title="Chỉnh sửa"><i class="fas fa-edit"></i></a>
+                                                {{-- <a class="text-danger" id="delete-item" href="#" title="Xóa"><i
+                                                        class="fas fa-trash-alt"></i></a> --}}
+
+                                                {{-- delete food --}}
+                                                <form action="san-pham/{{ $product->id }}" method="post">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button class="btn text-danger" type="submit"
+                                                        onclick="confirmDelete(event)"><i class="fas fa-trash-alt"
+                                                            title="Xóa"></i></button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -166,10 +166,11 @@
         var products = @json($products);
         var categories = @json($categories);
         var productId;
+
         function displayProducts(categoryId) {
             if (categoryId == 0) {
                 tableRows.forEach(function(row) {
-                    row.classList.remove('d-none'); 
+                    row.classList.remove('d-none');
                 });
                 return;
             } else {
@@ -182,6 +183,13 @@
                         row.classList.remove('d-none');
                     }
                 });
+            }
+        }
+
+        function confirmDelete(event) {
+            event.preventDefault();
+            if (confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')) {
+                document.getElementById('delete-form').submit();
             }
         }
     </script>

@@ -13,12 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('product_image', function (Blueprint $table) {
+        Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->string('pro_image');//ảnh
-            $table->integer('pro_id');//id sản phẩm
+            $table->unsignedBigInteger('product_id');
+            $table->foreign('product_id')->references('id')->on('product')->onDelete('cascade');
+            $table->string('file_name');
+            $table->string('caption')->nullable();
+            // Thêm các cột khác nếu cần
             $table->timestamps();
-        });
+        });        
     }
 
     /**

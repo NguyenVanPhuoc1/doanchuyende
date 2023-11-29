@@ -102,7 +102,6 @@
                                             <p class="photoUpload-choose btn btn-sm bg-gradient-success">Chọn hình</p> 
                                         </label> 
                                         <div class="photoUpload-dimension">Width: 565 px - Height: 545 px (.jpg|.png)</div> 
-
                                     </div>
                                 </div>
                             </div>
