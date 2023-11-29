@@ -15,23 +15,23 @@ class ChartController extends Controller
         $giatri = $request->get('gia_tri');
         $endDate = Carbon::now();
         $modifiedData = "";
-        switch($giatri){
-            case '7day':
-                $startDate = Carbon::now()->subDays(7);
-                $modifiedData = $this->getData($startDate, $endDate);
-                break;
-            case '30day':
-                $startDate = Carbon::now()->subDays(30);
-                $modifiedData = $this->getData($startDate, $endDate);
-                break;
-            // case '1year':
-            //     $modifiedData = $this-> ttThang();
-            //     break;
-            default:
-                $startDate = Carbon::now()->subDays(7);
-                $modifiedData = $this->getData($startDate, $endDate);
-                break;
-            }
+        // switch($giatri){
+        //     case '7day':
+        //         $startDate = Carbon::now()->subDays(7);
+        //         $modifiedData = $this->getData($startDate, $endDate);
+        //         break;
+        //     case '30day':
+        //         $startDate = Carbon::now()->subDays(30);
+        //         $modifiedData = $this->getData($startDate, $endDate);
+        //         break;
+        //     // case '1year':
+        //     //     $modifiedData = $this-> ttThang();
+        //     //     break;
+        //     default:
+        //         $startDate = Carbon::now()->subDays(7);
+        //         $modifiedData = $this->getData($startDate, $endDate);
+        //         break;
+        //     }
         
         // dd($modifiedData);
         return view('admin.trangchu',compact('modifiedData'));

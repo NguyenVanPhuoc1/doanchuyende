@@ -31,17 +31,10 @@ Route::get('/get-products/{categoryId}', [HomeController::class, 'getProductbyCa
 use App\Http\Controllers\ProductController;
 Route::get('/san-pham', [ProductController::class, 'index'])->name('products.index');
 Route::get('/chi-tiet-san-pham/{id}', [ProductController::class, 'show'])->name('products.show');
-<<<<<<< HEAD
-Route::get('/quan-li-san-pham', [ProductController::class, 'indexAdmin'])->name('productsAdmin.show');
-// Route::get('a', function(){
-//     return view('admin.qlilogo');
-// });
-
-=======
 // them, xóa sửa sản phẩm
 Route::resource('admin/san-pham', ProductController::class);
 Route::get('admin/san-pham', [ProductController::class, 'indexAdmin'])->name('productsAdmin.show');
->>>>>>> 6e889ce540d515fb534e280225db563731ca4d06
+
 
 use App\Http\Controllers\NewsController;
 //Page Tin Tức
@@ -71,6 +64,10 @@ Route::middleware(['auth','admin.access'])->group(function () {
     Route::post('/admin/quanlichinhsach/chinhsach', [PolicyController::class, 'updatePolicys'])-> name('admin-updatePolicys');
     Route::get('/admin/quanlichinhsacht/chinhsach/delete', [PolicyController::class, 'deletePolicys'])->name('deletePolicys');//xóa theo checkbox
     Route::get('/admin/quanlichinhsach/chinhsach/delete/{id}', [PolicyController::class, 'deletePolicybyId'])->name('deletePolibyId');//xóa khi có id
+
+    // change password - chiến
+    Route::get('/admin/changepassword', [CustomAuthController::class, 'viewChangePassword']);
+    Route::post('/admin/changepassword', [CustomAuthController::class, 'changePassword'])->name('change.password.post');
 });
 
 
