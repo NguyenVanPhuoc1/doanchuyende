@@ -1,6 +1,6 @@
 @extends('frontend.layout.master')
 
-@section('title', 'sfdaf')
+@section('title', 'Giới Thiệu')
 
 @section('body')
     <div class="breadCrumbs">

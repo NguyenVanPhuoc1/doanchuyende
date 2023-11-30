@@ -5,18 +5,28 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Product;
+// Hưng
+// use App\Models\Logo;
+// use App\Models\Favicon;
+
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
     //
     public function viewHome(){
+        // Hưng: lấy ra file_name trong bảng logo và favicon để hiển thị
+        // $logo_name = Logo::latest('created_at')->first()->file_name;
+        // $favicon_name = Favicon::latest('created_at')->first()->file_name;
+
         $category = $this->getCategory();
         return view('frontend.trangchu',compact('category'));
     }
     // lấy tất cả các danh mục
     public function getCategory(){
-        $category = Category::all();
+        $category = Category::orderBy('created_at', 'desc')
+        ->where('noi_bat', true) 
+        ->get();
         return $category;
     }
     //lấy sản phẩm theo danh mục

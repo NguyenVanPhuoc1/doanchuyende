@@ -16,8 +16,7 @@
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
         </div>
-        <!-- /.content-header -->
-    
+        <!-- /.content-header -->   
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
@@ -28,7 +27,6 @@
                         <div class="small-box bg-info">
                             <div class="inner">
                                 <!-- <h3>150</h3> -->
-    
                                 <p>Đổi Mật Khẩu</p>
                             </div>
                             <div class="icon">
@@ -43,13 +41,12 @@
                         <div class="small-box bg-success">
                             <div class="inner">
                                 <!-- <h3>53<sup style="font-size: 20px">%</sup></h3> -->
-    
                                 <p>Thư Liên Hệ</p>
                             </div>
                             <div class="icon">
                                 <i class="fas fa-address-book"  style="font-size: 40px;"></i>
                             </div>
-                            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            <a href="{{url('admin/quanlinhantin')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     <!-- ./col -->
@@ -99,7 +96,7 @@
                             </div><!-- /.card-header -->
                                 <div class="row m-2">
                                     <div class="col-sm-12">
-                                            <form action="#" id="thongke" method="get">
+                                            <form action="{{ url('admin/trang-chu')}}" id="thongke" method="get">
     
                                                 <div class="store-sort">
     
@@ -116,8 +113,8 @@
                                                                 value="7day">7 ngày qua</option>
                                                             <option {{ request('gia_tri')=='30day' ? 'selected' :'' }}
                                                                 value="30day">tháng này</option>
-                                                            <option {{ request('gia_tri')=='1year' ? 'selected' :'' }}
-                                                                value="1year">trong năm</option>
+                                                            <!-- <option {{ request('gia_tri')=='1year' ? 'selected' :'' }}
+                                                                value="1year">trong năm</option> -->
                                                         </select>
                                                     </label>
                                                 </div>
@@ -127,7 +124,7 @@
                             <div class="row justify-content-center">
                                 <div class="col-md-12">
                                     <!-- Biểu Đồ Thống kê -->
-                                    <div id="myfirstchart" style="height: 250px;"></div>
+                                    <div id="myfirstchart" style="height: 300px;"></div>
                                     <br>
                                 </div>
                                 <div class="chart_name d-flex text-center align-items-center ">
@@ -145,30 +142,41 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
+    <?php echo json_encode($modifiedData); ?>
 @endsection
 
 @section('javascript')
 <script>
-    new Morris.Line({
-        // ID of the element in which to draw the chart.
-        element: 'myfirstchart',
-        // Chart data records -- each entry in this array corresponds to a point on
-        // the chart.
-        data: [
-            { year: '2008', value: 20 },
-            { year: '2009', value: 10 },
-            { year: '2010', value: 5 },
-            { year: '2011', value: 5 },
-            { year: '2012', value: 20 }
-        ],
-        // The name of the data record attribute that contains x-values.
-        xkey: 'year',
-        // A list of names of data record attributes that contain y-values.
-        ykeys: ['value'],
-        // Labels for the ykeys -- will be displayed when you hover over the
-        // chart.
-        labels: ['Value']
-    });
+    function submitForm1(){
+        document.getElementById('thongke').submit();
+    }
+
+
+
+    // lấy api dữ liệu người dùng từ gg analytics
+    var chart ="";
+    var analyticsData = <?php echo json_encode($modifiedData); ?>;
+    const datasave = [];
+    for (let i = 0; i < analyticsData.length; i++) {
+        datasave.push({
+                    date: analyticsData[i].date,
+                    screenPageViews: analyticsData[i].screenPageViews
+                });
+            }
+    alert(analyticsData );
+    chart = new Morris.Line({
+                element: 'myfirstchart',
+                parseTime: true,
+                hideHover: 'auto',
+                data: datasave,
+                xkey: ['date'],
+                ykeys: ['screenPageViews'],
+                labels: [ 'Tổng truy cập'],
+                dateFormat: function(x) {
+                    return new Date(x).toLocaleDateString();
+                }
+            });
+
 </script>
 
 @endsection

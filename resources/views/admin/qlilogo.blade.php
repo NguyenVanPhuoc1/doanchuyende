@@ -10,6 +10,8 @@
                 <div class="row mb-2 ">
                     <div class=" col-md-12 ">
                         <h1>Quản Lí Logo</h1>
+                        <hr>
+                        <p style="font-style: italic">Nên chọn ảnh có tỉ lệ 1:1, kích thước ảnh không quá 256Kb</p>
                     </div>
                 </div>
             </div><!-- /.container-fluid -->
@@ -28,8 +30,8 @@
                                         <i class="fas fa-save mr-2">
                                         </i>Lưu
                                     </button>
-                                    <a class="btn btn-sm bg-gradient-danger text-white m-2" id="delete-all" data-url="#"
-                                        title="Xóa tất cả">
+                                    <a class="btn btn-sm bg-gradient-danger text-white m-2" href="/admin"
+                                        title="Thoát">
                                         <i class="fas fa-sign-out-alt mr-2"></i>Thoát
                                     </a>
                                 </div>

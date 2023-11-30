@@ -95,7 +95,7 @@
                                             alt="Alt Photo" id="photoUpload-preview" style="border: 1px solid black;"  >
                                         </div>
                                         <label class="photoUpload-file" id="photo-zone" for="fileToUpload">
-                                            <input type="file" name="fileToUpload" id="fileToUpload" onchange="checkImage()">
+                                            <input type="file" name="fileToUpload" id="fileToUpload">
                                             <i class="fas fa-cloud-upload-alt"></i>
                                             <p class="photoUpload-drop">Kéo và thả hình vào đây</p>
                                             <p class="photoUpload-or">hoặc</p>
@@ -213,7 +213,7 @@
                                         </div>
                                         @endif
                                         <label class="photoUpload-file" id="photo-zone" for="fileToUpload">
-                                            <input type="file" name="fileToUpload" id="fileToUpload" onchange="checkImage()">
+                                            <input type="file" name="fileToUpload" id="fileToUpload" >
                                             <i class="fas fa-cloud-upload-alt"></i>
                                             <p class="photoUpload-drop">Kéo và thả hình vào đây</p>
                                             <p class="photoUpload-or">hoặc</p>
@@ -264,6 +264,17 @@
         const dropzone = document.getElementById('photo-zone');
         const fileInput = document.getElementById('fileToUpload');
         var imagePreview = document.getElementById('photoUpload-preview');
+        var ImageNotify = document.getElementById('ImageNotification');
+
+         // hàm kiểm tra đuôi ảnh
+        function isImageValid(imageUrl) {
+            // Kiểm tra đuôi của đường dẫn ảnh
+            var validExtensions = ['jpg', 'png'];
+            var extension = imageUrl.split('.').pop().toLowerCase();
+
+            // So sánh đuôi với danh sách đuôi hợp lệ
+            return validExtensions.includes(extension);
+        }
 
         // lấy ảnh từ bên ngoài
         fileInput.addEventListener('change', () => {
@@ -272,9 +283,20 @@
             if (selectedFile) {
                 const reader = new FileReader();
 
-                reader.onload = function () {
-                    imagePreview.src = reader.result;
-                    imagePreview.style.display = 'block';
+                reader.onload = function () {   
+                    if(isImageValid(selectedFile.name)){
+                        imagePreview.src = reader.result;
+                        imagePreview.style.display = 'block';
+                    } else{
+                        ImageNotify.style.display = "block";
+                        if(document.getElementById('confirmOK')){
+                            document.getElementById('confirmOK').addEventListener('click', function (){
+                                // Đóng modal
+                                ImageNotify.style.display = "none";
+                                imagePreview.setAttribute('src', `{{ asset('admin/image/noimage.png')}}`);
+                            });
+                        }
+                    }
                 }
 
                 reader.readAsDataURL(selectedFile);
@@ -307,38 +329,6 @@
                 reader.readAsDataURL(file);
             }
         });
-
-        // hàm kiểm tra đuôi ảnh
-        function isImageValid(imageUrl) {
-            // Kiểm tra đuôi của đường dẫn ảnh
-            var validExtensions = ['jpg', 'png'];
-            var extension = imageUrl.split('.').pop().toLowerCase();
-
-            // So sánh đuôi với danh sách đuôi hợp lệ
-            return validExtensions.includes(extension);
-        }
-        // bắt sự kiện change cho thẻ input
-        var ImageNotify = document.getElementById('ImageNotification');
-        function checkImage(){
-            var fileInput = document.getElementById('fileToUpload');
-            
-            if (fileInput.files.length > 0) {
-                // Lấy đường dẫn của tệp tin
-                var filePath = fileInput.value;
-
-                // Kiểm tra đuôi của tệp tin
-                if (!isImageValid(filePath)) {
-                    ImageNotify.style.display = "block";
-                } 
-            } 
-        }
-        if(document.getElementById('confirmOK')){
-            document.getElementById('confirmOK').addEventListener('click', function (){
-            // Đóng modal
-            ImageNotify.style.display = "none";
-            imagePreview.setAttribute('src', `{{ asset('admin/image/noimage.png')}}`);
-        });
-        }
 
     </script>
 

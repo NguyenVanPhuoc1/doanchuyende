@@ -2,6 +2,22 @@
 
 @section('title', 'Thêm sản phẩm')
 
+@section('style')
+    <style>
+        figure{
+            width: calc(25% - 10px);
+            margin: 5px;
+        }
+        figure img{
+            width: 100%;
+        }
+
+        #image-display{
+            display: flex;
+        }
+    </style>
+@endsection
+
 @section('body')
     <div class="content-wrapper addproduct" id="themsanpham">
         <!-- Content Header (Page header) -->

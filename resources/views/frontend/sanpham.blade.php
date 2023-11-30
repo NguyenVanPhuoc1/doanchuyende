@@ -35,9 +35,9 @@
                                         <div class="scale-img product-image">
                                             @if ($product->images->isNotEmpty())
                                                 <img width="100%"
-                                                    src="{{ asset('storage/' . $product->images->first()->file_name) }}"
+                                                    src="{{ asset('front/public/image/' . $product->images->first()->file_name) }}"
                                                     alt="Ảnh sản phẩm">
-                                                <a class="product-price btn btn-primary" href="#">Liên hệ</a>
+                                                <a class="product-price btn btn-primary" href="/lien-he">Liên hệ</a>
                                             @endif
                                         </div>
                                         <div class="product-content">

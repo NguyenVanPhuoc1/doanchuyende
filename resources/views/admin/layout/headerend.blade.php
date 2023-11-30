@@ -36,6 +36,8 @@
 
     <!-- ckeditor.js: Thư viện soạn thảo văn bản --> 
     <script src="{{ asset('admin/dist/js/ckeditor.js')}}"></script>
+    <script src="https://apis.google.com/js/client.js"></script>
+
     <!-- thêm album ảnh -->
     <!-- Styles -->
 	<link href="{{ asset('admin/dist/css/filterjs/jquery-filer.css')}}" rel="stylesheet" >
@@ -149,6 +151,9 @@
             display: none;
         }
     </style>
+
+    @yield('style')
+    
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -160,10 +165,10 @@
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="#" class="nav-link">Home</a>
+                <a href="{{url('admin/trang-chu')}}" class="nav-link">Home</a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="#" class="nav-link">Đăng xuất</a>
+                <a href="{{route('signout')}}" class="nav-link">Đăng xuất</a>
             </li>
         </ul>
 
@@ -171,7 +176,7 @@
         <ul class="navbar-nav ml-auto">
             <!-- Reply Main Layout -->
             <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{url('/')}}" target="_blank" class="nav-link">
                     <i class="fas fa-reply"></i>
                     Trang chủ
                 </a>
@@ -218,7 +223,7 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
+                    <a href="{{url('admin/quanlinhantin')}}" class="dropdown-item">
                         <i class="fas fa-envelope mr-2"></i> 4 Liên Hệ
                     </a>
                 </div>
@@ -252,7 +257,7 @@
                     <!-- Add icons to the links using the .nav-icon class
                 with font-awesome or any other icon font library -->
                     <li class="nav-item ">
-                        <a href="#" class="nav-link ">
+                        <a href="{{url('admin/trang-chu')}}" class="nav-link ">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
                                 Bảng Điều Khiển
@@ -270,7 +275,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{url('admin/quanlidanhmuc')}}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Danh mục cấp 1</p>
                                 </a>
@@ -283,13 +288,13 @@
                             </li>
                         </ul>
                     </li>
-                    @if(request()->is('admin/quanlibaiviet/*'))
-                    <li class="nav-item menu-is-opening menu-open">
-                        <a href="#" class="nav-link active">
+                    <li class="nav-item">
+                        <a class="nav-link">
+
                             <i class="nav-icon fas fa-chart-pie"></i>
                             <p>
                                 Quản lí bài viết
-                                <i class="right fas fa-angle-left"></i>
+                                <i class="right fas fa-angle-left right"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview d-block">
@@ -300,30 +305,21 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{url('admin/quanlichinhsach/chinhsach')}}" class="nav-link {{ request()->is('admin/quanlichinhsach/chinhsach*') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Chính Sách</p>
                                 </a>
                             </li>
                         </ul>
                     </li>
-                    @endif
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{url('admin/quanlinhantin')}}" class="nav-link {{ request()->is('admin/quanlinhantin*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-tree"></i>
                             <p>
                                 Quản lí nhận tin
-                                <i class="fas fa-angle-left right"></i>
+                                <!-- <i class="fas fa-angle-left right" ></i> -->
                             </p>
                         </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Đăng kí nhận tin</p>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
@@ -338,18 +334,6 @@
                                 <a href="#" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Giới Thiệu</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Copyright</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Liên Hệ</p>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -370,13 +354,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="/admin/logo" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Logo</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="/admin/favicon" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Favicon</p>
                                 </a>
@@ -385,24 +369,6 @@
                                 <a href="#" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Slideshow</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Social</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Social footer</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Quảng cáo</p>
                                 </a>
                             </li>
                         </ul>
@@ -430,21 +396,11 @@
 <!-- Bootstrap 4 -->
 <script src="{{ asset('admin/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- ChartJS -->
-<script src="{{ asset('admin/plugins/chart.js/Chart.min.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <!-- Sparkline -->
-<!-- <script src="../'admin/plugins/sparklines/sparkline.js"></script> -->
-<!-- JQVMap -->
-<!-- <script src="{{ asset('admin/plugins/jqvmap/jquery.vmap.min.js')}}"></script> -->
-<!-- <script src="{{ asset('admin/plugins/jqvmap/maps/jquery.vmap.usa.js')}}"></script> -->
 <!-- jQuery Knob Chart -->
 <script src="{{ asset('admin/plugins/jquery-knob/jquery.knob.min.js')}}"></script>
 <!-- daterangepicker -->
-<!-- <script src="../'admin/plugins/moment/moment.min.js"></script> -->
-<!-- <script src="{{ asset('admin/plugins/daterangepicker/daterangepicker.js')}}"></script> -->
-<!-- Tempusdominus Bootstrap 4 -->
-<!-- <script src="../admin/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script> -->
-<!-- Summernote -->
-<!-- <script src="{{ asset('admin/plugins/summernote/summernote-bs4.min.js')}}"></script> -->
 <!-- overlayScrollbars -->
 <script src="{{ asset('admin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
 <!-- AdminLTE App -->
@@ -456,6 +412,7 @@
 <script src="{{ asset('admin/dist/js/filterjs/jquery.filer.min.js')}}" type="text/javascript"></script>
 <script src="{{ asset('admin/dist/js/filterjs/custom.js')}}" type="text/javascript"></script>
 
+<script src="{{ asset('js/app.js') }}"></script>
 <!-- difference here -->
 @yield('javascript')
 <!-- difference here -->

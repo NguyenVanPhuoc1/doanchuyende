@@ -103,27 +103,35 @@
                                 <div class="left_newsletter col-12 col-lg-12">
                                     <div class="title_newsletter">Sign up to get information</div>
                                     <div class="slogan_newsletter">Please leave your support request</div>
-                                    <form class="validation-newsletter kiemtra-form" id="form-newsletter" novalidate="" method="post" action="" enctype="multipart/form-data">
+                                    <form action="{{route('add-customer')}}" id="form-newsletter" method="post" class="validation-newsletter kiemtra-form"   enctype="multipart/form-data">
+                                        @csrf
                                         <div class="newsletter-input">
-                                            <input type="text" class="form-control text-sm" id="fullname-newsletter" name="fullname" placeholder="Name" required="">
+                                            <input type="text" class="form-control text-sm" id="fullname-newsletter" name="fullname" placeholder="Name" required>
                                             <!-- <div class="invalid-feedback">Please enter your name</div> -->
+                                            @if ($errors->has('news_name'))
+                                                <span id="searchError" class="d-block alert text-danger" >{{ $errors->first('fullname') }}</span>
+                                            @endif
                                         </div>
                                         <div class="newsletter-input">
-                                            <input type="number" class="form-control text-sm" id="phone-newsletter" name="phone" placeholder="Phone" required="">
+                                            <input type="number" class="form-control text-sm" id="phone-newsletter" name="phone" placeholder="Phone" required>
+                                            @if ($errors->has('phone'))
+                                                <span id="searchError" class="d-block alert text-danger" >{{ $errors->first('phone') }}</span>
+                                            @endif
                                             <!-- <div class="invalid-feedback">Please enter your phone</div> -->
                                         </div>
                                         <div class="newsletter-input">
-                                            <input type="email" class="form-control text-sm" id="email-newsletter" name="email" placeholder="Email" required="">
+                                            <input type="email" class="form-control text-sm" id="email-newsletter" name="email" placeholder="Email" required>
+                                            @if ($errors->has('email'))
+                                                <span id="searchError" class="d-block alert text-danger" >{{ $errors->first('email') }}</span>
+                                            @endif
                                             <!-- <div class="invalid-feedback">Please enter your email</div> -->
                                         </div>
                                         <div class="newsletter-input">
-                                            <textarea type="text" class="form-control text-sm" id="content-newsletter" name="content" placeholder="Content" required=""></textarea>
+                                            <textarea type="text" class="form-control text-sm" id="content-newsletter" name="content" placeholder="Content" required></textarea>
                                             <!-- <div class="invalid-feedback">Please enter your content</div> -->
                                         </div>
                                         <div class="newsletter-button">
-                                            <input type="submit" class="btn btn-sm btn-danger guimail" data-loai="newsletter" value="Gửi Yêu Cầu">
-                                            <input type="hidden" name="submit-newsletter" value="1">
-                                            <input type="hidden" name="recaptcha_response_newsletter" id="recaptchaResponseNewsletter">
+                                            <button type="submit" class="btn btn-sm btn-danger guimail" data-loai="newsletter" >Gửi Yêu Cầu </button>
                                         </div>
                                     </form>
                                 </div>
@@ -135,7 +143,7 @@
                                         @foreach($listNews as $item)
                                         <!-- item news -->
                                         <div class="item_news d-flex slick-slider">
-                                            <a href="" class="hover_sang2 d-block col-4" >
+                                            <a href="{{route('news_detail',['id' => $item->id])}}" class="hover_sang2 d-block col-4" >
                                                 <img style=" height:145px; " src="{{ asset('front/public/image/'.$item->news_image )}}" alt="{{$item->news_image}}" >
                                             </a>
                                             <div class="content_news_index col-8">
@@ -143,7 +151,7 @@
                                                     <p class="text-split">{{ $item->news_name}}</p>
                                                 </div>
                                                 <div class="desc_news_index">
-                                                    <p class="text-split">{{ $item->news_desc}} </p>
+                                                    <p class="text-split">{!! $item->news_desc!!} </p>
                                                 </div>
                                                 <div class="btn_more_index">
                                                     <a href="{{route('news_detail',['id' => $item->id])}}" class="text-decoration-none tintuc-xemthem">XEM THÊM</a>

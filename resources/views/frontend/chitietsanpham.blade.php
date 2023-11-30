@@ -2,7 +2,7 @@
 
 @section('title', 'Chi Tiết Sản Phẩm')
 
-@section('css')
+@section('style')
     <style>
         .carousel {
             position: relative;
@@ -45,6 +45,7 @@
         }
     </style>
 @endsection
+
 @section('body')
     <!-- Body -->
     <div class="breadCrumbs">
@@ -78,25 +79,28 @@
                             {{-- // anh lon --}}
                             <div class="big-image mb-3">
                                 @if ($product->images->isNotEmpty())
-                                    <img width="100%" src="{{ asset('storage/' . $product->images->first()->file_name) }}"
+                                    <img id="mainImage" width="100%"
+                                        src="{{ asset('front/public/image/' . $product->images->first()->file_name) }}"
                                         alt="">
                                 @endif
-
                             </div>
 
                             {{-- carousel --}}
                             <div class="carousel">
                                 <div class="carousel-images">
                                     @if ($product->images->isNotEmpty())
-                                            @foreach ($product->images as $image)
-                                                <img src="{{ asset('storage/' . $image->file_name) }}" alt="Ảnh sản phẩm">
-                                            @endforeach
+                                        @foreach ($product->images as $image)
+                                            <img class="thumbnail-image"
+                                                src="{{ asset('front/public/image/' . $image->file_name) }}"
+                                                alt="Ảnh sản phẩm">
+                                        @endforeach
                                     @endif
                                 </div>
                                 <button class="prev-btn btn">
-                                    <<button class="next-btn btn">>
+                                    < <button class="next-btn btn">>
                                 </button>
                             </div>
+
                         </div>
                         <div class="right-pro-detail col-12 col-md-6 col-lg-7">
                             <p class="title-pro-detail text-center">{{ $product->name }}</p>
@@ -119,43 +123,19 @@
                                 <div class="col-md-6">
                                     <h3 class="title text-center">BÌNH LUẬN</h3>
                                     <div id="reviews">
-                                        <ul class="reviews">
-                                            <li>
-                                                <div class="review-heading">
-                                                    <h5 class="name">Tên </h5>
-                                                </div>
-                                                <div class="review-body">
-                                                    <p> Bình Luận 1</p>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                        <ul class="reviews">
-                                            <li>
-                                                <div class="review-heading">
-                                                    <h5 class="name">Tên </h5>
-                                                </div>
-                                                <div class="review-body">
-                                                    <p> Bình Luận 2</p>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                        <ul class="reviews">
-                                            <li>
-                                                <div class="review-heading">
-                                                    <h5 class="name">Tên </h5>
-                                                </div>
-                                                <div class="review-body">
-                                                    <p> Bình Luận 3</p>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                        <ul class="reviews-pagination">
-                                            <li class="active">1</li>
-                                            <li><a href="#">2</a></li>
-                                            <li><a href="#">3</a></li>
-                                            <li><a href="#">4</a></li>
-                                            <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-                                        </ul>
+                                        @foreach ($product->comment as $item)
+                                            <ul class="reviews">
+                                                <li>
+                                                    <div class="review-heading">
+                                                        <h5 class="name">{{ $item->name }} </h5>
+                                                    </div>
+                                                    <div class="review-body">
+                                                        <p>{{ $item->content }}/p>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                            <hr>
+                                        @endforeach
                                     </div>
                                 </div>
                                 <!-- /Reviews -->
@@ -163,17 +143,18 @@
                                 <!-- Review Form -->
                                 <div class="col-md-6">
                                     <div id="review-form ">
-                                        <form class="review-form" method="post" action="#">
+                                        <form class="review-form" method="post"
+                                            action="{{ route('product.comments.store', ['productId' => $product->id]) }}">
+                                            @csrf
                                             <input class="input form-control" type="text" name="name" id="name"
                                                 placeholder="Your Name">
                                             <input class="input form-control" type="email" name="email" id="email"
                                                 placeholder="Your Email">
                                             <textarea class="input form-control" name="content" id="content" placeholder="Your Review"></textarea>
-                                            <button class="btn btn-primary" name="submit">Submit</button>
-
+                                            <button type="submit" class="btn btn-primary" name="submit">Gửi bình
+                                                luận</button>
                                         </form>
                                     </div>
-
                                 </div>
                                 <!-- /tab2  -->
                             </div>
@@ -297,5 +278,20 @@
             prevButton.disabled = (imageIndex === 0);
             nextButton.disabled = (imageIndex === totalImages - 1);
         }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const thumbnailImages = document.querySelectorAll(".thumbnail-image");
+            const mainImage = document.getElementById("mainImage");
+
+            thumbnailImages.forEach(thumbnail => {
+                thumbnail.addEventListener("click", function() {
+                    mainImage.src = thumbnail.src;
+                });
+            });
+        });
+
+        @if (Session::has('fail'))
+            alert("{{ Session::get('fail') }}");
+        @endif
     </script>
 @endsection

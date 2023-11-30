@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
@@ -18,7 +18,7 @@ class ProductController extends Controller
 
     public function show($id)
     {
-        $product = Product::with('images')->findOrFail($id);
+        $product = Product::with('images', 'comment')->findOrFail($id);
         return view('frontend.chitietsanpham', ['product' => $product]);
     }
 
@@ -59,15 +59,14 @@ class ProductController extends Controller
         // Xử lý lưu các file ảnh vào bảng images, liên kết với sản phẩm mới được tạo
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $file) {
+                // file_name sẽ tạo thêm một chuỗi dựa trên thời gian hiện tại, để tránh việc trùng tên file làm chúng bị ghi đè
                 $fileName = uniqid() . '_' . $file->getClientOriginalName();
-                $file->storeAs('public', $fileName); // Lưu ảnh vào thư mục images (hoặc sử dụng disk khác)
+                $file->move(public_path('front/public/image/'), $fileName);
 
+                // thêm các ảnh vào database
                 ProductImage::create([
                     'product_id' => $product->id,
-
-                    // file_name sẽ tạo thêm một chuỗi dựa trên thời gian hiện tại, để tránh việc trùng tên file làm chúng bị ghi đè
                     'file_name' => $fileName
-                    // Thêm các trường thông tin khác của ảnh
                 ]);
             }
         }
@@ -112,7 +111,7 @@ class ProductController extends Controller
 
             foreach ($request->file('images') as $file) {
                 $fileName = uniqid() . '_' . $file->getClientOriginalName();
-                $file->storeAs('public', $fileName); // Lưu ảnh vào thư mục images (hoặc sử dụng disk khác)
+                $file->move(public_path('front/public/image/'), $fileName);
 
                 ProductImage::create([
                     'product_id' => $id,
@@ -142,7 +141,7 @@ class ProductController extends Controller
 
         // Xóa các ảnh từ thư mục lưu trữ
         foreach ($images as $image) {
-            Storage::delete('public/' . $image->file_name);
+            File::delete('front/public/image/' . $image->file_name);
         }
 
         // Xóa các bản ghi ảnh từ cơ sở dữ liệu

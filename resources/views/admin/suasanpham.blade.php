@@ -2,6 +2,22 @@
 
 @section('title', 'Sửa sản phẩm')
 
+@section('style')
+    <style>
+        figure{
+            width: calc(25% - 10px);
+            margin: 5px;
+        }
+        figure img{
+            width: 100%;
+        }
+
+        #image-display{
+            display: flex;
+        }
+    </style>
+@endsection
+
 @section('body')
     <div class="content-wrapper addproduct" id="themsanpham">
         <!-- Content Header (Page header) -->
@@ -69,15 +85,15 @@
                                 <!-- card-body table-responsive p-0 -->
                                 <div class="card-body">
                                     <!-- Vùng để chọn nhiều ảnh -->
-                                    <input name="images[]" style="display: none" type="file" id="upload-button"
-                                        multiple accept="image/*" />
+                                    <input name="images[]" style="display: none" type="file" id="upload-button" multiple
+                                        accept="image/*" />
                                     <label id="lbl_chonanh" style="display: none" for="upload-button" class="btn btn-primary">
                                         Chọn ảnh
                                     </label>
                                     <!-- Hiển thị ảnh đã chọn -->
                                     <div id="image-display">
                                         @foreach ($product->images as $image)
-                                            <figure><img src="{{ asset('storage/' . $image->file_name) }}">
+                                            <figure><img src="{{ asset('front/public/image/' . $image->file_name) }}">
                                                 <figcaption>{{ $image->file_name }}</figcaption>
                                             </figure>
                                         @endforeach
@@ -130,8 +146,10 @@
                                             <select required name="noibat" data-level="0" data-type="product"
                                                 class="form-control select2 select-category select2-hidden-accessible"
                                                 aria-hidden="true">
-                                                <option value="0" {{ $product->noi_bat == 0 ? 'selected' : '' }}>Không</option>
-                                                <option value="1" {{ $product->noi_bat == 1 ? 'selected' : '' }}>Nổi bật</option>
+                                                <option value="0" {{ $product->noi_bat == 0 ? 'selected' : '' }}>Không
+                                                </option>
+                                                <option value="1" {{ $product->noi_bat == 1 ? 'selected' : '' }}>Nổi bật
+                                                </option>
                                             </select>
                                         </div>
                                     </div>
@@ -164,7 +182,7 @@
         let error = document.getElementById("error");
         let imageDisplay = document.getElementById("image-display");
         let btnClear = document.getElementById("clear-button");
-        
+
         // Xử lý khi người dùng chọn ảnh
         const fileHandler = (file, name, type) => {
             // Kiểm tra nếu không phải là file ảnh
