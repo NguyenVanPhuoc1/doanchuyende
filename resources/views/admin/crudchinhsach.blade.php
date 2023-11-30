@@ -71,7 +71,7 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="contentvi">Nội dung (vi):</label>
-                                                        <textarea name="contentvi" id="contentvi" cols="10" rows="80" ></textarea>
+                                                        <textarea name="contentvi" id="contentvi" cols="10" rows="80" plaintext></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -183,7 +183,7 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="namevi">Nội dung (vi):</label>
-                                                        <textarea name="contentvi" id="contentvi" cols="10" rows="80" >{{$policy -> poli_desc}}</textarea>
+                                                        <textarea name="contentvi" id="contentvi" cols="10" rows="80" plaintext>{{$policy -> poli_desc}}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
