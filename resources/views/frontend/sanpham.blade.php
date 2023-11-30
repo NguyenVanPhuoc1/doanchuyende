@@ -47,6 +47,11 @@
                                 </div>
                             </div>
                         @endforeach
+
+                        <!-- thanh phân trang  -->
+                        <div class="pagination justify-content-center">
+                            {{$products->appends(request()->query())->links('pagination::bootstrap-4')}}
+                        </div>
                     @else
                         <div class="alert alert-warning w-100 text-center" role="alert">
                             <strong>{{ $products }}</strong>

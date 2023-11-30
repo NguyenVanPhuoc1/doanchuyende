@@ -30,7 +30,6 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HKZMS27N37"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-
         function gtag() {
             dataLayer.push(arguments);
         }
@@ -270,10 +269,10 @@
                             <!-- Grid column -->
                             <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
                                 <h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
-                                <p><i class="fas fa-home mr-3"></i> New York, NY 10012, US</p>
+                                <p><i class="fas fa-home mr-3"></i> 53 Võ Văn Ngân, Linh Chiểu, Thành Phố Thủ Đức,VN</p>
                                 <p><i class="fas fa-envelope mr-3"></i> info@gmail.com</p>
-                                <p><i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
-                                <p><i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
+                                <p><i class="fas fa-phone mr-3"></i> 0123 456 789</p>
+                                <p><i class="fas fa-print mr-3"></i> 0123 456 789</p>
                             </div>
                             <!-- Grid column -->
                         </div>

@@ -22,15 +22,9 @@
         </form>
     </div>
     <!-- Hiển thị Thông báo khi đăng nhập sai -->
-    @if (Session::has('message'))
-        <div class="alert alert-success" role="alert">
-            {{ Session::get('message') }}
-        </div>
-     @endif
-    @if ($errors->any())
-        <div class="alert alert-danger m-0-auto">
-            <i class="fa-regular fa-circle-exclamation"></i>
-            {{ $errors->first('error') }}
-        </div>
-        @endif
+
+    @if (session('error'))
+        <div class="alert alert-danger">{{ session('error') }}</div>
+    @endif
+
 @endsection

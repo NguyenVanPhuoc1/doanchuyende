@@ -38,32 +38,26 @@ class ChartController extends Controller
     }
 
     public function getData($startDate, $endDate){
-
+        
         $analyticsData = Analytics::fetchTotalVisitorsAndPageViews(Period::create($startDate, $endDate));
         $allDates = [];
-        $currentDate = clone $startDate;
-        while ($currentDate <= $endDate) {
-            $allDates[] = $currentDate->toDateString();
-            $currentDate->addDay();
-        }
-
-
-        $data = [];
         $numberOfDays = $endDate->diffInDays($startDate) + 1;
+        $currentDate = clone $endDate; 
 
-        for ($i = $numberOfDays; $i > 0; $i--) {
-            $date = $allDates[$i - 1];
+        for ($i = 1; $i <= $numberOfDays; $i++) {
             $data[] = [
-                'date' => Carbon::parse($date),
+                'date' => $currentDate->toDateString(),
                 'activeUsers' => 0,
                 'screenPageViews' => 0,
             ];
-            // dd($analyticsData[0]['screenPageViews']);die();
-            // Nếu có dữ liệu từ Google Analytics cho ngày đó, ghi đè giá trị mặc định
-            if (isset($analyticsData[$i-1])) {
+
+            // Check if there is data from Google Analytics for that day, override default values
+            if (isset($analyticsData[$i - 1])) {
                 $data[$i - 1]['activeUsers'] = $analyticsData[$i - 1]['activeUsers'];
                 $data[$i - 1]['screenPageViews'] = $analyticsData[$i - 1]['screenPageViews'];
             }
+
+            $currentDate->subDay();
         }
         return $data;
 
