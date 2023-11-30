@@ -26,6 +26,9 @@
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="../front/public/css/HoldOn.min.css" rel="stylesheet">
+    <script src="../front/public/js/HoldOn.min.js"></script>
     </style>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HKZMS27N37"></script>
     <script>
