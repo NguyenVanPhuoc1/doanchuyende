@@ -26,7 +26,7 @@ class Product extends Model
     }
 
     //1 sản phẩm có nhiều comment
-    public function productComment(){
+    public function comment(){
         return $this->hasMany(ProductComment::class,'pro_id','id');
     }
 

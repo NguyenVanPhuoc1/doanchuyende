@@ -133,7 +133,7 @@
                             @else
                             <div class="alert alert-warning w-100 text-center" role="alert">
                                 <strong>News article not found</strong>
-                            </div>  
+                            </div>
                             @endif
                         </div>
                     </form>       

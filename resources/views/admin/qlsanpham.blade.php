@@ -42,7 +42,7 @@
                     </div>
                     <div class="col-md-12">
                         <ol class="breadcrumb float-sm-left">
-                            <li class="breadcrumb-item"><a href="index.php">Bảng Điều Khiển</a></li>
+                            <li class="breadcrumb-item"><a href="/admin">Bảng Điều Khiển</a></li>
                             <li class="breadcrumb-item active">Quản lí Sản Phẩm</li>
                         </ol>
                     </div>
@@ -84,7 +84,6 @@
                 </div>
 
                 @isset($products)
-                
                     <div class="card-body p-0">
                         <div class="card-body table-responsive p-0">
                             <table class="table table-hover">
@@ -118,9 +117,9 @@
                                                 <p class="text-center m-1">{{ $product->id }}</p>
                                             </td>
                                             <td class="align-middle text-center">
-                                                <a href="#">
+                                                <a href="/chi-tiet-san-pham/{{ $product->id }}">
                                                     <img class="rounded img-preview"
-                                                        src="{{ asset('storage/' . $product->images->first()->file_name) }}"
+                                                        src="{{ asset('front/public/image/' . $product->images->first()->file_name) }}"
                                                         alt="Ảnh sản phẩm" style="max-width: 70px; max-height: 55px;"> </a>
                                             </td>
                                             <td class="align-middle">
@@ -136,7 +135,7 @@
                                                         class="fas fa-trash-alt"></i></a> --}}
 
                                                 {{-- delete food --}}
-                                                <form action="san-pham/{{ $product->id }}" method="post">
+                                                <form  id="delete-form" action="san-pham/{{ $product->id }}" method="post">
                                                     @csrf
                                                     @method('delete')
                                                     <button class="btn text-danger" type="submit"
@@ -150,6 +149,8 @@
                             </table>
                         </div>
                     </div>
+                    <!-- Hiển thị phân trang -->
+                    {{ $products->links() }}
                 @endisset
                 <!-- /.card-body -->
             </div>

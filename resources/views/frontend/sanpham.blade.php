@@ -29,18 +29,25 @@
                 <div class="row">
                     @if (!is_string($products))
                         @foreach ($products as $product)
-                            <div class="col-6 col-md-4 col-lg-3 col-xl-3 product-item">
-                                <a href="{{ route('products.show', ['id' => $product->id]) }}">
-                                    <div class="scale-img product-image">
-                                        <img src="{{ asset('front/public/image/tin-tuc-1.jpg') }}" alt="">
-                                        <div class="product-price">Giá sản phẩm</div>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="product-name">{{ $product->name }}</div>
-                                    </div>
-                                </a>
+                            <div class="col-6 col-md-4 col-lg-3 col-xl-3">
+                                <div class="product-item">
+                                    <a href="{{ route('products.show', ['id' => $product->id]) }}">
+                                        <div class="scale-img product-image">
+                                            @if ($product->images->isNotEmpty())
+                                                <img width="100%"
+                                                    src="{{ asset('front/public/image/' . $product->images->first()->file_name) }}"
+                                                    alt="Ảnh sản phẩm">
+                                                <a class="product-price btn btn-primary" href="/lien-he">Liên hệ</a>
+                                            @endif
+                                        </div>
+                                        <div class="product-content">
+                                            <div class="product-name">{{ $product->name }}</div>
+                                        </div>
+                                    </a>
+                                </div>
                             </div>
                         @endforeach
+
                         <!-- thanh phân trang  -->
                         <div class="pagination justify-content-center">
                             {{$products->appends(request()->query())->links('pagination::bootstrap-4')}}
@@ -53,5 +60,23 @@
                 </div>
             </div>
         </div>
+
+        <!-- Nội dung của phân trang -->
+        {{ $products->links() }}
+
     </main>
+
+@endsection
+
+@section('script')
+    <script>
+        // Sử dụng JavaScript để điều chỉnh thuộc tính display của thẻ nav cuối cùng
+        document.addEventListener("DOMContentLoaded", function() {
+            const navElements = document.querySelectorAll("nav");
+            if (navElements.length > 0) {
+                const lastNavElement = navElements[navElements.length - 1];
+                lastNavElement.style.display = "unset";
+            }
+        });
+    </script>
 @endsection

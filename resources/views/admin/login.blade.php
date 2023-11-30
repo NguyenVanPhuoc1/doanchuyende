@@ -22,7 +22,9 @@
         </form>
     </div>
     <!-- Hiển thị Thông báo khi đăng nhập sai -->
+
     @if (session('error'))
         <div class="alert alert-danger">{{ session('error') }}</div>
     @endif
+
 @endsection

@@ -4,8 +4,13 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Pagination\Paginator;
 use App\Models\News;
 use App\Models\Policy;
+use Illuminate\Support\Facades\View;
+use App\Models\Logo; //model cho logo là Logo
+use App\Models\Favicon; //model cho logo là Logo
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,6 +31,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Paginator::useBootstrap();
+
         //fix database
         Schema::defaultStringLength(191);
 
@@ -43,5 +50,12 @@ class AppServiceProvider extends ServiceProvider
             'listPoli' => $policy,
         ];
         view()->share($viewData);
+
+
+        View::composer('*', function ($view) {
+            $logo = Logo::first(); // Lấy thông tin về logo từ cơ sở dữ liệu
+            $favicon = Favicon::first(); // Lấy thông tin về logo từ cơ sở dữ liệu
+            $view->with('logo', $logo)->with('favicon', $favicon);
+        });
     }
 }

@@ -142,6 +142,7 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
+    <?php echo json_encode($modifiedData); ?>
 @endsection
 
 @section('javascript')
@@ -162,6 +163,7 @@
                     screenPageViews: analyticsData[i].screenPageViews
                 });
             }
+
     chart = new Morris.Line({
                 element: 'myfirstchart',
                 parseTime: true,

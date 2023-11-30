@@ -29,8 +29,13 @@ Route::get('/get-products/{categoryId}', [HomeController::class, 'getProductbyCa
 
 // Hưng
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\LogoController;
+use App\Http\Controllers\FaviconController;
+use App\Http\Controllers\CommentController;
+// danh sách sản phẩm & chi tiết sản phẩm
 Route::get('/san-pham', [ProductController::class, 'index'])->name('products.index');
 Route::get('/chi-tiet-san-pham/{id}', [ProductController::class, 'show'])->name('products.show');
+Route::post('/product/{productId}/comments', [CommentController::class, 'store'])->name('product.comments.store');
 
 
 use App\Http\Controllers\NewsController;
@@ -46,9 +51,16 @@ Route::middleware(['auth','admin.access'])->group(function () {
     Route::get('/admin', [CustomAuthController::class, 'Dashboard'])->name('admin');
     // ...
 
-    // them, xóa sửa sản phẩm
+      // them, xóa sửa sản phẩm
     Route::resource('admin/san-pham', ProductController::class);
     Route::get('admin/san-pham', [ProductController::class, 'indexAdmin'])->name('productsAdmin.show');
+    // quản lí logo
+    Route::get('admin/logo', [LogoController::class, 'index']);
+    Route::post('admin/update-logo', [LogoController::class, 'updateLogo']);
+    // quan li favicon
+    Route::get('admin/favicon', [FaviconController::class, 'index']);
+    Route::post('admin/update-favicon', [FaviconController::class, 'updateFavicon']);
+  
     //Admin quản lí tin tức
     Route::get('/admin/quanlibaiviet/tintuc',[NewsController::class, 'viewAdminTinTuc'] )->name('news_search');
     Route::get('/admin/quanlibaiviet/add-tintuc',[NewsController::class, 'viewPageaddNews'] )->name('view_add_news');
@@ -105,4 +117,5 @@ Route::post('/', [SendMailController::class, 'AddCustomer'])->name('add-customer
 // page lien he
 Route::get('/lien-he', [IntroductPageController::class, 'viewContact']);
 Route::post('/lien-he', [SendMailController::class, 'AddCustomer'])->name('regis-customer');
+
 

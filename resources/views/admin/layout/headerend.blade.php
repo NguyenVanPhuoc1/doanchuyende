@@ -151,6 +151,9 @@
             display: none;
         }
     </style>
+
+    @yield('style')
+    
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -351,13 +354,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="/admin/logo" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Logo</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="/admin/favicon" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Favicon</p>
                                 </a>
@@ -366,24 +369,6 @@
                                 <a href="#" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Slideshow</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Social</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Social footer</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Quảng cáo</p>
                                 </a>
                             </li>
                         </ul>
