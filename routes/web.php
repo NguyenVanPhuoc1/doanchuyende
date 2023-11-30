@@ -31,9 +31,7 @@ Route::get('/get-products/{categoryId}', [HomeController::class, 'getProductbyCa
 use App\Http\Controllers\ProductController;
 Route::get('/san-pham', [ProductController::class, 'index'])->name('products.index');
 Route::get('/chi-tiet-san-pham/{id}', [ProductController::class, 'show'])->name('products.show');
-// them, xóa sửa sản phẩm
-Route::resource('admin/san-pham', ProductController::class);
-Route::get('admin/san-pham', [ProductController::class, 'indexAdmin'])->name('productsAdmin.show');
+
 
 use App\Http\Controllers\NewsController;
 //Page Tin Tức
@@ -41,10 +39,16 @@ Route::get('/tin-tuc', [NewsController::class, 'viewTinTuc']);
 Route::get('/tin-tuc/tin-tuc-{id}', [NewsController::class, 'viewDetailNews'])->name('news_detail');
 
 use App\Http\Controllers\PolicyController;
+use App\Http\Controllers\SendMailController;
+use App\Http\Controllers\CategoryController;
 Route::middleware(['auth','admin.access'])->group(function () {
     // Các route của trang admin
     Route::get('/admin', [CustomAuthController::class, 'Dashboard'])->name('admin');
     // ...
+
+    // them, xóa sửa sản phẩm
+    Route::resource('admin/san-pham', ProductController::class);
+    Route::get('admin/san-pham', [ProductController::class, 'indexAdmin'])->name('productsAdmin.show');
     //Admin quản lí tin tức
     Route::get('/admin/quanlibaiviet/tintuc',[NewsController::class, 'viewAdminTinTuc'] )->name('news_search');
     Route::get('/admin/quanlibaiviet/add-tintuc',[NewsController::class, 'viewPageaddNews'] )->name('view_add_news');
@@ -54,6 +58,11 @@ Route::middleware(['auth','admin.access'])->group(function () {
     Route::get('/admin/quanlibaiviet/tintuc/delete', [NewsController::class, 'deleteNews'])->name('deleteNews');//xóa theo checkbox
     Route::get('/admin/quanlibaiviet/tintuc/delete/{id}', [NewsController::class, 'deleteNewsbyId'])->name('deleteNewsbyId');//xóa khi có id
     Route::get('/admin/quanlibaiviet/tintuc/tin-tuc-{id}/update-noibat', [NewsController::class, 'checkNoiBat'])->name('checkNoiBat');//xóa khi có id
+
+    //page quan lí nhận tin admin
+    Route::get('/admin/quanlinhantin', [SendMailController::class, 'viewPageQliNhanTin']);
+    Route::get('/admin/quanlibaiviet/customer/delete', [SendMailController::class, 'totalCustomer'])->name('delete_send_Customer');
+    Route::get('/admin/quanlinhantin/customer/delete/{id}', [SendMailController::class, 'deleteCustomerbyId'])->name('deleteCusbyId');
 
     //Admin quản lí chính sách
     Route::get('/admin/quanlichinhsach/chinhsach',[PolicyController::class, 'viewAdminChinhSach'] )->name('poli_search');
@@ -67,6 +76,16 @@ Route::middleware(['auth','admin.access'])->group(function () {
     // change password - chiến
     Route::get('/admin/changepassword', [CustomAuthController::class, 'viewChangePassword']);
     Route::post('/admin/changepassword', [CustomAuthController::class, 'changePassword'])->name('change.password.post');
+
+    // Admin danh muc
+    Route::get('/admin/quanlidanhmuc', [CategoryController::class, 'viewCategory']);
+    Route::get('/admin/quanlidanhmuc/add-cate',[CategoryController::class, 'viewPageaddCate'] )->name('view_add_cate');
+    Route::post('/admin/quanlidanhmuc/add-cate', [CategoryController::class, 'AddCate'])->name('add-cate');
+    Route::get('/admin/quanlidanhmuc/danh-muc-{id}',[CategoryController::class, 'viewDetailCate'] )->name('admin_view_cate');
+    Route::post('/admin/quanlidanhmuc', [CategoryController::class, 'updateCate'])-> name('admin-updateCate');
+    Route::get('/admin/quanlidanhmuc/delete', [CategoryController::class, 'deleteCate'])->name('deleteCate');//xóa theo checkbox
+    Route::get('/admin/quanlidanhmuc/delete/{id}', [CategoryController::class, 'deleteCatebyId'])->name('deleteCatebyId');//xóa khi có id
+    Route::get('/admin/quanlidanhmuc/danh-muc-{id}/update-noibat', [CategoryController::class, 'checkNoiBat'])->name('checkNoiBat');//xóa khi có id
 });
 
 
@@ -79,25 +98,11 @@ Route::get('/chinh-sach/chinh-sach-{id}', [PolicyController::class, 'viewDetailP
 use App\Http\Controllers\IntroductPageController;
 Route::get('/gioi-thieu', [IntroductPageController::class, 'viewIntroducePage']);
 
-use App\Http\Controllers\SendMailController;
+
 // Page trang chủ
 Route::post('/', [SendMailController::class, 'AddCustomer'])->name('add-customer');
-//page quan lí nhận tin admin
-Route::get('/admin/quanlinhantin', [SendMailController::class, 'viewPageQliNhanTin']);
-Route::get('/admin/quanlibaiviet/customer/delete', [SendMailController::class, 'totalCustomer'])->name('delete_send_Customer');
-Route::get('/admin/quanlinhantin/customer/delete/{id}', [SendMailController::class, 'deleteCustomerbyId'])->name('deleteCusbyId');
 
 // page lien he
 Route::get('/lien-he', [IntroductPageController::class, 'viewContact']);
 Route::post('/lien-he', [SendMailController::class, 'AddCustomer'])->name('regis-customer');
 
-// Admin danh muc
-use App\Http\Controllers\CategoryController;
-Route::get('/admin/quanlidanhmuc', [CategoryController::class, 'viewCategory']);
-Route::get('/admin/quanlidanhmuc/add-cate',[CategoryController::class, 'viewPageaddCate'] )->name('view_add_cate');
-Route::post('/admin/quanlidanhmuc/add-cate', [CategoryController::class, 'AddCate'])->name('add-cate');
-Route::get('/admin/quanlidanhmuc/danh-muc-{id}',[CategoryController::class, 'viewDetailCate'] )->name('admin_view_cate');
-Route::post('/admin/quanlidanhmuc', [CategoryController::class, 'updateCate'])-> name('admin-updateCate');
-Route::get('/admin/quanlidanhmuc/delete', [CategoryController::class, 'deleteCate'])->name('deleteCate');//xóa theo checkbox
-Route::get('/admin/quanlidanhmuc/delete/{id}', [CategoryController::class, 'deleteCatebyId'])->name('deleteCatebyId');//xóa khi có id
-Route::get('/admin/quanlidanhmuc/danh-muc-{id}/update-noibat', [CategoryController::class, 'checkNoiBat'])->name('checkNoiBat');//xóa khi có id

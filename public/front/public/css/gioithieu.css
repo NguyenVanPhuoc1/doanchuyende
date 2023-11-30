@@ -54,7 +54,7 @@ a:hover {
 } */
 
 nav:not(.mm-menu) {
-    display: none;
+    /* display: none; */
 }
 /* Banner-header */
                                     /* .wrap-header-menu-logo */

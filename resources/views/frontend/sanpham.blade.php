@@ -42,18 +42,9 @@
                             </div>
                         @endforeach
                         <!-- thanh phân trang  -->
-                        {{-- <ul class="flex-wrap mb-0 pt-4 pb-4 pagination justify-content-center">
-                            <li class="page-item"><a class="page-link" href="#">Pre</a></li>
-                            <li class="page-item"><a class="page-link" href="#">...</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">4</a></li>
-                            <li class="page-item active"><a class="page-link">5</a></li>
-                            <li class="page-item"><a class="page-link" href="#">6</a></li>
-                            <li class="page-item"><a class="page-link" href="#">7</a></li>
-                            <li class="page-item"><a class="page-link" href="#">...</a></li>
-                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                            <li class="page-item"><a class="page-link" href="#">Last</a></li>
-                        </ul> --}}
+                        <div class="pagination justify-content-center">
+                            {{$products->appends(request()->query())->links('pagination::bootstrap-4')}}
+                        </div>
                     @else
                         <div class="alert alert-warning w-100 text-center" role="alert">
                             <strong>{{ $products }}</strong>

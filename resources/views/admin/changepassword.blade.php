@@ -124,7 +124,7 @@
         <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="randomPasswordModalLabel">Mật khẩu ngẫu nhiên đã được tạo (Note: Bạn phải lưu lại!!!)</h5>
-            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
         </div>
@@ -132,7 +132,7 @@
             <p id="randomPasswordText"></p>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
         </div>
         </div>
     </div>
@@ -174,6 +174,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 toggleButton.innerHTML = '<i class="fas fa-eye"></i>';
             }
         }
+        
+        $('#reset-all').click(function() {
+            // Kiểm tra xem có ít nhất một checkbox nào đó được chọn không
+            oldPasswordInput.value = '';
+            newPasswordInput.value = '';
+            renewPasswordInput.value = '';
+        });
     });
     //tọa ngẫu nhiên
     document.addEventListener('DOMContentLoaded', function() {
