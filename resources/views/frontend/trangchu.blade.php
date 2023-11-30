@@ -223,26 +223,43 @@
                     productContainer.empty();
                     // Thêm HTML của sản phẩm vào container
                     $.each(response.products, function(index, product) {
-                        var productHtml = `
-                            <div class="col-12 col-md-6 col-lg-3">
-                                <div class="item_product">
-                                    <div class="container_product">
-                                        <div class="img_product">
-                                            <a class="scale-img" href="#" title="${product.name}">
-                                                <img src="./front/public/image/${product.image}" alt="${product.name}">
-                                            </a>
-                                        </div>
-                                        <div class="content_product"> 
-                                            <h3 class="name_product">
-                                                <a class="catchuoi2" href="#">${product.name}</a>
-                                            </h3>
+                        if (product.images.length > 0) {
+                            var imagePath = product.images[0].file_name; // Lấy đường dẫn ảnh đầu tiên
+                            var productHtml = `
+                                <div class="col-12 col-md-6 col-lg-3">
+                                    <div class="item_product">
+                                        <div class="container_product">
+                                            <div class="img_product">
+                                                <a class="scale-img" href="#" title="${product.name}">
+                                                    <img src="./front/public/image/${imagePath}" alt="${product.name}">
+                                                </a>
+                                            </div>
+                                            <div class="content_product"> 
+                                                <h3 class="name_product">
+                                                    <a class="catchuoi2" href="#">${product.name}</a>
+                                                </h3>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        `;
-
-                        // Thêm sản phẩm vào container
+                            `;
+                        } else {
+                            // Xử lý trường hợp không có ảnh
+                            var productHtml = `
+                                <div class="col-12 col-md-6 col-lg-3">
+                                    <div class="item_product">
+                                        <div class="container_product">
+                                            <div class="content_product"> 
+                                                <h3 class="name_product">
+                                                    <a class="catchuoi2" href="#">${product.name}</a>
+                                                </h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                        }
+                                            // Thêm sản phẩm vào container
                         productContainer.append(productHtml);
 
                         // Hiển thị hoặc ẩn nút "Xem thêm" dựa trên số lượng sản phẩm
@@ -250,7 +267,7 @@
                     if (response.products.length > 8) {
                         var seeMoreHtml = `
                             <div class="seemore text-center">
-                                <a href="#" class="btn btn-secondary">Xem Thêm</a>
+                                <a href="{{url('/san-pham')}}" class="btn btn-secondary">Xem Thêm</a>
                             </div>
                         `;
                         productContainer.after(seeMoreHtml);

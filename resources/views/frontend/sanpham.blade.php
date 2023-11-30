@@ -61,9 +61,6 @@
             </div>
         </div>
 
-        <!-- Nội dung của phân trang -->
-        {{ $products->links() }}
-
     </main>
 
 @endsection

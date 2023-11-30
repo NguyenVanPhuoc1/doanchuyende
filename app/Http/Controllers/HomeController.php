@@ -32,7 +32,11 @@ class HomeController extends Controller
     //lấy sản phẩm theo danh mục
 
     public function getProductbyCate($categoryId){
-        $products = Product::orderBy('created_at', 'desc')->where('cate_id', $categoryId)->take(8)->get();
+        $products = Product::orderBy('created_at', 'desc')->where([
+            ['cate_id', '=', $categoryId],
+            ['noi_bat', '=', true],
+        ])->with('images')->take(8)->get();
+        // dd($products);
         // Trả về dữ liệu JSON hoặc view tùy thuộc vào yêu cầu của bạn
         return response()->json(['products' => $products]);
     }
@@ -44,8 +48,7 @@ class HomeController extends Controller
         ]);
         $searchTerm = $request->input('searchProduct');
         if($searchTerm != ''){
-            $products = DB::table('product')
-            ->where('name', 'LIKE', '%'.$searchTerm.'%')
+            $products = Product::where('name', 'LIKE', '%'.$searchTerm.'%')->with('images')
             ->paginate(12);
             if($products->isEmpty()){
                 // Nếu không tìm thấy sản phẩm, có thể chuyển thông báo hoặc thực hiện xử lý khác
@@ -55,7 +58,7 @@ class HomeController extends Controller
         }else{
             $products = "Không tìm thấy sản phẩm";
         }
-        // var_dump($products);die();
+        // dd($products);die();
         return view('frontend.sanpham',compact('products'));
     }
 

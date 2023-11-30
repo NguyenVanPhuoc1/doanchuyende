@@ -443,7 +443,7 @@ form#form-newsletter {
     padding: 0px 30px;
 }
 
-.text-split { /* dùng chung */
+.text-split~p { /* dùng chung */
     text-align: justify;
     overflow: hidden;
     text-overflow: ellipsis;
