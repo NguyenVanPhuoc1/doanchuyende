@@ -215,7 +215,7 @@
 
 
     // hàm tìm kiếm khi click vào button tìm kiếm
-    function performSearchNews() {
+    function performSearchPoli() {
         var keyword = document.getElementById('keyword').value;
 
         // Kiểm tra xem trường nhập liệu có giá trị không
@@ -228,10 +228,13 @@
         // Nếu có giá trị, gửi form
         document.getElementById('poli_search').submit();
     }
-
+    document.getElementById('search-button').addEventListener('click', function(event) {
+        event.preventDefault(); 
+        performSearchPoli()
+    });
     document.getElementById('poli_search').addEventListener('submit', function(event) {
         event.preventDefault(); 
-        performSearchNews()
+        performSearchPoli()
     });
 </script>
 @endsection

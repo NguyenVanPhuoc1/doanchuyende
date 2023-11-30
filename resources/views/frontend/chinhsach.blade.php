@@ -38,7 +38,7 @@
                                             <p class="text-split">{{$item -> poli_name}}</p>
                                         </div>
                                         <div class="desc_news_index">
-                                            <p class="text-split">{!!$item -> poli_desc!!}</p>
+                                            <p class="text-split">{!! $item -> poli_desc !!}</p>
                                         </div>
                                         <div class="btn_more_index">
                                             <a href="{{route('policy_detail',['id' => $item->id])}}" class="text-decoration-none chinhsach-xemthem">XEM THÊM</a>
