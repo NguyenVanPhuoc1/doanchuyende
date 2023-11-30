@@ -52,7 +52,7 @@ class CategoryController extends Controller
         // Lấy ID từ request
         $cateId = $request->input('cate_id');
         // Kiểm tra xem danh mục có tồn tại không
-        $cate = News::find($cateId); 
+        $cate = Category::find($cateId); 
         if($cate){
             $request->validate([
                 'cate_name' => 'required|max:100',
