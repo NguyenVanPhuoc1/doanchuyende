@@ -142,7 +142,6 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-    <?php echo json_encode($modifiedData); ?>
 @endsection
 
 @section('javascript')

@@ -39,7 +39,7 @@ class ChartController extends Controller
 
     public function getData($startDate, $endDate){
         
-        $analyticsData = Analytics::fetchTotalVisitorsAndPageViews(Period::create($startDate, $endDate));
+        $analyticsData = Analytics::fetchVisitorsAndPageViewsByDate(Period::create($startDate, $endDate));
         $allDates = [];
         $numberOfDays = $endDate->diffInDays($startDate) + 1;
         $currentDate = clone $endDate; 
