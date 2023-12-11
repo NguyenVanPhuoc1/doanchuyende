@@ -8,7 +8,7 @@
                 <div class="wrap-content">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a class="text-decoration-none" href="{{url('/trang-chu')}}">
+                            <a class="text-decoration-none" href="{{url('/')}}">
                                 <span>Trang chủ</span>
                             </a>
                         </li>

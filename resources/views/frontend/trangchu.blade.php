@@ -43,7 +43,7 @@
                                         Hiện nay, trong thiết kế nội thất, đồ gỗ hiện đang “lên ngôi” và là nhóm mặt hàng chủ lực cho các doanh nghiệp kinh doanh hàng nội thất. Nội thất làm từ gỗ tự nhiên luôn có bề mặt đẹp, màu sắc hài hòa, độ bền với thời gian, chế tác được nhiều kiểu dáng, chi phí lại hợp lý với nhiều ưu điểm vậy
                                         nên Đồ Nội Thất Gỗ dễ dàng trở thành tâm điểm cho khách hàng lựa chọn làm đồ nội thất gia đình của mình.
                                     </p>
-                                    <a href="#" class="text-decoration-none btn-gioithieu d-inline-block">XEM CHI TIẾT</a>
+                                    <a href="{{ url('/gioi-thieu') }}" class="text-decoration-none btn-gioithieu d-inline-block">XEM CHI TIẾT</a>
                                 </div>
                             </div>
                         </div>
@@ -86,7 +86,8 @@
                                 <!-- policy -->
                                 <div class="item-policy slick-slider">
                                     <a href="#" class="hover_sang2 scale-img">
-                                        <img src="{{ asset('front/public/image/ban_an.jpg')}}" alt="{{$item->poli_name}}">
+                                        <!-- <img src="{{ asset('front/public/image/ban_an.jpg')}}" alt="{{$item->poli_name}}"> -->
+                                        <img src="{{ asset('front/public/image/'.$item->poli_image )}}" alt="{{$item->poli_name}}">
                                     </a>
                                     <div class="name_policy"><a class="catchuoi1" href="#">{{$item->poli_name}}</a></div>
                                 </div>

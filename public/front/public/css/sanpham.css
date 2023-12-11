@@ -10,7 +10,7 @@ h1{
 }
 
 .row .product-item{
-    margin-top: 30px;
+    margin: 30px 0  ;
     box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 2px;
     border-radius: 5px;
     text-align: center;
@@ -20,6 +20,9 @@ h1{
     text-align: center;
     position: relative;
     overflow: hidden;
+}
+.product-image img{
+    height: 302px;
 }
 
 .product-name{
