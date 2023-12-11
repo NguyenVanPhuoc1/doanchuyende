@@ -2,9 +2,11 @@
 
 namespace App\Listeners;
 
-use App\Events\UserRegistered;
+// use App\Events\UserRegistered;
+use App\Events\AdminNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\Log;
 
 class UserRegisteredListener
 {
@@ -21,11 +23,15 @@ class UserRegisteredListener
     /**
      * Handle the event.
      *
-     * @param  \App\Events\UserRegistered  $event
+     * @param  \App\Events\AdminNotification  $event
      * @return void
      */
-    public function handle(UserRegistered $event)
+    public function handle(AdminNotification $event)
     {
-        //
+        dd($message);
+        // Lấy thông báo từ sự kiện
+        $message = $event->message;
+
+        broadcastOn(new AdminNotification($message));
     }
 }

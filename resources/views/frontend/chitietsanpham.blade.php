@@ -75,40 +75,46 @@
             <div class="wrap-pro-detail">
                 <div class="box-flex align-items-start">
                     <div class="row">
-                        <div class="left-pro-detail col-12 col-md-6  col-lg-5 ">
-                            {{-- // anh lon --}}
-                            <div class="big-image mb-3">
-                                @if ($product->images->isNotEmpty())
-                                    <img id="mainImage" width="100%"
-                                        src="{{ asset('front/public/image/' . $product->images->first()->file_name) }}"
-                                        alt="">
-                                @endif
+                        <div class="col-12 left-pro-detail col-lg-5 ">
+                            <div class="pro-zoom col ">
+                                <a href="{{ asset('front/public/image/'.$product->images->first()->file_name )}}" class="MagicZoom" id="sanpham"
+                                    data-options="zoomMode: on; hint: on; rightClick: true; selectorTrigger: hover; expandCaption: false; history: false;">
+                                    <img id="mainImage" src="{{ asset('front/public/image/'.$product->images->first()->file_name )}}" alt=""
+                                        style="width: 570px; height: 550px;">
+                                </a>
                             </div>
-
-                            {{-- carousel --}}
-                            <div class="carousel">
-                                <div class="carousel-images">
-                                    @if ($product->images->isNotEmpty())
-                                        @foreach ($product->images as $image)
-                                            <img class="thumbnail-image"
-                                                src="{{ asset('front/public/image/' . $image->file_name) }}"
-                                                alt="Ảnh sản phẩm">
-                                        @endforeach
-                                    @endif
+                            <div class="gallery-thumb-pro col">
+                                <div class="owl-thumb-pro slick-slider">
+                                    @foreach($product->images as $item)
+                                    <a class="thumb-pro-detail slick-slide" data-zoom-id="sanpham"
+                                        href="{{ asset('front/public/image/'.$item->file_name )}}" data-image="{{ asset('front/public/image/'.$item->file_name )}}">
+                                        <img src="{{ asset('front/public/image/'.$item->file_name )}}">
+                                    </a>
+                                    @endforeach
                                 </div>
-                                <button class="prev-btn btn">
-                                    < <button class="next-btn btn">>
-                                </button>
                             </div>
-
                         </div>
-                        <div class="right-pro-detail col-12 col-md-6 col-lg-7">
-                            <p class="title-pro-detail text-center">{{ $product->name }}</p>
-                            <div class="desc-pro-detail">
-                                <h4 style="font-style: italic">Mô tả:</h4>
-                                <hr>
-                                {!! $product->description !!}
-                            </div>
+                        <div class="col-6 right-pro-detail col-lg-7 col-12">
+                            <p class="title-pro-detail">{{$product->name}}</p>
+                            <ul class="attr-pro-detail p-3">
+                                <li>
+                                    <div class="attr-content-pro-detail name_product_detail">
+                                        <h2> <span>Liên Hệ</span></h2>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="desc-pro-detail">
+                                        <h3>Mô tả:</h3>
+                                        @if($product->description != "")
+                                            <p>{{$product->description}}</p>
+                                        @else
+                                        <div class="alert alert-warning w-100 text-center" role="alert">
+                                            <strong>Nội dung đang được cập nhật</strong>
+                                        </div>
+                                        @endif
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -123,7 +129,7 @@
                                 <div class="col-md-6">
                                     <h3 class="title text-center">BÌNH LUẬN</h3>
                                     <div id="reviews">
-                                        @foreach ($product->comment as $item)
+                                        @foreach ($productcomments as $item)
                                             <ul class="reviews">
                                                 <li>
                                                     <div class="review-heading">
@@ -136,6 +142,10 @@
                                             </ul>
                                             <hr>
                                         @endforeach
+                                    </div>
+                                    <!-- Hiển thị phân trang -->
+                                    <div class="pagination justify-content-center">
+                                        
                                     </div>
                                 </div>
                                 <!-- /Reviews -->
@@ -162,136 +172,60 @@
                         </div>
                     </div>
                     <!-- Sản phẩm liên quan -->
-                    {{-- <div class="box_product_list_tab">
-                    <div class="container">
-                        <div class="title-main">
-                            <span>SẢN PHẨM LIÊN QUAN</span>
-                        </div>
-                        <div class="page_sanpham">
-                            <div class="container ">
-                                <div class="row">
-                                    <div class="col-6 col-md-4 col-lg-3 col-xl-3 product-item">
-                                        <a href="trangchu.html">
-                                            <div class="scale-img product-image">
-                                                <img src="public/image/np4-1267.jpg" alt="">
-                                                <div class="product-price">Giá sản phẩm</div>
+                    <div class="box_product_list_tab">
+                        <div class="container">
+                            <div class="title-main">
+                                <span>SẢN PHẨM LIÊN QUAN</span>
+                            </div>
+                            <div class="page_sanpham">
+                                <div class="container ">
+                                    <div class="row">
+                                        @foreach($relatedProduct as $product)
+                                        <div class="col-6 col-md-4 col-lg-3 col-xl-3">
+                                            <div class="product-item">
+                                                <a href="{{ route('products.show', ['id' => $product->id]) }}">
+                                                    <div class="scale-img product-image">
+                                                        @if ($product->images->isNotEmpty())
+                                                            <img width="100%"
+                                                                src="{{ asset('front/public/image/' . $product->images->first()->file_name) }}"
+                                                                alt="Ảnh sản phẩm">
+                                                            <a class="product-price btn btn-primary" href="/lien-he">Liên hệ</a>
+                                                        @endif
+                                                    </div>
+                                                    <div class="product-content">
+                                                        <div class="product-name">{{ $product->name }}</div>
+                                                    </div>
+                                                </a>
                                             </div>
-                                            <div class="product-content">
-                                                <div class="product-name">Tên sản phẩm tên sản phẩm tên sản phẩm tên sản
-                                                    phẩm</div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="col-6 col-md-4 col-lg-3 col-xl-3 product-item">
-                                        <a href="trangchu.html">
-                                            <div class="scale-img product-image">
-                                                <img src="public/image/np4-1267.jpg" alt="">
-                                                <div class="product-price">Giá sản phẩm</div>
-                                            </div>
-                                            <div class="product-content">
-                                                <div class="product-name">Tên sản phẩm tên sản phẩm tên sản phẩm tên sản
-                                                    phẩm</div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="col-6 col-md-4 col-lg-3 col-xl-3 product-item">
-                                        <a href="trangchu.html">
-                                            <div class="scale-img product-image">
-                                                <img src="public/image/np4-1267.jpg" alt="">
-                                                <div class="product-price">Giá sản phẩm</div>
-                                            </div>
-                                            <div class="product-content">
-                                                <div class="product-name">Tên sản phẩm tên sản phẩm tên sản phẩm tên sản
-                                                    phẩm</div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="col-6 col-md-4 col-lg-3 col-xl-3 product-item">
-                                        <a href="trangchu.html">
-                                            <div class="scale-img product-image">
-                                                <img src="public/image/np4-1267.jpg" alt="">
-                                                <div class="product-price">Giá sản phẩm</div>
-                                            </div>
-                                            <div class="product-content">
-                                                <div class="product-name">Tên sản phẩm tên sản phẩm tên sản phẩm tên sản
-                                                    phẩm</div>
-                                            </div>
-                                        </a>
+                                        </div>
+                                        @endforeach
                                     </div>
 
                                 </div>
-
+                                <div class="clearfix"> </div>
+                                <!-- <div  aria-label="Page navigation example">
+                                        <ul class="pagination flex-wrap justify-content-center mb-0" >
+                                            <li class="page-item"><a class="page-link">Page 1 / 6</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">First</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">Prev</a></li>
+                                            <li class="page-item active"><a class="page-link">1</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">Last</a></li>
+                                        </ul>
+                                    </div> -->
                             </div>
-                            <div class="clearfix"> </div>
-                            <!-- <div  aria-label="Page navigation example">
-                                    <ul class="pagination flex-wrap justify-content-center mb-0" >
-                                        <li class="page-item"><a class="page-link">Page 1 / 6</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">First</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">Prev</a></li>
-                                        <li class="page-item active"><a class="page-link">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">Last</a></li>
-                                    </ul>
-                                </div> -->
                         </div>
                     </div>
-                </div> --}}
                 </div>
             </div>
+        </div>
     </main>
 @endsection
 
 
 @section('script')
-    <script>
-        const carousel = document.querySelector('.carousel');
-        const images = document.querySelector('.carousel-images');
-        const prevButton = document.querySelector('.prev-btn');
-        const nextButton = document.querySelector('.next-btn');
-
-        let imageIndex = 0;
-        const totalImages = images.children.length;
-        const imageWidth = images.firstElementChild.clientWidth;
-
-        nextButton.addEventListener('click', () => {
-            if (imageIndex < totalImages - 1) {
-                imageIndex++;
-                updateCarousel();
-            }
-        });
-
-        prevButton.addEventListener('click', () => {
-            if (imageIndex > 0) {
-                imageIndex--;
-                updateCarousel();
-            }
-        });
-
-        function updateCarousel() {
-            const offset = -imageIndex * imageWidth;
-            images.style.transform = `translateX(${offset}px)`;
-
-            // Ẩn/Hiện nút Previous và Next tại hình ảnh đầu và cuối
-            prevButton.disabled = (imageIndex === 0);
-            nextButton.disabled = (imageIndex === totalImages - 1);
-        }
-
-        document.addEventListener("DOMContentLoaded", function() {
-            const thumbnailImages = document.querySelectorAll(".thumbnail-image");
-            const mainImage = document.getElementById("mainImage");
-
-            thumbnailImages.forEach(thumbnail => {
-                thumbnail.addEventListener("click", function() {
-                    mainImage.src = thumbnail.src;
-                });
-            });
-        });
-
-        @if (Session::has('fail'))
-            alert("{{ Session::get('fail') }}");
-        @endif
-    </script>
+    
 @endsection

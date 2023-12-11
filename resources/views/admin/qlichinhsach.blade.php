@@ -77,8 +77,8 @@
                                     <tr>
                                         <th class="align-middle" style="width: 5%;">
                                             <div class="custom-control custom-checkbox my-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="selectall-checkboxtintuc">
-                                                <label for="selectall-checkboxtintuc" class="custom-control-label"></label>
+                                                <input type="checkbox" class="custom-control-input" id="selectall-checkboxchinhsach">
+                                                <label for="selectall-checkboxchinhsach" class="custom-control-label"></label>
                                             </div>
                                         </th>
                                         <th class="align-middle text-center" style="width: 10%;">STT</th>
@@ -111,8 +111,9 @@
                                         </td>
                                         <td class="align-middle text-center">
                                             <div class="custom-control custom-checkbox my-checkbox">
-                                                <input type="checkbox" class="custom-control-input show-checkbox" id="show-checkbox-noibat-{{$item->id}}"
-                                                    data-table="product_list" data-id="{{$item->id}}" data-attr="noibat" checked="">
+                                            <input type="checkbox" class="custom-control-input show-checkbox" id="show-checkbox-noibat-{{$item->id}}"
+                                                    data-table="policy_list" data-id="{{$item->id}}" data-attr="noibat" {{ $item->noi_bat ? 'checked' : '' }}
+                                                    onchange="updateNoiBat({{$item->id}})" >
                                                 <label for="show-checkbox-noibat-{{$item->id}}" class="custom-control-label"></label>
                                             </div>
                                         </td>
@@ -131,7 +132,7 @@
                             </div>
                             @else
                             <div class="alert alert-warning w-100 text-center" role="alert">
-                                <strong>Policy article not found</strong>
+                                <strong>Policy  not found</strong>
                             </div>  
                             @endif
                         </div>
@@ -236,5 +237,26 @@
         event.preventDefault(); 
         performSearchPoli()
     });
+
+    function updateNoiBat(policyId) {
+        var isChecked = $('#show-checkbox-noibat-' + policyId).prop('checked');
+        $.ajax({
+            url: '/admin/quanlibaiviet/chinhsach/chinh-sach-' + policyId + '/update-noibat',
+            type: 'get',
+            data: {
+                _token: '{{ csrf_token() }}',
+                noi_bat: isChecked
+            },
+            success: function (response) {
+                console.log(response    );
+                // Có thể thêm các xử lý khác sau khi cập nhật thành công
+                
+            },
+            error: function (error) {
+                console.log('Có lỗi xảy ra: ' + error.statusText);
+                // Xử lý lỗi nếu cần thiết
+            }
+        });
+    }
 </script>
 @endsection

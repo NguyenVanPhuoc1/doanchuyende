@@ -35,7 +35,7 @@ class CustomAuthController extends Controller
             session()->put('id_admin', $id_admin);
                 return redirect()->intended('admin/trang-chu')->withSuccess('Đăng nhập thành công');
         }
-        return view('admin.login')->with('error','Thông tin đăng nhập không chính xác');
+        return redirect('/login')->with('error','Thông tin đăng nhập không chính xác');
     }
 
     public function signOut() {

@@ -131,7 +131,7 @@ a.text-decoration-none.btn-gioithieu:hover{
     background-color: transparent;
     transition: .5s;
 }
-.wrap-home .box_product_list_tab{
+.box_product_list_tab{
     padding: 50px 0 50px 0;
 }
 
@@ -254,10 +254,16 @@ a.text-decoration-none.btn-gioithieu:hover{
 }
 .content_product .name_product{
     font-weight: bold;
-    
+    position: relative;
+    text-align: justify;
 }
 .content_product .name_product a{
     color: var(--secondary--color);
+    display: block;
+    /* position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); */
 }
 
 
@@ -267,6 +273,7 @@ a.text-decoration-none.btn-gioithieu:hover{
     margin: 40px 0 40px 0;
 }
 .wrap-chinhsach .item-policy{
+    width: calc(100%/3 - 40px)!important;
     position: relative;
     cursor: pointer;
     margin: 20px;
@@ -278,6 +285,10 @@ a.text-decoration-none.btn-gioithieu:hover{
     text-align: center;
     padding: 70px 15px 13px 15px;
     background: linear-gradient(0deg, black, transparent);
+}
+.item-policy img, .item_product img {
+    width: 100%;
+    height: 302px;
 }
 .name_policy a {
     font-size: 18px;

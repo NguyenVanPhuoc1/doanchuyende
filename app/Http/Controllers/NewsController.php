@@ -133,11 +133,11 @@ class NewsController extends Controller
     //xóa sản phẩm
     public function deleteNews(Request $request){
         $type = $request->input('delete_type', 'single');
+        dd($type);die();
 
         if($type == 'single'){
             // Xóa một bài viết
             $id = $request->input('selected_ids')[0];
-            // dd($id);die();
             $news = News::findOrFail($id);
             $news->delete();
         } elseif ($type == 'multiple') {

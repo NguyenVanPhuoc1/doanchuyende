@@ -64,5 +64,15 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'admin.access' => \App\Http\Middleware\AdminAccessMiddleware::class,
+        'localeSessionRedirect' => \Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect::class,
+        'localizationRedirect' => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter::class,
+        'localeViewPath' => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath::class,
+        'web' => [
+            // ...
+            \Illuminate\Broadcasting\Middleware\EnsureFrontendRequestsAreStateful::class,
+            // \Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect::class,
+            // \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter::class,
+            // \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath::class,
+        ],
     ];
 }

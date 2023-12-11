@@ -27,8 +27,10 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link href="../front/public/css/HoldOn.min.css" rel="stylesheet">
-    <script src="../front/public/js/HoldOn.min.js"></script>
+    <link href="{{ asset('front/public/css/HoldOn.min.css')}}" rel="stylesheet">
+    <script src="{{ asset('front/public/js/HoldOn.min.js')}}"></script>
+    <link rel="stylesheet" href="{{ asset('front/public/css/magiczoomplus.css')}}">
+    <script src="{{ asset('front/public/js/magiczoomplus.js')}}"></script>
     </style>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HKZMS27N37"></script>
     <script>
@@ -48,10 +50,10 @@
     <!-- menu -->
     <nav class="menu" id="menu">
         <ul>
-            <li><a href="{{ url('/') }}">Trang chủ</a></li>
-            <li><a href="{{ url('/gioi-thieu') }}">Giới Thiệu</a></li>
+            <li><a href="{{ url('/') }}">{{trans('frontend.Home')}}</a></li>
+            <li><a href="{{ url('/gioi-thieu') }}">{{trans('frontend.gioithieu')}}</a></li>
             <li>
-                <span>Sản Phẩm</span>
+                <span>{{trans('frontend.sanpham')}}</span>
                 <ul>
                     <li><a href="#/">Nội Thất Phòng Khách</a></li>
                     <li><a href="#/">Nội Thất Phòng Bếp</a>
@@ -59,9 +61,9 @@
                     <li><a href="#/">Nội Thất Phòng Ngủ</a></li>
                 </ul>
             </li>
-            <li><a href="{{ url('/chinh-sach') }}">Chính Sách</a></li>
-            <li><a href="{{ url('/tin-tuc') }}">Tin Tức</a></li>
-            <li class="Divider"><a href="{{ url('/lien-he') }}">Liên Hệ</a></li>
+            <li><a href="{{ url('/chinh-sach') }}">{{trans('frontend.chinhsach')}}</a></li>
+            <li><a href="{{ url('/tin-tuc') }}">{{trans('frontend.tintuc')}}</a></li>
+            <li class="Divider"><a href="{{ url('/lien-he') }}">{{trans('frontend.lienhe')}}</a></li>
         </ul>
     </nav>
     <!--Content -->
@@ -96,10 +98,10 @@
                                 </form>
                             </div>
                             <div class="lang-header d-flex">
-                                <a href="" class="transition">
+                                <a href="{{ LaravelLocalization::getLocalizedURL('vi') }}" class="transition">
                                     <img src="{{ asset('front/public/image/ic-vi.png') }}" alt="vi">
                                 </a>
-                                <a href="" class="transition">
+                                <a href="{{ LaravelLocalization::getLocalizedURL('en') }}" class="transition">
                                     <img src="{{ asset('front/public/image/ic-en.png') }}" alt="en">
                                 </a>
                             </div>
@@ -109,26 +111,26 @@
                         <div class="wrap-content">
                             <ul class="d-flex align-items-center justify-content-between">
                                 <li><a class="{{ request()->is('/') ? 'active' : '' }} transition"
-                                        href="{{ url('/') }}" title="Trang chủ">Trang chủ</a></li>
+                                        href="{{ url('/') }}" title="Trang chủ">{{trans('frontend.Home')}}</a></li>
                                 <li class="line"></li>
                                 <li><a class="{{ request()->is('gioi-thieu') ? 'active' : '' }} transition"
-                                        href="{{ url('/gioi-thieu') }}" title="Giới thiệu">Giới thiệu</a></li>
+                                        href="{{ url('/gioi-thieu') }}" title="Giới thiệu">{{trans('frontend.gioithieu')}}</a></li>
                                 <li class="line"></li>
                                 <li><a class="{{ request()->is('chinh-sach*') ? 'active' : '' }} transition"
-                                        href="{{ url('/chinh-sach') }}" title="Chính Sách">Chính Sách</a></li>
+                                        href="{{ url('/chinh-sach') }}" title="Chính Sách">{{trans('frontend.chinhsach')}}</a></li>
                                 <!-- <li class="line"></li> -->
                                 <!-- <li><a class="transition" href="#" title="Dự án">Dự án</a></li> -->
                                 <li class="line"></li>
                                 <li>
                                     <a class="{{ request()->is('san-pham*') ? 'active' : '' }} transition"
-                                        href="{{ url('/san-pham') }}" title="Sản phẩm">Sản phẩm</a>
+                                        href="{{ url('/san-pham') }}" title="Sản phẩm">{{trans('frontend.sanpham')}}</a>
                                 </li>
                                 <li class="line"></li>
                                 <li><a class="{{ request()->is('tin-tuc*') ? 'active' : '' }} transition"
-                                        href="{{ url('/tin-tuc') }}" title="Tin tức">Tin tức</a></li>
+                                        href="{{ url('/tin-tuc') }}" title="Tin tức">{{trans('frontend.tintuc')}}</a></li>
                                 <li class="line"></li>
                                 <li><a class="{{ request()->is('lien-he') ? 'active' : '' }} transition"
-                                        href="{{ url('/lien-he') }}" title="Liên hệ">Liên hệ</a></li>
+                                        href="{{ url('/lien-he') }}" title="Liên hệ">{{trans('frontend.lienhe')}}</a></li>
                             </ul>
                         </div>
                     </div>
@@ -141,7 +143,7 @@
                 <a id="hamburger" href="#menu" title="Menu"><span></span></a>
                 <div class="box-flex flex-center align-items-center">
                     <div class="search">
-                        <form action="# " method="GET" id="searchForm">
+                        <form action="{{ route('search') }}" method="GET" id="searchForm">
                             @csrf
                             <input type="text" name="searchProduct" id="keyword" placeholder="Tìm Kiếm"
                                 required>
@@ -154,76 +156,25 @@
                         </form>
                     </div>
                     <div class="lang-header">
-                        <a class="transition" href="#"><img src="{{ asset('front/public/image/ic-vi.png') }}"
+                        <a class="transition" href="{{ LaravelLocalization::getLocalizedURL('vi') }}"><img src="{{ asset('front/public/image/ic-vi.png') }}"
                                 alt="vi"></a>
-                        <a class="transition" href="#"><img src="{{ asset('front/public/image/ic-en.png') }}"
+                        <a class="transition" href="{{ LaravelLocalization::getLocalizedURL('en') }}"><img src="{{ asset('front/public/image/ic-en.png') }}"
                                 alt="en"></a>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- menu-respo -->
 
-        </head>
+        <!-- difference here -->
+        @yield('body')
+        <!-- difference here -->
 
-        <body>
-            <!-- menu -->
-            <nav class="menu" id="menu">
-                <ul>
-                    <li><a href="{{ url('/') }}">Trang chủ</a></li>
-                    <li><a href="{{ url('/gioi-thieu') }}">Giới Thiệu</a></li>
-                    <li>
-                        <span>Sản Phẩm</span>
-                        <ul>
-                            <li><a href="#/">Nội Thất Phòng Khách</a></li>
-                            <li><a href="#/">Nội Thất Phòng Bếp</a>
-                            </li>
-                            <li><a href="#/">Nội Thất Phòng Ngủ</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="{{ url('/chinh-sach') }}">Chính Sách</a></li>
-                    <li><a href="{{ url('/tin-tuc') }}">Tin Tức</a></li>
-                    <li class="Divider"><a href="{{ url('/lien-he') }}">Liên Hệ</a></li>
-                </ul>
-            </nav>
-            <!--Content -->
-            <div class="page">
-                <!-- menu-respo -->
-                <div class="menu-res">
-                    <div class="menu-bar-res">
-                        <a id="hamburger" href="#menu" title="Menu"><span></span></a>
-                        <div class="box-flex flex-center align-items-center">
-                            <div class="search">
-                                <form action="# " method="GET" id="searchForm">
-                                    @csrf
-                                    <input type="text" name="searchProduct" id="keyword" placeholder="Tìm Kiếm"
-                                        required>
-                                    <p id="searchIcon" onclick="">
-                                        <i class="fa-solid fa-magnifying-glass"></i>
-                                    </p>
-                                    {{-- @if ($errors->has('searchProduct'))
-                                    <span class="alert alert-danger">{{ $errors->first('searchProduct') }}</span>
-                                @endif --}}
-                                </form>
-                            </div>
-                            <div class="lang-header">
-                                <a class="transition" href="#"><img
-                                        src="{{ asset('front/public/image/ic-vi.png') }}" alt="vi"></a>
-                                <a class="transition" href="#"><img
-                                        src="{{ asset('front/public/image/ic-en.png') }}" alt="en"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- difference here -->
-                @yield('body')
-                <!-- difference here -->
-
-                <!-- Footer -->
-                <footer class="text-center text-lg-start text-white" style="background-color: black">
-                    <!-- Grid container -->
-                    <div class="container p-4 pb-0">
-                        <!--Grid row-->
+        <!-- Footer -->
+        <footer class="text-center text-lg-start text-white" style="background-color: black">
+            <!-- Grid container -->
+                <div class="container p-4 pb-0">
+                    <!--Grid row-->
                         <div class="row">
                             <!-- Grid column -->
                             <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mt-3">
@@ -261,7 +212,7 @@
                                 </h6>
                                 @foreach ($listPoli as $item)
                                     <p>
-                                        <a class="text-white" href="#">{{ $item->poli_name }}</a>
+                                        <a class="text-white" href="{{route('policy_detail',['id' => $item->id])}}">{{ $item->poli_name }}</a>
                                     </p>
                                 @endforeach
                             </div>
@@ -295,26 +246,26 @@
                         </div>
                     </div>
                     <!-- Grid container -->
-                </footer>
-                <!-- Footer -->
-                <!-- difference here -->
-                @yield('ggmap')
-                <!-- difference here -->
+        </footer>
+        <!-- Footer -->
+        <!-- difference here -->
+        @yield('ggmap')
+        <!-- difference here -->
 
 
-                <!-- Tool bar -->
-                <div class="toolbar">
-                    <ul>
-                        <li>
-                            <a id="goidien" href="tel:0918077948" title="title">
-                                <img src="{{ asset('front/public/image/phone.svg') }}" alt="images"><br>
-                            </a>
-                        </li>
-                        <li>
-                            <a id="chatzalo" href="#" title="title">
-                                <img src="{{ asset('front/public/image/zl.png') }}" alt="images"><br>
-                            </a>
-                        </li>
+        <!-- Tool bar -->
+        <div class="toolbar">
+            <ul>
+                <li>
+                    <a id="goidien" href="tel:0918077948" title="title">
+                        <img src="{{ asset('front/public/image/phone.svg') }}" alt="images"><br>
+                    </a>
+                </li>
+                <li>
+                    <a id="chatzalo" href="#" title="title">
+                        <img src="{{ asset('front/public/image/zl.png') }}" alt="images"><br>
+                    </a>
+                </li>
                         <li>
                             <a id="chatfb" href="#" title="title">
                                 <i class="fab fa-facebook-messenger "></i>
@@ -335,15 +286,15 @@
                 </div>
             </div>
             <!-- mmenu scripts -->
-            <script src="{{ asset('front/public/js/mmenu.js') }}"></script>
-            <!-- Liên kết đến tệp JavaScript của Slick Carousel qua CDN -->
-            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-            <!-- Liên kết đến tệp -->
-            <script src="{{ asset('front/public/js/index.js') }}"></script>
-            <script src="{{ asset('front/public/js/gioithieu.js') }}"></script>
+    <script src="{{ asset('front/public/js/mmenu.js') }}"></script>
+    <!-- Liên kết đến tệp JavaScript của Slick Carousel qua CDN -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <!-- Liên kết đến tệp -->
+    <script src="{{ asset('front/public/js/index.js') }}"></script>
+    <script src="{{ asset('front/public/js/gioithieu.js') }}"></script>
 
 
-            @yield('script')
-        </body>
+    @yield('script')
+</body>
 
 </html>

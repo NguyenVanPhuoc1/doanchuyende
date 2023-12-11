@@ -7,57 +7,94 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\ProductImage;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::with('images')->paginate(12);
+        $products = Product::orderBy('created_at', 'desc')->with('images')->paginate(12);
         return view('frontend.sanpham', ['products' => $products]);
     }
 
-    public function show($id)
-    {
-        $product = Product::with('images', 'comment')->findOrFail($id);
-        return view('frontend.chitietsanpham', ['product' => $product]);
+    // xem chi tiết sản phẩm theo id
+    public function show(Request $request, $id){
+        $url = $request->fullUrl();
+        // dd($url);die();
+        try {
+            $product = Product::find(intval($id));
+            $categories = Category::all();
+            // dd($id);die();
+            if(str_contains($url, 'quanlisanpham') ){
+                if (!$product) {
+                    abort(404); // Hiển thị trang lỗi 404 (Không tìm thấy)
+                }
+                return view('admin.crudsanpham',compact('product','categories'));
+            }else{
+                if (!$product) {
+                    abort(404); // Hiển thị trang lỗi 404 (Không tìm thấy)
+                }else{
+                    //tin tức liên quan
+                    $relatedProduct = Product::where('id', '!=', $id)
+                    ->where('cate_id', '=' , $product->cate_id)
+                    ->orderBy('created_at', 'desc')
+                    ->limit(4)
+                    ->get();
+                    // lấy comment
+                    $productcomments = $product->comment;
+                }
+                return view('frontend.chitietsanpham',compact('product','relatedProduct', 'productcomments'));
+            }
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            // Xử lý ngoại lệ khi không tìm thấy sản phẩm
+            abort(404); // Hiển thị trang lỗi 404 (Không tìm thấy)
+        }
+
     }
 
-    public function indexAdmin()
+    public function indexAdmin(Request $request)
     {
-        $products = Product::with('images')->paginate(12);
+        $url = $request->fullUrl();
         $categories = Category::all();
-        return view('admin.qlsanpham', ['products' => $products], ['categories' => $categories]);
+        if(str_contains($url, 'keyword')){
+            $keyword = $request->input('keyword');
+            $cate_id = $request->input('cate_id');
+            if($cate_id == '0'){
+                $productsList = Product::where('name', 'like', '%' . $keyword . '%')->orderBy('created_at', 'desc')->paginate(12);
+            }else{
+                $productsList = Product::where('name', 'like', '%' . $keyword . '%')->where('cate_id', '=' , intval($cate_id) )->orderBy('created_at', 'desc')->paginate(12);
+            }
+            // dd($keyword);
+            
+        }else{
+            $productsList = Product::orderBy('created_at', 'desc')->paginate(12);
+        }
+        // dd( $productsList);
+        return view('admin.qlisanpham', ['productsList' => $productsList], ['categories' => $categories]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $categories = Category::all();
-        return view('admin.themsanpham', compact('categories'));
+        return view('admin.crudsanpham', compact('categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function addProduct(Request $request)
     {
+        // kiểm tra
+        $request->validate([
+            'product_name' => 'required|max:500|unique:product,name',
+            'cate_id' => 'required|integer|max:100',
+        ]);
         // Xử lý lưu thông tin sản phẩm vào bảng product
         $product = Product::create([
-            'name' => $request->name,
-            'cate_id' => $request->danhmuc,
-            'noi_bat' => $request->noibat,
-            'description' => $request->description,
+            'name' => $request->product_name,
+            'cate_id' => $request->cate_id,
+            'noi_bat' => 1,
+            'description' => $request->product_desc,
         ]);
-
         // Xử lý lưu các file ảnh vào bảng images, liên kết với sản phẩm mới được tạo
-        if ($request->hasFile('images')) {
+        if ($request->file('images') ) {
             foreach ($request->file('images') as $file) {
                 // file_name sẽ tạo thêm một chuỗi dựa trên thời gian hiện tại, để tránh việc trùng tên file làm chúng bị ghi đè
                 $fileName = uniqid() . '_' . $file->getClientOriginalName();
@@ -69,46 +106,46 @@ class ProductController extends Controller
                     'file_name' => $fileName
                 ]);
             }
-        }
-        return redirect('admin/san-pham');
+        }else {
+                // Nếu không có ảnh được tải lên, gán ảnh mặc định
+                $fileName = 'noimage.png'; // Thay đổi tên file ảnh mặc định của bạn
+                ProductImage::create([
+                    'product_id' => $product->id,
+                    'file_name' => $fileName
+                ]);
+            }
+        return redirect('/admin/quanlisanpham');
     }
 
+    // public function edit($id)
+    // {
+    //     $product = Product::with('images')->findOrFail($id);
+    //     $categories = Category::all();
+    //     return view('admin.crudsanpham', compact('product', 'categories'));
+    // }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function store(Request $request)
     {
-        $product = Product::with('images')->findOrFail($id);
-        $categories = Category::all();
-        return view('admin.suasanpham', compact('product', 'categories'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        $product = Product::where('id', $id)
-            ->update([
-                'name' => $request->name,
-                'cate_id' => $request->danhmuc,
-                'noi_bat' => $request->noibat,
-                'description' => $request->description
-            ]);
+        // Lấy ID từ request
+        $id = $request->input('product_id');
+        // dd($request->file('images'));die();
+        $request->validate([
+            'product_name' => 'required|max:500',
+            'cate_id' => 'required|integer|max:100',
+            'images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+        $product = Product::findOrFail($id)
+        ->update([
+            'name' => $request->product_name,
+            'cate_id' => $request->cate_id,
+            'description' => $request->product_desc,
+        ]);
+       
 
         // Xử lý lưu các file ảnh vào bảng images, liên kết với sản phẩm mới được tạo
-        if ($request->hasFile('images')) {
+        if ($request->file('images')) {
             // Xóa các hình ảnh cũ có cột product_id = $id trước khi thêm ảnh mới
             ProductImage::where('product_id', $id)->delete();
-
             foreach ($request->file('images') as $file) {
                 $fileName = uniqid() . '_' . $file->getClientOriginalName();
                 $file->move(public_path('front/public/image/'), $fileName);
@@ -121,23 +158,64 @@ class ProductController extends Controller
                     // Thêm các trường thông tin khác của ảnh
                 ]);
             }
+        }else {
+                // Nếu không có ảnh, gán ảnh mặc định
+                ProductImage::where('product_id', $id)->update([
+                    'product_id' => $id,
+                    'file_name' => 'noimage.png' // Thay thế bằng tên ảnh mặc định thực tế
+                    // Thêm các trường thông tin khác của ảnh mặc định
+                ]);
         }
-        return redirect('admin/san-pham');
+        return redirect('admin/quanlisanpham');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    //xóa sản phẩm
+    public function deleteProducts(Request $request){
+        $type = $request->input('delete_type', 'single');
+
+        if($type == 'single'){
+            // Xóa một sản phẩm
+            $id = $request->input('selected_ids')[0];
+            $this->destroy($id);
+        } elseif ($type == 'multiple') {
+            // Xóa nhiều sản phẩm(nếu có các selected_ids được chọn)
+            $selectedIds = $request->input('selected_ids', []);
+
+            if (!empty($selectedIds)) {
+                // Xóa từng sản phẩm một
+                foreach ($selectedIds as $id) {
+                    $this->destroy($id);
+                }
+            }
+        } elseif ($type == 'all') {
+            // Xóa tất cả bài viết
+            Product::truncate(); 
+            // Lấy danh sách các ID hình ảnh liên quan đến sản phẩm
+            $imageIdsToDelete = Image::whereNotNull('product_id')->pluck('id')->toArray();
+
+            // Xóa bản ghi hình ảnh liên quan đến sản phẩm
+            Image::whereNotNull('product_id')->delete();
+
+            // Xóa tất cả ảnh từ thư mục lưu trữ
+            $imageDirectory = 'front/public/image/';
+            foreach ($imageIdsToDelete as $imageId) {
+                Storage::delete($imageDirectory . $imageId);
+            }
+        } else {
+            abort(404);
+        }
+
+        return redirect('/admin/quanlisanpham')->withSuccess('Xóa Thành công!');
+    }
+
     public function destroy($id)
     {
+
         // Lấy thông tin sản phẩm cần xóa
         $product = Product::findOrFail($id);
 
         // Lấy danh sách các ảnh liên quan đến sản phẩm
-        $images = $product->images;
+        $images = $product->images()->where('file_name', '!=', 'noimage.png')->get();;
 
         // Xóa các ảnh từ thư mục lưu trữ
         foreach ($images as $image) {
@@ -150,6 +228,26 @@ class ProductController extends Controller
         // Xóa sản phẩm
         $product->delete();
 
-        return redirect('admin/san-pham')->with('success', 'Sản phẩm đã được xóa thành công');
+        return redirect('admin/quanlisanpham')->with('success', 'Sản phẩm đã được xóa thành công');
+    }
+
+     // checkbox nổi bật
+    public function checkNoiBat(Request $request, $id){
+        try {
+            $product = Product::findOrFail(intval($id));
+            // dd($product);die();
+            if($request->input('noi_bat') == 'true'){
+                $product->noi_bat = 1;// Nếu không có giá trị, đặt mặc định là false
+            }else{
+                $product->noi_bat = 0;// Nếu không có giá trị, đặt mặc định là false
+            }
+            $product->save();
+            // dd($news);die();
+            // Trả về phản hồi thành công
+            return response()->json(['message' => 'Cập nhật trạng thái nổi bật thành công.'], 200);
+        } catch (\Exception $e) {
+            // Xử lý lỗi và trả về phản hồi lỗi
+            return response()->json(['error' => 'Có lỗi xảy ra khi cập nhật trạng thái nổi bật.']);
+        } 
     }
 }

@@ -69,8 +69,8 @@ figure.mz-figure {
 }
 .MagicZoom > img,
 .mz-figure > img {
-    width: 100%;
-    height: auto;
+    /* width: 100%; */
+    /* height: auto; */
 }
 .ie8-magic .MagicZoom > img,
 .ie8-magic .mz-figure > img {

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ExampleMail;
 use App\Models\Customers;
-use App\Events\UserRegistered; // Đảm bảo bạn đã import sự kiện này
+use App\Events\AdminNotification; // Đảm bảo bạn đã import sự kiện này
 
 class SendMailController extends Controller
 {
@@ -124,11 +124,11 @@ class SendMailController extends Controller
         ]);
         $data = $request->all();
         // dd($data);die();
+        // dd(new AdminNotification('New user registered: ' . $data['fullname']));die();
         $cus = $this->create($data);
 
         // Gửi sự kiện đến Laravel Echo
-        // dd(new UserRegistered('New user registered: ' . $data['fullname']));die();
-        event(new UserRegistered('New user registered: ' . $data['fullname']));
+        event(new AdminNotification('New user registered: ' . $data['fullname']));
 
         if (str_contains($request->header('referer'), 'lien-he')) {
             return redirect('/lien-he')->withSuccess('Đăng kí Thành công!');

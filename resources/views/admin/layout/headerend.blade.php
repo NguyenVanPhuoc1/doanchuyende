@@ -219,11 +219,11 @@
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#">
                     <i class="far fa-bell"></i>
-                    <span class="badge badge-danger navbar-badge">4</span>
+                    <span class="badge badge-danger navbar-badge" id="admin-notification"></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <div class="dropdown-divider"></div>
-                    <a href="{{url('admin/quanlinhantin')}}" class="dropdown-item">
+                    <a href="{{url('admin/quanlinhantin')}}" class="dropdown-item" >
                         <i class="fas fa-envelope mr-2"></i> 4 Liên Hệ
                     </a>
                 </div>
@@ -273,7 +273,7 @@
                                 <span class="badge badge-info right">2</span>
                             </p>
                         </a>
-                        <ul class="nav nav-treeview">
+                        <ul class="nav nav-treeview {{ request()->is('admin/quanlisanpham*') ? 'd-block' : '' }}">
                             <li class="nav-item">
                                 <a href="{{url('admin/quanlidanhmuc')}}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
@@ -281,7 +281,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ url('admin/san-pham')}}" class="nav-link">
+                                <a href="{{ url('admin/quanlisanpham')}}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Sản Phẩm</p>
                                 </a>
@@ -295,9 +295,10 @@
                             <p>
                                 Quản lí bài viết
                                 <i class="right fas fa-angle-left right"></i>
+                                <span class="badge badge-info right">2</span>
                             </p>
                         </a>
-                        <ul class="nav nav-treeview d-block">
+                        <ul class="nav nav-treeview {{ request()->is('admin/quanlibaiviet*') ? 'd-block' : '' }}">
                             <li class="nav-item">
                                 <a href="{{url('admin/quanlibaiviet/tintuc')}}" class="nav-link {{ request()->is('admin/quanlibaiviet/tintuc*') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
@@ -305,7 +306,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{url('admin/quanlichinhsach/chinhsach')}}" class="nav-link {{ request()->is('admin/quanlichinhsach/chinhsach*') ? 'active' : '' }}">
+                                <a href="{{url('admin/quanlibaiviet/chinhsach')}}" class="nav-link {{ request()->is('admin/quanlichinhsach/chinhsach*') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Chính Sách</p>
                                 </a>
@@ -329,7 +330,7 @@
                                 <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>
-                        <ul class="nav nav-treeview">
+                        <ul class="nav nav-treeview {{ request()->is('admin/quanlitrangtinh*') ? 'd-block' : '' }}">
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
@@ -352,7 +353,7 @@
                                 <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>
-                        <ul class="nav nav-treeview">
+                        <ul class="nav nav-treeview {{ request()->is('admin/quanlihinhanh*') ? 'd-block' : '' }}">
                             <li class="nav-item">
                                 <a href="/admin/logo" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
@@ -373,6 +374,15 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link {{ request()->is('admin/quanlithongtin') ? 'active' : '' }}">
+                        <i class="fas fa-cogs"></i>
+                            <p>
+                                Quản lí thông tin
+                                <!-- <i class="fas fa-angle-left right" ></i> -->
+                            </p>
+                        </a>
+                    </li>
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
@@ -386,9 +396,20 @@
     <!-- difference here -->
 
     <!-- jQuery -->
-<script src="{{ asset('admin/plugins/jquery/jquery.min.js')}}"></script>
+<!-- <script src="{{ asset('admin/plugins/jquery/jquery.min.js')}}"></script> -->
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="{{ asset('admin/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
+<!-- <script src="{{ asset('resources/js/bootstrap.js') }}"></script>
+<script>
+// Trong resources/js/admin.js hoặc tương tự
+window.Echo.channel('admin-notification-channel')
+    .listen('AdminNotification', (event) => {
+        // Hiển thị thông báo trong địa điểm đã định
+        // document.getElementById('admin-notification').innerHTML = event.message;
+        document.getElementById('admin-notification').text = "10";
+    });
+</script> -->
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
     $.widget.bridge('uibutton', $.ui.button)
@@ -410,12 +431,11 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <!-- <script src="../admin/dist/js/pages/dashboard.js"></script> -->
 <script src="{{ asset('admin/dist/js/filterjs/jquery.filer.min.js')}}" type="text/javascript"></script>
-<script src="{{ asset('admin/dist/js/filterjs/custom.js')}}" type="text/javascript"></script>
+<!-- <script src="{{ asset('admin/dist/js/filterjs/custom.js')}}" type="text/javascript"></script> -->
 
 <script src="{{ asset('js/app.js') }}"></script>
 <!-- difference here -->
 @yield('javascript')
 <!-- difference here -->
-
 </body>
 </html>

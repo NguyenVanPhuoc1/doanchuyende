@@ -82,15 +82,20 @@ class PolicyController extends Controller
         ]);
         if($request->hasFile('fileToUpload')){
             $file = $request->file('fileToUpload');
-            $filename = $file->getClientOriginalName();
-            $file->move('front/public/image/',$filename);
+            $filename = strtolower($file->getClientOriginalName());
+            if(pathinfo($filename, PATHINFO_EXTENSION) === 'jpg' || pathinfo($filename, PATHINFO_EXTENSION) === 'png'){
+                $file->move('front/public/image/',$filename);
+            }
+            else{
+                $filename = 'noimage.png';
+            }
         }else{
             $filename = 'noimage.png';
         }
         $data = $request->all();
         $data['fileToUpload'] = $filename;
         $policy = $this->create($data);
-        return redirect('/admin/quanlichinhsach/chinhsach')->withSuccess('Thêm Thành công!');
+        return redirect('/admin/quanlibaiviet/chinhsach')->withSuccess('Thêm Thành công!');
     }
 
     //sửa news
@@ -153,13 +158,32 @@ class PolicyController extends Controller
             abort(404);
         }
 
-        return redirect('/admin/quanlichinhsach/chinhsach')->withSuccess('Xóa Thành công!');
+        return redirect('/admin/quanlibaiviet/chinhsach')->withSuccess('Xóa Thành công!');
     }
 
     // xóa theo id
     public function deletePolicybyId($id){
         $policy = Policy::findOrFail($id);
         $policy->delete();
-        return redirect('/admin/quanlichinhsach/chinhsach')->withSuccess('Xóa Thành công!');
+        return redirect('/admin/quanlibaiviet/chinhsach')->withSuccess('Xóa Thành công!');
+    }
+    // checkbox nổi bật
+    public function checkNoiBat(Request $request, $id){
+        try {
+            $policy = Policy::findOrFail(intval($id));
+            // dd($news);die();
+            if($request->input('noi_bat') == 'true'){
+                $policy->noi_bat = 1;// Nếu không có giá trị, đặt mặc định là false
+            }else{
+                $policy->noi_bat = 0;// Nếu không có giá trị, đặt mặc định là false
+            }
+            $policy->save();
+            // dd($news);die();
+            // Trả về phản hồi thành công
+            return response()->json(['message' => 'Cập nhật trạng thái nổi bật thành công.'], 200);
+        } catch (\Exception $e) {
+            // Xử lý lỗi và trả về phản hồi lỗi
+            return response()->json(['error' => 'Có lỗi xảy ra khi cập nhật trạng thái nổi bật.']);
+        } 
     }
 }

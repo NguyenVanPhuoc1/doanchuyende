@@ -142,11 +142,36 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-    <?php echo json_encode($modifiedData); ?>
+    @if(session('success'))
+    <div class="modal" id="successModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-success">Đăng Nhập Thành Công</h5>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button id="confirmDelete" type="button" class="btn btn-success" data-dismiss="modal" onclick="closeModal()">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
 @endsection
 
 @section('javascript')
 <script>
+
+    // Function to open the modal
+    function openModal() {
+    document.getElementById("successModal").style.display = "block";
+    }
+
+    // Function to close the modal
+    function closeModal() {
+    document.getElementById("successModal").style.display = "none";
+    }
+    setTimeout(openModal, 1000); // Open modal after 1 second (adjust as needed)
+
     function submitForm1(){
         document.getElementById('thongke').submit();
     }

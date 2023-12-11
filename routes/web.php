@@ -11,49 +11,71 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 */
 use App\Http\Controllers\ChartController;
-Route::get('/admin/trang-chu', [ChartController::class, 'viewChart']);
-// Route::get('/admin/trang-chu', [ChartController::class, 'getAnalyticsData']);
-
-use App\Http\Controllers\HomeController;
-
-//Login Admin
-use App\Http\Controllers\CustomAuthController;
-Route::get('/login', [CustomAuthController::class, 'Login'])->name('login');
-Route::post('custom-login', [CustomAuthController::class, 'customLogin'])->name('login.custom');
-Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout');
-
-//Home
-Route::get('/', [HomeController::class, 'viewHome']);
-Route::get('/ket-qua-tim-kiem-san-pham', [HomeController::class, 'searchProduct'])->name('search');
-Route::get('/get-products/{categoryId}', [HomeController::class, 'getProductbyCate']);
-
-// Hưng
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\LogoController;
 use App\Http\Controllers\FaviconController;
 use App\Http\Controllers\CommentController;
-// danh sách sản phẩm & chi tiết sản phẩm
-Route::get('/san-pham', [ProductController::class, 'index'])->name('products.index');
-Route::get('/chi-tiet-san-pham/{id}', [ProductController::class, 'show'])->name('products.show');
-Route::post('/product/{productId}/comments', [CommentController::class, 'store'])->name('product.comments.store');
-
-
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
-//Page Tin Tức
-Route::get('/tin-tuc', [NewsController::class, 'viewTinTuc']);
-Route::get('/tin-tuc/tin-tuc-{id}', [NewsController::class, 'viewDetailNews'])->name('news_detail');
-
+use App\Http\Controllers\IntroductPageController;
 use App\Http\Controllers\PolicyController;
 use App\Http\Controllers\SendMailController;
 use App\Http\Controllers\CategoryController;
+
+//Login Admin
+use App\Http\Controllers\CustomAuthController;
+
+Route::middleware(['localeSessionRedirect', 'localizationRedirect', 'localeViewPath'])->group(function ()  {
+  // Các route của bạn ở đây
+  Route::get('/login', [CustomAuthController::class, 'Login'])->name('login');
+  Route::post('custom-login', [CustomAuthController::class, 'customLogin'])->name('login.custom');
+  Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout');
+  
+  //Home
+  Route::get('/', [HomeController::class, 'viewHome']);
+  Route::get('/ket-qua-tim-kiem-san-pham', [HomeController::class, 'searchProduct'])->name('search');
+  Route::get('/get-products/{categoryId}', [HomeController::class, 'getProductbyCate']);
+  
+  // danh sách sản phẩm & chi tiết sản phẩm
+  Route::get('/san-pham', [ProductController::class, 'index'])->name('products.index');
+  Route::get('/chi-tiet-san-pham/{id}', [ProductController::class, 'show'])->name('products.show');
+  Route::post('/product/{productId}/comments', [CommentController::class, 'store'])->name('product.comments.store');
+
+  //Page Tin Tức
+  Route::get('/tin-tuc', [NewsController::class, 'viewTinTuc']);
+  Route::get('/tin-tuc/tin-tuc-{id}', [NewsController::class, 'viewDetailNews'])->name('news_detail');
+
+  //Chính sách
+Route::get('/chinh-sach', [PolicyController::class, 'viewChinhSach']);
+Route::get('/chinh-sach/chinh-sach-{id}', [PolicyController::class, 'viewDetailPolicy'])->name('policy_detail');
+
+//page giới thiệu
+Route::get('/gioi-thieu', [IntroductPageController::class, 'viewIntroducePage']);
+
+
+// Page trang chủ
+Route::post('/', [SendMailController::class, 'AddCustomer'])->name('add-customer');
+
+// page lien he
+Route::get('/lien-he', [IntroductPageController::class, 'viewContact']);
+Route::post('/lien-he', [SendMailController::class, 'AddCustomer'])->name('regis-customer');
+});
+
+
 Route::middleware(['auth','admin.access'])->group(function () {
     // Các route của trang admin
     Route::get('/admin', [CustomAuthController::class, 'Dashboard'])->name('admin');
-    // ...
-
+    // ...trang chủ
+    Route::get('/admin/trang-chu', [ChartController::class, 'viewChart']);
       // them, xóa sửa sản phẩm
-    Route::resource('admin/san-pham', ProductController::class);
-    Route::get('admin/san-pham', [ProductController::class, 'indexAdmin'])->name('productsAdmin.show');
+    Route::resource('admin/quanlisanpham', ProductController::class);
+    Route::get('admin/quanlisanpham', [ProductController::class, 'indexAdmin'])->name('productsAdmin.show');
+    Route::get('/admin/quanlisanpham/san-pham-{id}/update-noibat', [ProductController::class, 'checkNoiBat'])->name('checkNoiBat');//check box nổi bật
+    Route::post('/admin/quanlisanpham/create', [ProductController::class, 'addProduct'])->name('add-product');
+    Route::get('/admin/quanlisanpham/{id}', [ProductController::class, 'show'])->name('admin_view_product');
+    Route::post('/admin/quanlisanpham', [ProductController::class, 'store'])-> name('updateProducts');
+    Route::get('/admin/quanlisanpham/sanpham/delete', [ProductController::class, 'deleteProducts'])->name('deleteProducts');//xóa theo checkbox
+    Route::get('/admin/quanlisanpham/delete/{id}', [ProductController::class, 'destroy'])->name('deleteProductbyId');
     // quản lí logo
     Route::get('admin/logo', [LogoController::class, 'index']);
     Route::post('admin/update-logo', [LogoController::class, 'updateLogo']);
@@ -77,13 +99,14 @@ Route::middleware(['auth','admin.access'])->group(function () {
     Route::get('/admin/quanlinhantin/customer/delete/{id}', [SendMailController::class, 'deleteCustomerbyId'])->name('deleteCusbyId');
 
     //Admin quản lí chính sách
-    Route::get('/admin/quanlichinhsach/chinhsach',[PolicyController::class, 'viewAdminChinhSach'] )->name('poli_search');
-    Route::get('/admin/quanlichinhsach/add-chinhsach',[PolicyController::class, 'viewPageaddPoli'] )->name('view_add_policys');
-    Route::post('/admin/quanlichinhsach/chinhsach/add-chinhsach', [PolicyController::class, 'AddPolicys'])->name('add-policy');
-    Route::get('/admin/quanlichinhsach/chinhsach/chinh-sach-{id}',[PolicyController::class, 'viewDetailPolicy'] )->name('admin_view_poli');
-    Route::post('/admin/quanlichinhsach/chinhsach', [PolicyController::class, 'updatePolicys'])-> name('admin-updatePolicys');
-    Route::get('/admin/quanlichinhsacht/chinhsach/delete', [PolicyController::class, 'deletePolicys'])->name('deletePolicys');//xóa theo checkbox
-    Route::get('/admin/quanlichinhsach/chinhsach/delete/{id}', [PolicyController::class, 'deletePolicybyId'])->name('deletePolibyId');//xóa khi có id
+    Route::get('/admin/quanlibaiviet/chinhsach',[PolicyController::class, 'viewAdminChinhSach'] )->name('poli_search');
+    Route::get('/admin/quanlibaiviet/add-chinhsach',[PolicyController::class, 'viewPageaddPoli'] )->name('view_add_policys');
+    Route::post('/admin/quanlibaiviet/chinhsach/add-chinhsach', [PolicyController::class, 'AddPolicys'])->name('add-policy');
+    Route::get('/admin/quanlibaiviet/chinhsach/chinh-sach-{id}',[PolicyController::class, 'viewDetailPolicy'] )->name('admin_view_poli');
+    Route::post('/admin/quanlibaiviet/chinhsach', [PolicyController::class, 'updatePolicys'])-> name('admin-updatePolicys');
+    Route::get('/admin/quanlibaiviet/chinhsach/delete', [PolicyController::class, 'deletePolicys'])->name('deletePolicys');//xóa theo checkbox
+    Route::get('/admin/quanlibaiviet/chinhsach/delete/{id}', [PolicyController::class, 'deletePolicybyId'])->name('deletePolibyId');//xóa khi có id
+    Route::get('/admin/quanlibaiviet/chinhsach/chinh-sach-{id}/update-noibat', [PolicyController::class, 'checkNoiBat'])->name('checkNoiBat');//xóa khi có id
 
     // change password - chiến
     Route::get('/admin/changepassword', [CustomAuthController::class, 'viewChangePassword']);
@@ -102,20 +125,6 @@ Route::middleware(['auth','admin.access'])->group(function () {
 
 
 
-//Chính sách
-Route::get('/chinh-sach', [PolicyController::class, 'viewChinhSach']);
-Route::get('/chinh-sach/chinh-sach-{id}', [PolicyController::class, 'viewDetailPolicy'])->name('policy_detail');
 
-//page giới thiệu
-use App\Http\Controllers\IntroductPageController;
-Route::get('/gioi-thieu', [IntroductPageController::class, 'viewIntroducePage']);
-
-
-// Page trang chủ
-Route::post('/', [SendMailController::class, 'AddCustomer'])->name('add-customer');
-
-// page lien he
-Route::get('/lien-he', [IntroductPageController::class, 'viewContact']);
-Route::post('/lien-he', [SendMailController::class, 'AddCustomer'])->name('regis-customer');
 
 
